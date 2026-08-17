@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/img/favicon.png">
+  <link rel="apple-touch-icon" href="assets/img/favicon.png">
+  <meta name="theme-color" content="#d9e000">
+  <title>Quiénes Somos | Historia, misión y visión CENRESIN</title>
+  <meta name="description" content="Conoce la historia de CENRESIN, su misión, visión, valores, labor social y trayectoria como Centro Respiratorio Integral en Quillota.">
+  <link rel="stylesheet" href="assets/css/style.css">
+
+<style>
+.story-hero{position:relative;overflow:hidden;padding:82px 0 64px;background:linear-gradient(135deg,#fff 0%,#faf9ef 46%,#eef36d 46%,#d9e000 100%)}
+.story-hero:after{content:"";position:absolute;right:-170px;top:-180px;width:580px;height:580px;border-radius:50%;background:rgba(255,255,255,.34)}
+.story-hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr .95fr;gap:38px;align-items:center}
+.story-hero-card,.founder-photo{background:rgba(255,255,255,.78);border-radius:36px;padding:18px;box-shadow:var(--shadow)}
+.story-hero-card img{width:100%;border-radius:26px;aspect-ratio:4/3;object-fit:cover}
+.story-pill-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
+.story-pill{background:rgba(255,255,255,.75);border:1px solid rgba(129,120,103,.18);border-radius:22px;padding:18px;box-shadow:0 12px 30px rgba(40,40,20,.06)}
+.story-pill strong{display:block;color:var(--verde-dark);font-size:26px;line-height:1}.story-pill span{color:var(--oliva);font-weight:900;font-size:13px}
+.story-section{padding:78px 0}.story-section.alt{background:var(--bg)}
+.story-panel,.value-card,.route-mini-card,.center-card{background:linear-gradient(135deg,#fff,#fbfce0);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.story-panel{padding:34px}.story-panel p{color:var(--muted);font-size:17px;margin:0 0 18px}.story-panel p:last-child{margin-bottom:0}
+.timeline{display:grid;gap:18px;margin-top:34px}.timeline-item{display:grid;grid-template-columns:130px 1fr;gap:22px;align-items:start;background:#fff;border:1px solid var(--line);border-radius:24px;padding:24px;box-shadow:0 12px 30px rgba(40,40,20,.06)}
+.timeline-year{background:var(--verde);color:var(--oliva);border-radius:18px;padding:16px;text-align:center;font-weight:900;font-size:24px}.timeline-content h3{margin:0 0 8px;color:var(--verde-dark);font-size:24px}.timeline-content p{margin:0;color:var(--muted)}
+.values-grid,.routes-mini,.center-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}.value-card,.route-mini-card{padding:30px}.value-card h3,.route-mini-card h3{margin:0 0 12px;color:var(--verde-dark);font-size:27px}.value-card p,.route-mini-card p{color:var(--muted);margin:0}
+.founder-block{display:grid;grid-template-columns:.9fr 1.1fr;gap:32px;align-items:center}.founder-photo img{width:100%;border-radius:26px;aspect-ratio:4/5;object-fit:cover}
+.route-mini-card{transition:.25s ease}.route-mini-card:hover{transform:translateY(-4px)}.route-mini-card p{margin-bottom:18px}
+.center-gallery{margin-top:30px}.center-card{overflow:hidden}.center-card img{width:100%;aspect-ratio:4/3;object-fit:cover}.center-card .body{padding:20px}.center-card h3{margin:0 0 8px;color:var(--verde-dark);font-size:22px}.center-card p{margin:0;color:var(--muted);font-size:15px}
+.orientation-band{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--oliva),#625a4d)}.orientation-band:after{content:"";position:absolute;right:-110px;bottom:-140px;width:360px;height:360px;border-radius:50%;background:rgba(217,224,0,.22)}
+.orientation-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}.orientation-band .eyebrow{color:var(--verde)}.orientation-band h2,.orientation-band .sub{color:#fff}
+.orientation-card{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:28px;padding:26px;backdrop-filter:blur(10px)}
+.orientation-actions{margin-top:0;gap:12px}.orientation-btn{min-width:210px;box-shadow:0 14px 32px rgba(37,38,24,.18)}
+.social-links{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}.social-links a{display:inline-flex;align-items:center;gap:12px;padding:13px 18px;border-radius:999px;background:rgba(255,255,255,.14);color:var(--verde);font-weight:900;border:1px solid rgba(217,224,0,.35);transition:.25s ease}.social-links a:hover{background:#fff;color:var(--oliva);transform:translateY(-2px)}
+.icon-circle{width:38px;height:38px;min-width:38px;border-radius:50%;background:var(--verde);display:flex;align-items:center;justify-content:center}.icon-circle img{width:18px;height:18px;display:block;filter:brightness(0) saturate(100%) invert(42%) sepia(8%) saturate(635%) hue-rotate(6deg) brightness(94%) contrast(86%)}
+.whatsapp-float{position:fixed;right:24px;bottom:24px;z-index:300;width:64px;height:64px;border-radius:50%;background:var(--verde);display:flex;align-items:center;justify-content:center;border:4px solid #fff;box-shadow:0 18px 45px rgba(37,38,24,.28);transition:.25s ease}.whatsapp-float:hover{transform:translateY(-4px) scale(1.03);background:var(--verde-dark)}.whatsapp-float img{width:32px;height:32px;display:block;filter:brightness(0) saturate(100%) invert(42%) sepia(8%) saturate(635%) hue-rotate(6deg) brightness(94%) contrast(86%)}
+@media(max-width:980px){.story-hero-grid,.founder-block,.orientation-grid{grid-template-columns:1fr}.story-pill-grid,.values-grid,.routes-mini,.center-gallery{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.story-pill-grid,.values-grid,.routes-mini,.center-gallery{grid-template-columns:1fr}.timeline-item{grid-template-columns:1fr}.whatsapp-float{width:58px;height:58px;right:18px;bottom:18px}.social-links a{width:100%;justify-content:center}}
+</style>
+
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav">
+    <a class="logo" href="index.html"><img src="assets/img/logo-cenresin.png" alt="Logo CENRESIN Centro Respiratorio Integral"></a>
+    <button class="mobile-toggle" type="button">Menú</button>
+    <nav class="menu" aria-label="Navegación principal">
+      <a class="menu-link" href="index.html">Inicio</a>
+      <div class="dropdown">
+        <button class="drop-toggle" type="button">Quiénes Somos</button>
+        <div class="dropdown-content">
+          <a href="quienes-somos.html">Historia, misión y visión</a>
+          <a href="nuestro-equipo.html">Nuestro Equipo</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button class="drop-toggle" type="button">Centro Médico</button>
+        <div class="dropdown-content">
+          <a href="centro-medico.html">Especialidades</a>
+          <a href="profesionales.html">Profesionales</a>
+          <a href="examenes.html">Exámenes</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button class="drop-toggle" type="button">Estudios Clínicos</button>
+        <div class="dropdown-content">
+          <a href="estudios-clinicos.html">Investigación Clínica</a>
+          <a href="pacientes.html">Pacientes</a>
+          <a href="patrocinadores.html">Patrocinadores / CROs</a>
+        </div>
+      </div>
+      <a class="btn" href="contacto.html">Contacto</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="story-hero"><div class="container story-hero-grid"><div><div class="eyebrow">Quiénes somos · CENRESIN</div><h1>Más de 30 años cuidando la salud respiratoria.</h1><p class="lead">Somos un Centro Respiratorio Integral en Quillota que combina atención médica, diagnóstico, investigación clínica y cercanía humana para acompañar a pacientes y familias.</p><div class="actions"><a class="btn primary" href="#historia">Conocer nuestra historia</a><a class="btn" href="nuestro-equipo.html">Ver nuestro equipo</a></div><div class="story-pill-grid"><div class="story-pill"><strong>1995</strong><span>Fundación de CENRESIN</span></div><div class="story-pill"><strong>2014</strong><span>Investigación clínica respiratoria</span></div><div class="story-pill"><strong>30+</strong><span>Años de trayectoria</span></div></div></div><div class="story-hero-card"><img src="assets/img/2.png" alt="Centro Respiratorio Integral CENRESIN en Quillota"></div></div></section>
+
+<section class="story-section" id="historia"><div class="container"><div class="section-head"><div><div class="eyebrow">Nuestra Historia</div><h2>Una historia nacida desde la vocación médica.</h2></div><p class="sub">CENRESIN surge para acercar atención respiratoria especializada a Quillota y sus alrededores.</p></div><div class="story-panel"><p>La historia de CENRESIN nace de la visión y compromiso de la Dra. Juana Pavie Gallegos, quien desde antes de 1995 ejercía su consulta médica privada en la ciudad de Quillota. Motivada por la necesidad de entregar una atención respiratoria más completa y accesible para los pacientes de la zona, en 1995 funda el Centro Respiratorio Integral, CENRESIN.</p><p>Desde sus inicios, el objetivo fue ofrecer una atención especializada que permitiera a los pacientes acceder en un solo lugar a consultas, exámenes, diagnóstico y tratamiento, evitando traslados innecesarios y mejorando la oportunidad de atención para las personas de Quillota y sus alrededores.</p><p>Con el paso de los años, se fueron incorporando nuevos procedimientos, tecnologías y profesionales de la salud, fortaleciendo una atención cada vez más integral en el área respiratoria.</p><p>En 2014, CENRESIN dio un importante paso en su desarrollo al convertirse en el primer centro de investigación clínica de la región enfocado en enfermedades respiratorias crónicas. Esta iniciativa permitió participar en protocolos de investigación de nivel internacional, contribuyendo al avance de la medicina y acercando nuevas alternativas terapéuticas a los pacientes.</p><p>A lo largo de su trayectoria, el centro ha continuado creciendo e incorporando nuevas especialidades y servicios, entre ellos cardiología, nutrición y medicina general, complementando una mirada integral de la salud. Asimismo, ha fortalecido su enfoque familiar, manteniendo siempre como prioridad el bienestar y la calidad de vida de las personas.</p><p>Hoy, CENRESIN es un centro de salud familiar que combina experiencia, innovación y cercanía, manteniendo vivo el propósito que inspiró su creación: entregar a cada paciente una atención integral, con diagnóstico oportuno, tratamiento adecuado y acompañamiento continuo para el manejo de enfermedades respiratorias y crónicas.</p></div></div></section>
+
+<section class="story-section alt" id="linea-tiempo"><div class="container"><div class="section-head"><div><div class="eyebrow">Trayectoria</div><h2>Hitos que marcan nuestro desarrollo.</h2></div></div><div class="timeline"><article class="timeline-item"><div class="timeline-year">1995</div><div class="timeline-content"><h3>Fundación del Centro Respiratorio Integral</h3><p>Nace CENRESIN con el propósito de entregar atención respiratoria especializada en Quillota.</p></div></article><article class="timeline-item"><div class="timeline-year">2000+</div><div class="timeline-content"><h3>Incorporación de exámenes y nuevas tecnologías</h3><p>El centro amplía sus procedimientos diagnósticos y fortalece su capacidad clínica.</p></div></article><article class="timeline-item"><div class="timeline-year">2014</div><div class="timeline-content"><h3>Inicio del Centro de Investigación Clínica</h3><p>CENRESIN se convierte en referente regional en investigación de enfermedades respiratorias crónicas.</p></div></article><article class="timeline-item"><div class="timeline-year">Hoy</div><div class="timeline-content"><h3>Centro familiar, médico e investigativo</h3><p>Integramos atención clínica, exámenes, especialidades, investigación y acompañamiento continuo.</p></div></article></div></div></section>
+
+<section class="story-section" id="mision-vision"><div class="container"><div class="section-head"><div><div class="eyebrow">Propósito institucional</div><h2>Misión, visión y valores.</h2></div><p class="sub">Nuestro trabajo se sostiene en una forma de hacer salud: responsable, cercana, científica y comprometida con la comunidad.</p></div><div class="values-grid"><article class="value-card"><h3>Misión</h3><p>Entregar atención respiratoria integral, oportuna y cercana, acompañando a cada paciente con profesionalismo, respeto y calidad humana.</p></article><article class="value-card"><h3>Visión</h3><p>Ser un centro referente en salud respiratoria e investigación clínica, aportando al bienestar de las personas y al avance médico desde regiones.</p></article><article class="value-card"><h3>Valores</h3><p>Ética, responsabilidad clínica, cercanía con pacientes y familias, compromiso social sostenido, trabajo colaborativo y vocación de servicio.</p></article></div></div></section>
+
+<section class="story-section alt" id="labor-social"><div class="container grid-2"><div class="story-panel"><div class="eyebrow">Labor social</div><h2>Más de 30 años acompañando a la comunidad.</h2><p>CENRESIN ha desarrollado una labor permanente de orientación, acompañamiento y acceso a información en salud respiratoria, acercando el conocimiento médico a la comunidad.</p><p>Esta vocación social forma parte de nuestra identidad: cuidar no solo desde la consulta, sino también desde la educación, la prevención y el vínculo con las personas.</p></div><div class="story-panel"><div class="eyebrow">Compromiso comunitario</div><h2>Salud, educación y acompañamiento.</h2><ul class="list"><li>Orientación clara para pacientes y familias.</li><li>Promoción del diagnóstico y control oportuno.</li><li>Acompañamiento humano durante procesos clínicos.</li><li>Participación en investigación que puede abrir nuevas alternativas terapéuticas.</li></ul></div></div></section>
+
+<section class="story-section" id="fundadora"><div class="container founder-block"><div class="founder-photo"><img src="assets/img/equipo/juana-pavie.jpg" alt="Juana Pavie Gallegos, fundadora de CENRESIN"></div><div><div class="eyebrow">Fundadora · CENRESIN</div><h2>Juana Pavie Gallegos</h2><p class="sub">Una trayectoria ligada al desarrollo de la salud respiratoria en Quillota.</p><p>La historia de CENRESIN está estrechamente vinculada a la trayectoria de Juana Pavie Gallegos, fundadora del centro y una de las principales impulsoras de la atención respiratoria especializada en la zona.</p><p>Su visión permitió consolidar un centro que hoy integra atención médica especializada e investigación clínica, manteniendo siempre el compromiso con las personas y la calidad en cada proceso.</p><div class="actions"><a class="btn primary" href="nuestro-equipo.html">Ver nuestro equipo</a><a class="btn" href="profesionales.html">Ver profesionales</a></div></div></div></section>
+
+<section class="story-section alt" id="areas"><div class="container"><div class="section-head"><div><div class="eyebrow">Dos áreas conectadas</div><h2>Atención médica e investigación clínica.</h2></div><p class="sub">CENRESIN integra atención de salud, exámenes, especialidades y estudios clínicos bajo un mismo estándar de ética y calidad.</p></div><div class="routes-mini"><a class="route-mini-card" href="centro-medico.html"><h3>Centro Médico</h3><p>Especialidades, evaluación clínica, exámenes y seguimiento de pacientes.</p><strong>Ver centro médico →</strong></a><a class="route-mini-card" href="estudios-clinicos.html"><h3>Estudios Clínicos</h3><p>Investigación respiratoria con protocolos, ética y acompañamiento especializado.</p><strong>Ver investigación →</strong></a><a class="route-mini-card" href="nuestro-equipo.html"><h3>Nuestro Equipo</h3><p>Personas que conectan atención médica, investigación, gestión y comunidad.</p><strong>Conocer equipo →</strong></a></div></div></section>
+
+<section class="story-section" id="nuestro-centro"><div class="container"><div class="section-head"><div><div class="eyebrow">Nuestro centro</div><h2>Espacios preparados para atender, orientar e investigar.</h2></div><p class="sub">Instalaciones diseñadas para brindar una atención cercana, cómoda y profesional.</p></div><div class="center-gallery"><article class="center-card"><img src="assets/img/2.png" alt="Fachada principal de CENRESIN"><div class="body"><h3>Centro Respiratorio Integral</h3><p>Fachada principal de CENRESIN en Quillota.</p></div></article><article class="center-card"><img src="assets/img/recepcion-cenresin.jpg" alt="Recepción y sala de espera de CENRESIN"><div class="body"><h3>Recepción y Sala de Espera</h3><p>Espacio de orientación y coordinación de atención.</p></div></article><article class="center-card"><img src="assets/img/consulta-medica-cenresin.jpg" alt="Consulta médica respiratoria en CENRESIN"><div class="body"><h3>Consulta Respiratoria</h3><p>Atención médica en un entorno cómodo y privado.</p></div></article><article class="center-card"><img src="assets/img/box-atencion-medica-cenresin.jpg" alt="Box de atención médica respiratoria en CENRESIN"><div class="body"><h3>Box de Atención Médica</h3><p>Espacio para evaluación clínica y seguimiento.</p></div></article><article class="center-card"><img src="assets/img/equipo-cenresin.jpeg" alt="Equipo humano de CENRESIN"><div class="body"><h3>Equipo CENRESIN</h3><p>Profesionales, investigadores y equipo administrativo.</p></div></article></div></div></section>
+
+<section class="cta-band orientation-band"><div class="container orientation-grid"><div><div class="eyebrow">CONTACTO Y ORIENTACIÓN</div><h2>¿Necesitas orientación?</h2><p class="sub">Agenda tu atención, consulta por nuestros servicios o comunícate con el equipo para recibir orientación.</p></div><div class="orientation-card"><div class="actions orientation-actions"><a class="btn primary orientation-btn" href="contacto.html">Agendar consulta</a><a class="btn white orientation-btn" href="pacientes.html">Información para pacientes</a></div><div class="social-links"><a href="https://www.facebook.com/cenresin/?locale=es_LA" target="_blank" rel="noopener"><span class="icon-circle"><img src="assets/img/facebook.svg" alt="Facebook"></span>Facebook</a><a href="https://www.instagram.com/cenresin/" target="_blank" rel="noopener"><span class="icon-circle"><img src="assets/img/instagram.svg" alt="Instagram"></span>Instagram</a></div></div></div></section>
+</main>
+<a class="whatsapp-float" href="https://wa.me/56332316393" target="_blank" rel="noopener" aria-label="WhatsApp CENRESIN"><img src="assets/img/whatsapp.svg" alt="WhatsApp"></a>
+
+
+<footer class="footer">
+  <div class="container">
+    <span>CENRESIN · Centro Respiratorio Integral</span>
+    <span>San Martín 502, Quillota · 33 2 316393 · www.cenresin.cl</span>
+  </div>
+</footer>
+<script src="assets/js/main.js"></script>
+
+</body>
+</html>

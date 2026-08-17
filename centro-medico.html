@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Centro Médico | CENRESIN</title>
+  <meta name="description" content="Especialidades médicas de CENRESIN.">
+  <link rel="stylesheet" href="assets/css/style.css">
+
+<style>
+  .specialty-area{
+    padding:72px 0;
+  }
+
+  .specialty-area.alt{
+    background:var(--bg);
+  }
+
+  .specialty-label{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:9px 15px;
+    border-radius:999px;
+    background:var(--verde);
+    color:var(--oliva);
+    font-weight:900;
+    letter-spacing:.8px;
+    text-transform:uppercase;
+    font-size:12px;
+    margin-bottom:16px;
+  }
+
+  .specialty-panel{
+    background:linear-gradient(135deg,#fff,#fbfce0);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:30px;
+    box-shadow:var(--shadow);
+    margin-bottom:28px;
+  }
+
+  .specialty-panel h2{
+    margin-bottom:12px;
+  }
+
+  .specialty-panel p{
+    color:var(--muted);
+    margin:0;
+  }
+
+  .specialty-professionals{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:22px;
+  }
+
+  .professional-row-card{
+    display:grid;
+    grid-template-columns:160px 1fr;
+    gap:22px;
+    align-items:center;
+    min-height:190px;
+    background:linear-gradient(135deg,#fff,#fbfce0);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    overflow:hidden;
+    transition:.25s ease;
+  }
+
+  .professional-row-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 24px 60px rgba(37,38,24,.16);
+  }
+
+  .professional-row-card img{
+    width:100%;
+    height:100%;
+    min-height:190px;
+    object-fit:cover;
+  }
+
+  .professional-info{
+    padding:22px 22px 22px 0;
+  }
+
+  .professional-info h3{
+    margin:0 0 8px;
+    color:var(--verde-dark);
+    font-size:25px;
+    line-height:1.05;
+  }
+
+  .professional-info .role{
+    display:block;
+    color:var(--oliva);
+    font-weight:900;
+    font-size:15px;
+    margin-bottom:10px;
+  }
+
+  .professional-info p{
+    margin:0;
+    color:var(--muted);
+    font-size:15px;
+  }
+
+  @media(max-width:980px){
+    .specialty-professionals{
+      grid-template-columns:1fr;
+    }
+  }
+
+  @media(max-width:620px){
+    .professional-row-card{
+      grid-template-columns:1fr;
+    }
+
+    .professional-row-card img{
+      aspect-ratio:4/5;
+      min-height:auto;
+    }
+
+    .professional-info{
+      padding:0 22px 22px;
+    }
+  }
+</style>
+
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav">
+    <a class="logo" href="index.html"><img src="assets/img/logo-cenresin.png" alt="CENRESIN"></a>
+    <button class="mobile-toggle" type="button">Menú</button>
+    <nav class="menu">
+      <a class="menu-link" href="index.html">Inicio</a>
+      <a class="menu-link" href="quienes-somos.html">Quiénes Somos</a>
+
+      <div class="dropdown">
+        <button class="drop-toggle" type="button">Centro Médico</button>
+        <div class="dropdown-content">
+          <a href="centro-medico.html">Especialidades</a>
+          <a href="profesionales.html">Profesionales</a>
+          <a href="examenes.html">Exámenes</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="drop-toggle" type="button">Estudios Clínicos</button>
+        <div class="dropdown-content">
+          <a href="estudios-clinicos.html">Investigación Clínica</a>
+          <a href="pacientes.html">Pacientes</a>
+          <a href="patrocinadores.html">Patrocinadores / CROs</a>
+        </div>
+      </div>
+
+      <a class="btn" href="contacto.html">Contacto</a>
+    </nav>
+  </div>
+</header>
+
+
+<main>
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumb">Centro Médico</div>
+      <h1>Especialidades</h1>
+      <p class="lead">Atención clínica especializada, diagnóstico avanzado y bienestar integral, con profesionales organizados por área de atención.</p>
+    </div>
+  </section>
+
+  <section class="specialty-area alt" id="broncopulmonar">
+    <div class="container">
+      <span class="specialty-label">01 · Broncopulmonar adulto e infantil</span>
+
+      <div class="specialty-panel">
+        <h2>Salud respiratoria especializada</h2>
+        <p>Manejo clínico de asma, EPOC, patologías pulmonares y seguimiento respiratorio para pacientes adultos, niños y familias.</p>
+      </div>
+
+      <div class="specialty-professionals">
+        <article class="professional-row-card">
+          <img src="assets/img/equipo/dra-cartagena.jpg" alt="Dra. Claudia Cartagena">
+          <div class="professional-info">
+            <h3>Dra. Claudia Cartagena</h3>
+            <span class="role">Broncopulmonar</span>
+            <p>Evaluación y seguimiento especializado de enfermedades respiratorias.</p>
+          </div>
+        </article>
+
+        <article class="professional-row-card">
+          <img src="assets/img/equipo/dr-ovalle.jpg" alt="Dr. León Ovalle">
+          <div class="professional-info">
+            <h3>Dr. León Ovalle</h3>
+            <span class="role">Broncopulmonar</span>
+            <p>Atención respiratoria y acompañamiento clínico de pacientes pulmonares.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="specialty-area" id="medicina-general">
+    <div class="container">
+      <span class="specialty-label">02 · Medicina General y General Infantil</span>
+
+      <div class="specialty-panel">
+        <h2>Atención médica general y preventiva</h2>
+        <p>Atención primaria, control preventivo, seguimiento clínico y orientación médica para niños, adultos y familias.</p>
+      </div>
+
+      <div class="specialty-professionals">
+        <article class="professional-row-card">
+          <img src="assets/img/equipo/dra-maldonado.jpg" alt="Dra. Ximena Maldonado">
+          <div class="professional-info">
+            <h3>Dra. Ximena Maldonado</h3>
+            <span class="role">Medicina General</span>
+            <p>Atención integral, evaluación clínica y seguimiento de pacientes adultos.</p>
+          </div>
+        </article>
+
+        <article class="professional-row-card">
+          <img src="assets/img/equipo/dra-lizama.jpg" alt="Dra. Paula Lizama">
+          <div class="professional-info">
+            <h3>Dra. Paula Lizama</h3>
+            <span class="role">Medicina General Infantil</span>
+            <p>Atención médica orientada a niños, controles y acompañamiento familiar.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="specialty-area alt" id="cardiologia">
+    <div class="container">
+      <span class="specialty-label">03 · Cardiología</span>
+
+      <div class="specialty-panel">
+        <h2>Evaluación cardiovascular</h2>
+        <p>Apoyo clínico para la evaluación del ritmo, estructura y función cardíaca, complementando el cuidado integral del paciente.</p>
+      </div>
+
+      <div class="specialty-professionals">
+        <article class="professional-row-card">
+          <img src="assets/img/equipo/dr-raffo.jpg" alt="Dr. Carlos Raffo">
+          <div class="professional-info">
+            <h3>Dr. Carlos Raffo</h3>
+            <span class="role">Cardiología</span>
+            <p>Evaluación cardiológica, control y apoyo diagnóstico cardiovascular.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="specialty-area" id="nutricion-psicologia">
+    <div class="container">
+      <span class="specialty-label">04 · Nutrición y Psicología</span>
+
+      <div class="specialty-panel">
+        <h2>Bienestar integral y apoyo complementario</h2>
+        <p>Nutrición clínico-deportiva, evaluación corporal, apoyo psicológico y orientación para una atención más completa del paciente.</p>
+      </div>
+
+      <div class="specialty-professionals">
+        <article class="professional-row-card">
+          <img src="assets/img/equipo/gabriel-morales.jpg" alt="Nta. Gabriel Morales">
+          <div class="professional-info">
+            <h3>Nta. Gabriel Morales</h3>
+            <span class="role">Nutrición Clínico-Deportiva</span>
+            <p>Evaluación nutricional, composición corporal y acompañamiento de hábitos saludables.</p>
+          </div>
+        </article>
+
+        <article class="professional-row-card">
+          <img src="assets/img/equipo/cristina-canas.jpg" alt="Ps. Iris Viano">
+          <div class="professional-info">
+            <h3>Ps. Iris Viano</h3>
+            <span class="role">Psicología</span>
+            <p>Apoyo para salud mental, bienestar emocional y acompañamiento del paciente.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+
+
+<footer class="footer">
+  <div class="container">
+    <span>CENRESIN · Centro Respiratorio Integral</span>
+    <span>San Martín 502, Quillota · 33 2 316393 · www.cenresin.cl</span>
+  </div>
+</footer>
+<script src="assets/js/main.js"></script>
+
+</body>
+</html>

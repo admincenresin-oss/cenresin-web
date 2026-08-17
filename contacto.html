@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contacto | CENRESIN Quillota</title>
+  <meta name="description" content="Contacto, dirección, horario, teléfonos y formulario de CENRESIN.">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav">
+    <a class="logo" href="index.html"><img src="assets/img/logo-cenresin.png" alt="Logo CENRESIN Centro Respiratorio Integral"></a>
+    <button class="mobile-toggle" type="button">Menú</button>
+    <nav class="menu" aria-label="Navegación principal">
+      <a class="menu-link" href="index.html">Inicio</a>
+
+      <div class="dropdown">
+        <button class="drop-toggle" type="button">Quiénes Somos</button>
+        <div class="dropdown-content">
+          <a href="quienes-somos.html">Historia, misión y visión</a>
+          <a href="nuestro-equipo.html">Nuestro Equipo</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="drop-toggle" type="button">Centro Médico</button>
+        <div class="dropdown-content">
+          <a href="centro-medico.html">Especialidades</a>
+          <a href="profesionales.html">Profesionales</a>
+          <a href="examenes.html">Exámenes</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="drop-toggle" type="button">Estudios Clínicos</button>
+        <div class="dropdown-content">
+          <a href="estudios-clinicos.html">Investigación Clínica</a>
+          <a href="pacientes.html">Pacientes</a>
+          <a href="patrocinadores.html">Patrocinadores / CROs</a>
+        </div>
+      </div>
+
+      <a class="btn" href="contacto.html">Contacto</a>
+    </nav>
+  </div>
+</header>
+
+
+<main>
+  <section class="page-hero"><div class="container"><div class="breadcrumb">Contacto</div><h1>Hablemos</h1><p class="lead">Estamos en San Martín 502, esquina Diego Echeverría, Quillota.</p></div></section>
+  <section class="section contact-section"><div class="container grid-2">
+    <div class="contact-box">
+      <h2>Contacto</h2>
+      <p><strong>Teléfonos:</strong><br>33 2 316393 · 33 2 311399</p>
+      <p><strong>WhatsApp:</strong><br>+56 9 7125 5136</p>
+      <p><strong>Horario:</strong><br>Lunes a viernes · 8:00 a 19:00 hrs.</p>
+      <p><strong>Dirección:</strong><br>San Martín 502, esquina Diego Echeverría, Quillota</p>
+    </div>
+    <div class="contact-box">
+      <form name="contacto-cenresin"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        action="/gracias.html">
+
+        <input type="hidden" name="form-name" value="contacto-cenresin">
+
+        <p hidden>
+          <label>No completar: <input name="bot-field"></label>
+        </p>
+
+        <input
+          type="text"
+          name="nombre"
+          placeholder="Nombre"
+          autocomplete="name"
+          required>
+
+        <input
+          type="text"
+          name="contacto"
+          placeholder="Teléfono o correo"
+          autocomplete="email"
+          required>
+
+        <textarea
+          name="mensaje"
+          placeholder="Escribe tu consulta"
+          required></textarea>
+
+        <button class="btn primary" type="submit">Enviar mensaje</button>
+      </form>
+    </div>
+  </div></section>
+</main>
+
+
+<footer class="footer">
+  <div class="container">
+    <span>CENRESIN · Centro Respiratorio Integral</span>
+    <span>San Martín 502, Quillota · 33 2 316393 · www.cenresin.cl</span>
+  </div>
+</footer>
+<script src="assets/js/main.js"></script>
+
+</body>
+</html>

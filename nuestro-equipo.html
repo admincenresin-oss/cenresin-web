@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/img/favicon.png">
+  <link rel="apple-touch-icon" href="assets/img/favicon.png">
+  <meta name="theme-color" content="#d9e000">
+
+  <title>Nuestro Equipo | CENRESIN</title>
+  <meta name="description" content="Conoce el equipo humano de CENRESIN: dirección médica, gestión, soporte médico, especialidades e investigación clínica.">
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <style>
+    .team-intro{padding:68px 0 38px;background:#fff}
+    .team-intro .panel{background:linear-gradient(135deg,#fff,#fbfce0)}
+    .team-area{padding:72px 0}
+    .team-area.alt{background:var(--bg)}
+    .area-label{display:inline-flex;align-items:center;gap:10px;padding:9px 15px;border-radius:999px;background:var(--verde);color:var(--oliva);font-weight:900;letter-spacing:.8px;text-transform:uppercase;font-size:12px;margin-bottom:16px}
+    .people-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:30px}
+    .person-card{display:grid;grid-template-columns:160px 1fr;gap:22px;align-items:center;min-height:190px;background:linear-gradient(135deg,#fff,#fbfce0);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;transition:.25s ease}
+    .person-card:hover{transform:translateY(-4px);box-shadow:0 24px 60px rgba(37,38,24,.16)}
+    .person-card img{width:100%;height:100%;min-height:190px;object-fit:cover}
+    .person-info{padding:22px 22px 22px 0}
+    .person-info h3{margin:0 0 8px;color:var(--verde-dark);font-size:25px;line-height:1.05}
+    .person-info .role{display:block;color:var(--oliva);font-weight:900;font-size:15px;margin-bottom:10px}
+    .person-info p{margin:0;color:var(--muted);font-size:15px}
+    .team-note{margin-top:28px;background:#fff;border:1px solid var(--line);border-left:6px solid var(--verde);border-radius:22px;padding:22px;color:var(--muted);box-shadow:0 12px 30px rgba(40,40,20,.06)}
+    .gallery-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:22px;margin-top:30px}
+    .gallery-grid img{width:100%;height:100%;object-fit:cover;border-radius:26px;box-shadow:var(--shadow);border:10px solid rgba(255,255,255,.72);background:#fff}
+    .gallery-side{display:grid;gap:22px}
+    .gallery-main{min-height:460px}
+    .gallery-side img{min-height:219px}
+    .orientation-band{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--oliva),#625a4d)}
+    .orientation-band:after{content:"";position:absolute;right:-110px;bottom:-140px;width:360px;height:360px;border-radius:50%;background:rgba(217,224,0,.22)}
+    .orientation-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
+    .orientation-band .eyebrow{color:var(--verde)}
+    .orientation-band h2,.orientation-band .sub{color:#fff}
+    .orientation-card{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:28px;padding:26px;backdrop-filter:blur(10px)}
+    .orientation-actions{margin-top:0;gap:12px}
+    .orientation-btn{min-width:210px;box-shadow:0 14px 32px rgba(37,38,24,.18)}
+    .social-links{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+    .social-links a{display:inline-flex;align-items:center;gap:12px;padding:13px 18px;border-radius:999px;background:rgba(255,255,255,.14);color:var(--verde);font-weight:900;border:1px solid rgba(217,224,0,.35);transition:.25s ease}
+    .social-links a:hover{background:#fff;color:var(--oliva);transform:translateY(-2px)}
+    .icon-circle{width:38px;height:38px;min-width:38px;border-radius:50%;background:var(--verde);display:flex;align-items:center;justify-content:center}
+    .icon-circle img{width:18px;height:18px;display:block;filter:brightness(0) saturate(100%) invert(42%) sepia(8%) saturate(635%) hue-rotate(6deg) brightness(94%) contrast(86%)}
+    .whatsapp-float{position:fixed;right:24px;bottom:24px;z-index:300;width:64px;height:64px;border-radius:50%;background:var(--verde);display:flex;align-items:center;justify-content:center;border:4px solid #fff;box-shadow:0 18px 45px rgba(37,38,24,.28);transition:.25s ease}
+    .whatsapp-float:hover{transform:translateY(-4px) scale(1.03);background:var(--verde-dark)}
+    .whatsapp-float img{width:32px;height:32px;display:block;filter:brightness(0) saturate(100%) invert(42%) sepia(8%) saturate(635%) hue-rotate(6deg) brightness(94%) contrast(86%)}
+    @media(max-width:980px){.people-grid,.orientation-grid,.gallery-grid{grid-template-columns:1fr}.orientation-btn{width:100%}}
+    @media(max-width:620px){.person-card{grid-template-columns:1fr}.person-card img{aspect-ratio:4/5;min-height:auto}.person-info{padding:0 22px 22px}.whatsapp-float{width:58px;height:58px;right:18px;bottom:18px}.social-links a{width:100%;justify-content:center}}
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav">
+    <a class="logo" href="index.html"><img src="assets/img/logo-cenresin.png" alt="Logo CENRESIN Centro Respiratorio Integral"></a>
+    <button class="mobile-toggle" type="button">Menú</button>
+    <nav class="menu" aria-label="Navegación principal">
+      <a class="menu-link" href="index.html">Inicio</a>
+
+      <div class="dropdown">
+        <button class="drop-toggle" type="button">Quiénes Somos</button>
+        <div class="dropdown-content">
+          <a href="quienes-somos.html">Historia, misión y visión</a>
+          <a href="nuestro-equipo.html">Nuestro Equipo</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="drop-toggle" type="button">Centro Médico</button>
+        <div class="dropdown-content">
+          <a href="centro-medico.html">Especialidades</a>
+          <a href="profesionales.html">Profesionales</a>
+          <a href="examenes.html">Exámenes</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="drop-toggle" type="button">Estudios Clínicos</button>
+        <div class="dropdown-content">
+          <a href="estudios-clinicos.html">Investigación Clínica</a>
+          <a href="pacientes.html">Pacientes</a>
+          <a href="patrocinadores.html">Patrocinadores / CROs</a>
+        </div>
+      </div>
+
+      <a class="btn" href="contacto.html">Contacto</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumb">Quiénes Somos · Nuestro Equipo</div>
+      <h1>Nuestro Equipo</h1>
+      <p class="lead">El equipo humano es el pilar que conecta nuestras dos áreas: atención médica e investigación clínica, trabajando bajo un mismo estándar de calidad y ética.</p>
+    </div>
+  </section>
+
+  <section class="team-intro">
+    <div class="container grid-2">
+      <div>
+        <div class="eyebrow">Equipo CENRESIN</div>
+        <h2>Personas que sostienen la experiencia del centro</h2>
+        <p class="sub">En CENRESIN, médicos, investigadores y personal administrativo trabajan de forma integrada para entregar una atención cercana, profesional y orientada al bienestar de cada paciente.</p>
+      </div>
+      <div class="panel highlight">
+        <h3>Tres áreas conectadas</h3>
+        <ul class="list">
+          <li>Dirección Médica y Equipo de Gestión.</li>
+          <li>División de Especialidades y Soporte Médico.</li>
+          <li>Centro de Investigación y Estudios Clínicos.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="team-area alt" id="direccion-medica">
+    <div class="container">
+      <span class="area-label">01 · Dirección Médica y Equipo de Gestión</span>
+      <div class="section-head"><div><h2>Liderazgo principal de CENRESIN</h2><p class="sub">Equipo responsable de la conducción médica, administrativa, gestión de estudios clínicos y vinculación de personas.</p></div></div>
+      <div class="people-grid">
+        <article class="person-card"><img src="assets/img/equipo/juana-pavie.jpg" alt="Dra. Juana Pavie"><div class="person-info"><h3>Dra. Juana Pavie</h3><span class="role">Directora Médica</span><p>Liderazgo médico y visión institucional del centro.</p></div></article>
+        <article class="person-card"><img src="assets/img/equipo/cata-faundez.jpg" alt="Catalina Pavie F."><div class="person-info"><h3>Catalina Pavie F.</h3><span class="role">Gestión Financiera / Administrativa</span><p>Apoyo estratégico en administración, gestión y continuidad operativa.</p></div></article>
+        <article class="person-card"><img src="assets/img/equipo/alejandra-faundez.jpg" alt="Alejandra Faúndez P."><div class="person-info"><h3>Alejandra Faúndez P.</h3><span class="role">Coordinación General de Estudios Clínicos</span><p>Coordinación transversal de protocolos, equipos y procesos de investigación.</p></div></article>
+        <article class="person-card"><img src="assets/img/equipo/yenifer-cisternas.jpg" alt="Yenifer Cisternas F."><div class="person-info"><h3>Yenifer Cisternas F.</h3><span class="role">Gestión de Personas y Vinculación</span><p>Vinculación interna, coordinación de personas y apoyo a la experiencia humana del centro.</p></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="team-area" id="especialidades-soporte">
+    <div class="container">
+      <span class="area-label">02 · División de Especialidades y Soporte Médico</span>
+      <div class="section-head"><div><h2>Atención, apoyo clínico y servicios auxiliares</h2><p class="sub">Equipo que acompaña la atención diaria de pacientes, la gestión de exámenes, el apoyo clínico y el funcionamiento del centro.</p></div></div>
+      <div class="people-grid">
+        <article class="person-card"><img src="assets/img/equipo/patricia-bermudez.jpg" alt="Patricia Bermudez"><div class="person-info"><h3>Patricia Bermudez</h3><span class="role">Atención al Usuario</span><p>Primera orientación, recepción y acompañamiento de pacientes.</p></div></article>
+        <article class="person-card"><img src="assets/img/equipo/alexander-tudesca.jpg" alt="Alexander Tudesca"><div class="person-info"><h3>Alexander Tudesca</h3><span class="role">Apoyo Clínico y Diagnóstico</span><p>Apoyo técnico en procesos clínicos y diagnósticos del centro.</p></div></article>
+        <article class="person-card"><img src="assets/img/equipo/sandra-aguilera.jpg" alt="Sandra Aguilera"><div class="person-info"><h3>Sandra Aguilera</h3><span class="role">Servicios Auxiliares</span><p>Apoyo operativo y cuidado de espacios para una atención segura y ordenada.</p></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="team-area alt" id="investigacion">
+    <div class="container">
+      <span class="area-label">03 · Centro de Investigación y Estudios Clínicos</span>
+      <div class="section-head"><div><h2>Investigación clínica, protocolos y soporte regulatorio</h2><p class="sub">Equipo vinculado a la ejecución, coordinación, control y soporte de estudios clínicos respiratorios.</p></div></div>
+      <div class="people-grid">
+        <article class="person-card"><img src="assets/img/equipo/daniela-sepulveda.jpg" alt="Daniela Sepúlveda"><div class="person-info"><h3>Daniela Sepúlveda</h3><span class="role">Coordinación de Protocolos</span><p>Liderazgo y seguimiento de proyectos de investigación clínica.</p></div></article>
+        <article class="person-card"><img src="assets/img/equipo/paola-ureta.jpg" alt="Paola Ureta"><div class="person-info"><h3>Paola Ureta</h3><span class="role">Coordinación de Protocolos</span><p>Gestión operativa y acompañamiento de protocolos de investigación.</p></div></article>
+        <article class="person-card"><img src="assets/img/equipo/merelyn-ogaz.jpg" alt="Merelyn Ogaz"><div class="person-info"><h3>Merelyn Ogaz</h3><span class="role">Coordinación de Protocolos</span><p>Apoyo en coordinación de estudios, seguimiento y procesos internos.</p></div></article>
+        <article class="person-card"><img src="assets/img/equipo/dr-raffo.jpg" alt="Dr. Raffo"><div class="person-info"><h3>Dr. Raffo</h3><span class="role">Personal Sanitario de Investigación</span><p>Médico investigador del área de estudios clínicos.</p></div></article>
+        <article class="person-card"><img src="assets/img/equipo/dr-ovalle.jpg" alt="Dr. Ovalle"><div class="person-info"><h3>Dr. Ovalle</h3><span class="role">Personal Sanitario de Investigación</span><p>Médico investigador del área respiratoria.</p></div></article>
+        <article class="person-card"><img src="assets/img/equipo/teresa-zamorano.jpg" alt="Teresa Zamorano"><div class="person-info"><h3>Teresa Zamorano</h3><span class="role">Personal Sanitario de Investigación</span><p>Apoyo sanitario en procesos vinculados a estudios clínicos.</p></div></article>
+        <article class="person-card"><img src="assets/img/equipo/ricardo-guerrero.jpg" alt="Ricardo Guerrero"><div class="person-info"><h3>Ricardo Guerrero</h3><span class="role">Personal Sanitario de Investigación</span><p>Apoyo sanitario y operativo en investigación clínica.</p></div></article>
+        <article class="person-card"><img src="assets/img/equipo/marcela-caceres.jpg" alt="Marcela Cáceres"><div class="person-info"><h3>Marcela Cáceres</h3><span class="role">Soporte Técnico y Regulatorio</span><p>Gestión de datos, muestras, documentación y normativas.</p></div></article>
+      </div>
+      <div class="team-note"><strong>Centro de Investigación y Estudios Clínicos:</strong> coordinación de protocolos, personal sanitario de investigación y soporte técnico-regulatorio trabajan conectados para resguardar la calidad, ética y trazabilidad de cada estudio.</div>
+    </div>
+  </section>
+
+  <section class="section" id="fotos-centro">
+    <div class="container">
+
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Nuestro Centro</div>
+          <h2>Espacios de CENRESIN</h2>
+        </div>
+
+        <p class="sub">
+          Instalaciones diseñadas para brindar una atención cercana,
+          cómoda y profesional, junto con el desarrollo de investigación
+          clínica respiratoria de alto estándar.
+        </p>
+      </div>
+
+      <div class="people-grid">
+
+        <article class="person-card">
+          <img src="assets/img/2.png" alt="Fachada principal de CENRESIN">
+          <div class="person-info">
+            <h3>Centro Respiratorio Integral</h3>
+            <span class="role">Fachada Principal</span>
+            <p>Más de 30 años aportando a la salud respiratoria y a la investigación clínica en la Región de Valparaíso.</p>
+          </div>
+        </article>
+
+        <article class="person-card">
+          <img src="assets/img/equipo-cenresin.jpeg" alt="Equipo humano de CENRESIN">
+          <div class="person-info">
+            <h3>Nuestro Equipo</h3>
+            <span class="role">Capital Humano</span>
+            <p>Profesionales, investigadores y personal administrativo trabajando bajo un mismo estándar de calidad y ética.</p>
+          </div>
+        </article>
+
+        <article class="person-card">
+          <img src="assets/img/recepcion-cenresin.jpg" alt="Recepción y sala de espera de CENRESIN">
+          <div class="person-info">
+            <h3>Recepción y Sala de Espera</h3>
+            <span class="role">Orientación de Pacientes</span>
+            <p>Espacio destinado a la recepción, orientación y coordinación de consultas y exámenes respiratorios.</p>
+          </div>
+        </article>
+
+        <article class="person-card">
+          <img src="assets/img/consulta-medica-cenresin.jpg" alt="Consulta médica respiratoria en CENRESIN">
+          <div class="person-info">
+            <h3>Consulta Respiratoria</h3>
+            <span class="role">Atención Médica</span>
+            <p>Atención médica especializada en un entorno cómodo, privado y profesional.</p>
+          </div>
+        </article>
+
+        <article class="person-card">
+          <img src="assets/img/box-atencion-medica-cenresin.jpg" alt="Box de atención médica respiratoria en CENRESIN">
+          <div class="person-info">
+            <h3>Box de Atención Médica</h3>
+            <span class="role">Evaluación Clínica</span>
+            <p>Espacio acondicionado para controles médicos, seguimiento y evaluación de pacientes.</p>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <section class="cta-band orientation-band">
+    <div class="container orientation-grid">
+      <div><div class="eyebrow">CONTACTO Y ORIENTACIÓN</div><h2>¿Necesitas orientación?</h2><p class="sub">Puedes contactarnos para resolver dudas sobre atención médica, exámenes o participación en estudios clínicos.</p></div>
+      <div class="orientation-card">
+        <div class="actions orientation-actions"><a class="btn primary orientation-btn" href="contacto.html">Agendar consulta</a><a class="btn white orientation-btn" href="pacientes.html">Información para pacientes</a></div>
+        <div class="social-links">
+          <a href="https://www.facebook.com/cenresin/?locale=es_LA" target="_blank" rel="noopener"><span class="icon-circle"><img src="assets/img/facebook.svg" alt="Facebook"></span>Facebook</a>
+          <a href="https://www.instagram.com/cenresin/" target="_blank" rel="noopener"><span class="icon-circle"><img src="assets/img/instagram.svg" alt="Instagram"></span>Instagram</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<a class="whatsapp-float" href="https://wa.me/56332316393" target="_blank" rel="noopener" aria-label="WhatsApp CENRESIN"><img src="assets/img/whatsapp.svg" alt="WhatsApp"></a>
+
+<footer class="footer"><div class="container"><span>CENRESIN · Centro Respiratorio Integral</span><span>San Martín 502, Quillota · 33 2 316393 · www.cenresin.cl</span></div></footer>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

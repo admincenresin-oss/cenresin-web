@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/img/favicon.png">
+<link rel="apple-touch-icon" href="assets/img/favicon.png">
+<meta name="theme-color" content="#d9e000">
+
+  <title>CENRESIN | Centro Respiratorio Integral en Quillota</title>
+  <meta name="description" content="Índice general de CENRESIN: centro médico, profesionales, exámenes, estudios clínicos, pacientes, patrocinadores y contacto.">
+  <link rel="stylesheet" href="assets/css/style.css">
+
+<style>
+
+
+  .orientation-band{
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(135deg,var(--oliva),#625a4d);
+  }
+
+  .orientation-band:after{
+    content:"";
+    position:absolute;
+    right:-110px;
+    bottom:-140px;
+    width:360px;
+    height:360px;
+    border-radius:50%;
+    background:rgba(217,224,0,.22);
+  }
+
+  .orientation-grid{
+    position:relative;
+    z-index:1;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:28px;
+    align-items:center;
+  }
+
+  .orientation-band .eyebrow,
+  .orientation-band h2,
+  .orientation-band .sub{
+    color:var(--verde);
+  }
+
+  .orientation-card{
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.22);
+    border-radius:28px;
+    padding:26px;
+    backdrop-filter:blur(10px);
+  }
+
+  .orientation-actions{
+    margin-top:0;
+    gap:12px;
+  }
+
+  .orientation-btn{
+    min-width:210px;
+    box-shadow:0 14px 32px rgba(37,38,24,.18);
+  }
+
+  .social-links{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-top:18px;
+  }
+
+  .social-links a{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:13px 18px;
+    border-radius:999px;
+    background:rgba(255,255,255,.14);
+    color:var(--verde);
+    font-weight:900;
+    border:1px solid rgba(217,224,0,.38);
+    transition:.2s ease;
+  }
+
+  .social-links a:hover{
+    background:#fff;
+    color:var(--oliva);
+    transform:translateY(-2px);
+  }
+
+  .social-links img{
+    width:24px;
+    height:24px;
+    display:block;
+  }
+
+  .whatsapp-float{
+    position:fixed;
+    right:24px;
+    bottom:24px;
+    z-index:300;
+    width:64px;
+    height:64px;
+    border-radius:50%;
+    background:var(--verde);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 18px 45px rgba(37,38,24,.28);
+    border:4px solid #fff;
+    transition:.2s ease;
+  }
+
+  .whatsapp-float:hover{
+    transform:translateY(-4px) scale(1.03);
+    background:var(--verde-dark);
+  }
+
+  .whatsapp-float img{
+    width:34px;
+    height:34px;
+    display:block;
+  }
+
+  @media(max-width:980px){
+    .orientation-grid{
+      grid-template-columns:1fr;
+    }
+
+    .orientation-btn{
+      width:100%;
+    }
+  }
+
+  @media(max-width:560px){
+    .whatsapp-float{
+      width:58px;
+      height:58px;
+      right:18px;
+      bottom:18px;
+    }
+
+    .social-links a{
+      width:100%;
+      justify-content:center;
+    }
+  }
+
+</style>
+
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav">
+    <a class="logo" href="index.html"><img src="assets/img/logo-cenresin.png" alt="Logo CENRESIN Centro Respiratorio Integral"></a>
+    <button class="mobile-toggle" type="button">Menú</button>
+    <nav class="menu" aria-label="Navegación principal">
+      <a class="menu-link" href="index.html">Inicio</a>
+
+      <div class="dropdown">
+        <button class="drop-toggle" type="button">Quiénes Somos</button>
+        <div class="dropdown-content">
+          <a href="quienes-somos.html">Historia, misión y visión</a>
+          <a href="nuestro-equipo.html">Nuestro Equipo</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="drop-toggle" type="button">Centro Médico</button>
+        <div class="dropdown-content">
+          <a href="centro-medico.html">Especialidades</a>
+          <a href="profesionales.html">Profesionales</a>
+          <a href="examenes.html">Exámenes</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="drop-toggle" type="button">Estudios Clínicos</button>
+        <div class="dropdown-content">
+          <a href="estudios-clinicos.html">Investigación Clínica</a>
+          <a href="pacientes.html">Pacientes</a>
+          <a href="patrocinadores.html">Patrocinadores / CROs</a>
+        </div>
+      </div>
+
+      <a class="btn" href="contacto.html">Contacto</a>
+    </nav>
+  </div>
+</header>
+
+
+<main>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow">Centro Respiratorio Integral · Quillota</div>
+        <h1>Todo CENRESIN en un solo lugar.</h1>
+        <p class="lead">El inicio funciona como índice general de la web: desde aquí puedes conocer el centro, revisar profesionales, especialidades, exámenes, estudios clínicos, pacientes, patrocinadores y contacto.</p>
+        <div class="actions">
+          <a class="btn primary" href="centro-medico.html">Ir al Centro Médico</a>
+          <a class="btn" href="estudios-clinicos.html">Ver Estudios Clínicos</a>
+          <a class="btn white" href="contacto.html">Contactar</a>
+        </div>
+      </div>
+      <div class="hero-card"><img src="assets/img/1.png" alt="Centro Respiratorio Integral CENRESIN Quillota"></div>
+    </div>
+  </section>
+
+  <div class="quote">“Donde la excelencia médica y la investigación científica se unen para el bienestar integral del paciente.”</div>
+
+  <section class="section alt routes-section">
+    <div class="container">
+      <div class="section-head">
+        <div><h2>Rutas de navegación</h2><p class="sub">Accesos directos según el tipo de usuario que llega a la web.</p></div>
+      </div>
+      <div class="grid-3">
+        <a class="feature-link route-card" href="examenes.html"><div><h3>Necesito un examen</h3><p>Revisa el catálogo de exámenes disponibles.</p></div><strong>→</strong></a>
+        <a class="feature-link route-card" href="profesionales.html"><div><h3>Busco un profesional</h3><p>Conoce al equipo y sus áreas de atención.</p></div><strong>→</strong></a>
+        <a class="feature-link route-card" href="contacto.html"><div><h3>Quiero agendar o consultar</h3><p>Teléfonos, WhatsApp, dirección y formulario.</p></div><strong>→</strong></a>
+        <a class="feature-link route-card" href="pacientes.html"><div><h3>Quiero participar en un estudio</h3><p>Información para pacientes interesados.</p></div><strong>→</strong></a>
+        <a class="feature-link route-card" href="patrocinadores.html"><div><h3>Soy patrocinador o CRO</h3><p>Capacidades e infraestructura del centro.</p></div><strong>→</strong></a>
+        <a class="feature-link route-card" href="quienes-somos.html"><div><h3>Quiero conocer CENRESIN</h3><p>Propósito, equipo y estándar de atención.</p></div><strong>→</strong></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="quick-index">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Índice rápido</h2>
+          <p class="sub">Elige qué necesitas conocer. Cada botón lleva a una pestaña independiente de la web.</p>
+        </div>
+      </div>
+      <div class="quick-grid">
+        <a class="quick-card" href="quienes-somos.html"><span>👥</span><h3>Quiénes Somos</h3><p>Equipo humano, enfoque institucional y áreas de gestión.</p></a>
+        <a class="quick-card" href="profesionales.html"><span>🩺</span><h3>Profesionales</h3><p>Fichas del equipo médico, clínico y administrativo.</p></a>
+        <a class="quick-card" href="centro-medico.html"><span>🏥</span><h3>Centro Médico</h3><p>Especialidades, atención clínica y bienestar integral.</p></a>
+        <a class="quick-card" href="examenes.html"><span>🔬</span><h3>Exámenes</h3><p>Función pulmonar, cardiología, nutrición e imagenología.</p></a>
+        <a class="quick-card" href="estudios-clinicos.html"><span>🧪</span><h3>Estudios Clínicos</h3><p>Investigación respiratoria con seguridad y calidad.</p></a>
+        <a class="quick-card" href="pacientes.html"><span>🙋</span><h3>Pacientes</h3><p>Cómo participar, seguridad, confidencialidad y preguntas frecuentes.</p></a>
+        <a class="quick-card" href="patrocinadores.html"><span>🤝</span><h3>Patrocinadores / CROs</h3><p>Capacidades, infraestructura y evaluación de factibilidad.</p></a>
+        <a class="quick-card" href="contacto.html"><span>📍</span><h3>Contacto</h3><p>Dirección, teléfonos, WhatsApp, horario y formulario.</p></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="container">
+      <div class="section-head">
+        <div><h2>Dos áreas, una misma misión</h2><p class="sub">CENRESIN integra atención médica especializada e investigación clínica para acompañar a pacientes y aportar al avance de la medicina respiratoria.</p></div>
+      </div>
+      <div class="grid-2">
+        <div class="panel highlight">
+          <h3>Centro Médico</h3>
+          <p>Atención de especialidad, diagnóstico avanzado y bienestar integral para niños, adultos y adultos mayores.</p>
+          <ul class="list">
+            <li>Broncopulmonar adulto e infantil</li>
+            <li>Medicina general y general infantil</li>
+            <li>Cardiología, nutrición y psicología</li>
+          </ul>
+          <div class="actions"><a class="btn primary" href="centro-medico.html">Ver especialidades</a><a class="btn" href="profesionales.html">Ver profesionales</a></div>
+        </div>
+        <div class="panel highlight">
+          <h3>Estudios Clínicos</h3>
+          <p>Investigación clínica en enfermedades respiratorias con enfoque en seguridad, ética y calidad de datos.</p>
+          <ul class="list">
+            <li>Asma, EPOC y patologías respiratorias</li>
+            <li>Participación voluntaria y supervisada</li>
+            <li>Colaboración con patrocinadores y CROs</li>
+          </ul>
+          <div class="actions"><a class="btn primary" href="estudios-clinicos.html">Ver investigación</a><a class="btn" href="pacientes.html">Soy paciente</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  
+<section class="section alt">
+    <div class="container grid-2">
+
+      <div class="hero-card">
+        <img src="assets/img/equipo/juana-pavie.jpg" alt="Juana Pavie Gallegos">
+      </div>
+
+      <div>
+
+        <div class="eyebrow">
+          FUNDADORA · CENRESIN
+        </div>
+
+        <h2>
+          Juana Pavie Gallegos
+        </h2>
+
+        <p class="sub">
+          Más de 30 años de compromiso con la salud respiratoria y el bienestar de la comunidad.
+        </p>
+
+        <p>
+          La historia de CENRESIN está estrechamente vinculada a la trayectoria de Juana Pavie Gallegos, fundadora del centro y una de las principales impulsoras de la atención respiratoria especializada en Quillota.
+        </p>
+
+        <p>
+          Durante más de tres décadas ha trabajado promoviendo el acceso a una atención médica cercana, humana y de excelencia, contribuyendo al desarrollo de programas de salud, educación para pacientes e iniciativas orientadas al bienestar de la comunidad.
+        </p>
+
+        <p>
+          Su visión permitió consolidar un centro que hoy integra atención médica especializada e investigación clínica, manteniendo siempre el compromiso con las personas y la calidad en cada proceso.
+        </p>
+
+        <div class="actions">
+          <a class="btn primary" href="quienes-somos.html">
+            Conocer nuestra historia
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <section class="cta-band orientation-band">
+    <div class="container orientation-grid">
+      <div>
+        <div class="eyebrow">CONTACTO Y ORIENTACIÓN</div>
+        <h2>¿Necesitas orientación?</h2>
+        <p class="sub">Puedes contactarnos para resolver dudas sobre atención médica, exámenes o participación en estudios clínicos.</p>
+      </div>
+
+      <div class="orientation-card">
+        <div class="actions orientation-actions">
+          <a class="btn primary orientation-btn" href="contacto.html">Agendar o consultar</a>
+          <a class="btn white orientation-btn" href="pacientes.html">Información para pacientes</a>
+        </div>
+
+        
+<div class="social-links">
+
+    <a href="https://www.facebook.com/cenresin/?locale=es_LA" target="_blank" rel="noopener">
+        <span class="icon-circle">
+            <img src="assets/img/facebook.svg" alt="Facebook">
+        </span>
+        Facebook
+    </a>
+
+    <a href="https://www.instagram.com/cenresin/" target="_blank" rel="noopener">
+        <span class="icon-circle">
+            <img src="assets/img/instagram.svg" alt="Instagram">
+        </span>
+        Instagram
+    </a>
+
+</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+
+
+<a class="whatsapp-float"
+   href="https://wa.me/56332316393"
+   target="_blank"
+   rel="noopener"
+   aria-label="WhatsApp">
+    <img src="assets/img/whatsapp.svg" alt="WhatsApp">
+</a>
+
+
+
+
+<footer class="footer">
+  <div class="container">
+    <span>CENRESIN · Centro Respiratorio Integral</span>
+    <span>San Martín 502, Quillota · 33 2 316393 · www.cenresin.cl</span>
+  </div>
+</footer>
+<script src="assets/js/main.js"></script>
+
+</body>
+</html>

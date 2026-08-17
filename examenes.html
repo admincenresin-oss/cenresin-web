@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/img/favicon.png">
+  <link rel="apple-touch-icon" href="assets/img/favicon.png">
+  <meta name="theme-color" content="#d9e000">
+  <title>Exámenes y Procedimientos Clínicos | CENRESIN</title>
+  <meta name="description" content="Exámenes de función pulmonar, cardiología, imagenología, nutrición y procedimientos clínicos en CENRESIN Quillota.">
+  <link rel="stylesheet" href="assets/css/style.css">
+
+
+
+
+<style>
+  .exam-area{
+    padding:72px 0;
+  }
+
+  .exam-area.alt{
+    background:var(--bg);
+  }
+
+  .exam-label{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:9px 15px;
+    border-radius:999px;
+    background:var(--verde);
+    color:var(--oliva);
+    font-weight:900;
+    letter-spacing:.8px;
+    text-transform:uppercase;
+    font-size:12px;
+    margin-bottom:16px;
+  }
+
+  .exam-intro-panel{
+    background:linear-gradient(135deg,#fff,#fbfce0);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:30px;
+    box-shadow:var(--shadow);
+    margin-bottom:30px;
+  }
+
+  .exam-intro-panel h2{
+    margin-bottom:12px;
+  }
+
+  .exam-intro-panel p{
+    color:var(--muted);
+    margin:0;
+  }
+
+  .exam-flip-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+    align-items:stretch;
+  }
+
+  .exam-flip-card{
+    min-height:430px;
+    perspective:1200px;
+    cursor:pointer;
+    outline:none;
+  }
+
+  .exam-flip-inner{
+    position:relative;
+    width:100%;
+    height:100%;
+    min-height:430px;
+    transform-style:preserve-3d;
+    transition:transform .65s ease;
+  }
+
+  .exam-flip-card:hover .exam-flip-inner,
+  .exam-flip-card:focus .exam-flip-inner,
+  .exam-flip-card:focus-within .exam-flip-inner{
+    transform:rotateY(180deg);
+  }
+
+  .exam-face{
+    position:absolute;
+    inset:0;
+    backface-visibility:hidden;
+    border-radius:var(--radius);
+    padding:24px;
+    box-shadow:var(--shadow);
+    border:1px solid var(--line);
+    display:flex;
+    flex-direction:column;
+    overflow:auto;
+  }
+
+  .exam-front{
+    background:linear-gradient(135deg,#fff,#fbfce0);
+  }
+
+  .exam-back{
+    background:linear-gradient(135deg,var(--oliva),#625a4d);
+    color:#fff;
+    transform:rotateY(180deg);
+  }
+
+  .exam-face h3{
+    margin:0 0 12px;
+    color:var(--verde-dark);
+    font-size:25px;
+    line-height:1.05;
+  }
+
+  .exam-back h3{
+    color:var(--verde);
+  }
+
+  .exam-face p{
+    color:var(--muted);
+    margin:0 0 12px;
+    font-size:15px;
+  }
+
+  .exam-back p,
+  .exam-back li{
+    color:#fff;
+  }
+
+  .exam-price{
+    display:inline-flex;
+    width:max-content;
+    max-width:100%;
+    padding:9px 13px;
+    border-radius:999px;
+    background:var(--verde);
+    color:var(--oliva);
+    font-weight:900;
+    margin:8px 0 12px;
+    font-size:14px;
+  }
+
+  .exam-convenio{
+    font-size:13px;
+    color:var(--oliva);
+    font-weight:900;
+    margin-bottom:14px;
+  }
+
+  .exam-back .exam-convenio{
+    color:var(--verde);
+  }
+
+  .exam-prep-title{
+    font-weight:900;
+    color:var(--verde);
+    margin:4px 0 8px;
+  }
+
+  .exam-prep-list{
+    display:grid;
+    gap:8px;
+    padding-left:18px;
+    margin:0;
+    font-size:14px;
+  }
+
+  .exam-note{
+    margin-top:auto;
+    padding-top:16px;
+    font-size:13px;
+    color:var(--muted);
+    font-weight:800;
+  }
+
+  .exam-back .exam-note{
+    color:#fff;
+  }
+
+  .orientation-band{
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(135deg,var(--oliva),#625a4d);
+  }
+
+  .orientation-band:after{
+    content:"";
+    position:absolute;
+    right:-110px;
+    bottom:-140px;
+    width:360px;
+    height:360px;
+    border-radius:50%;
+    background:rgba(217,224,0,.22);
+  }
+
+  .orientation-grid{
+    position:relative;
+    z-index:1;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:28px;
+    align-items:center;
+  }
+
+  .orientation-band .eyebrow{color:var(--verde)}
+  .orientation-band h2,
+  .orientation-band .sub{color:#fff}
+
+  .orientation-card{
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.22);
+    border-radius:28px;
+    padding:26px;
+    backdrop-filter:blur(10px);
+  }
+
+  .orientation-actions{margin-top:0;gap:12px}
+  .orientation-btn{min-width:210px;box-shadow:0 14px 32px rgba(37,38,24,.18)}
+  .social-links{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+  .social-links a{display:inline-flex;align-items:center;gap:12px;padding:13px 18px;border-radius:999px;background:rgba(255,255,255,.14);color:var(--verde);font-weight:900;border:1px solid rgba(217,224,0,.35);transition:.25s ease}
+  .social-links a:hover{background:#fff;color:var(--oliva);transform:translateY(-2px)}
+  .icon-circle{width:38px;height:38px;min-width:38px;border-radius:50%;background:var(--verde);display:flex;align-items:center;justify-content:center}
+  .icon-circle img{width:18px;height:18px;display:block;filter:brightness(0) saturate(100%) invert(42%) sepia(8%) saturate(635%) hue-rotate(6deg) brightness(94%) contrast(86%)}
+
+  .whatsapp-float{
+    position:fixed;
+    right:24px;
+    bottom:24px;
+    z-index:300;
+    width:64px;
+    height:64px;
+    border-radius:50%;
+    background:var(--verde);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:4px solid #fff;
+    box-shadow:0 18px 45px rgba(37,38,24,.28);
+    transition:.25s ease;
+  }
+  .whatsapp-float:hover{transform:translateY(-4px) scale(1.03);background:var(--verde-dark)}
+  .whatsapp-float img{width:32px;height:32px;display:block;filter:brightness(0) saturate(100%) invert(42%) sepia(8%) saturate(635%) hue-rotate(6deg) brightness(94%) contrast(86%)}
+
+  @media(max-width:1080px){
+    .exam-flip-grid{grid-template-columns:1fr 1fr}
+  }
+
+  @media(max-width:980px){
+    .orientation-grid{grid-template-columns:1fr}
+    .orientation-btn{width:100%}
+  }
+
+  @media(max-width:680px){
+    .exam-flip-grid{grid-template-columns:1fr}
+    .exam-flip-card,
+    .exam-flip-inner{min-height:520px}
+    .social-links a{width:100%;justify-content:center}
+    .whatsapp-float{width:58px;height:58px;right:18px;bottom:18px}
+  }
+</style>
+
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav">
+    <a class="logo" href="index.html"><img src="assets/img/logo-cenresin.png" alt="Logo CENRESIN Centro Respiratorio Integral"></a>
+    <button class="mobile-toggle" type="button">Menú</button>
+    <nav class="menu" aria-label="Navegación principal">
+      <a class="menu-link" href="index.html">Inicio</a>
+
+      <div class="dropdown">
+        <button class="drop-toggle" type="button">Quiénes Somos</button>
+        <div class="dropdown-content">
+          <a href="quienes-somos.html">Historia, misión y visión</a>
+          <a href="nuestro-equipo.html">Nuestro Equipo</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="drop-toggle" type="button">Centro Médico</button>
+        <div class="dropdown-content">
+          <a href="centro-medico.html">Especialidades</a>
+          <a href="profesionales.html">Profesionales</a>
+          <a href="examenes.html">Exámenes</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="drop-toggle" type="button">Estudios Clínicos</button>
+        <div class="dropdown-content">
+          <a href="estudios-clinicos.html">Investigación Clínica</a>
+          <a href="pacientes.html">Pacientes</a>
+          <a href="patrocinadores.html">Patrocinadores / CROs</a>
+        </div>
+      </div>
+
+      <a class="btn" href="contacto.html">Contacto</a>
+    </nav>
+  </div>
+</header>
+
+
+<main>
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumb">Centro Médico</div>
+      <h1>Exámenes y Procedimientos Clínicos</h1>
+      <p class="lead">Contamos con áreas especializadas en función pulmonar, cardiología, imagenología y nutrición para tu bienestar.</p>
+    </div>
+  </section>
+
+  <section class="exam-area alt" id="funcion-pulmonar">
+    <div class="container">
+      <span class="exam-label">A · Exámenes de Función Pulmonar</span>
+
+      <div class="exam-intro-panel">
+        <h2>Área Respiratoria</h2>
+        <p>Evaluaciones orientadas al diagnóstico, seguimiento y control de enfermedades respiratorias.</p>
+      </div>
+
+      <div class="exam-flip-grid">
+        <article class="exam-flip-card" tabindex="0" aria-label="Espirometría Basal">
+          <div class="exam-flip-inner">
+            <div class="exam-face exam-front">
+              <h3>Espirometría Basal</h3>
+              <p>Examen que evalúa la capacidad pulmonar. Mide el volumen de aire que una persona puede movilizar en una respiración forzada, en un tiempo determinado.</p>
+              <span class="exam-price">Valor particular: $30.000</span>
+              <div class="exam-convenio">Convenio: Fonasa, Consalud, Vida Tres, Banmédica, Cruz Blanca</div>
+              <p class="exam-note">Pasa el cursor o toca la tarjeta para revisar preparación.</p>
+            </div>
+            <div class="exam-face exam-back">
+              <h3>Espirometría Basal</h3>
+              <div class="exam-prep-title">Indicaciones de preparación</div>
+              <ul class="exam-prep-list">
+<li>Suspender Salbutamol 6 horas antes del examen.</li>
+<li>No fumar 1 hora antes ni exponerse a humo de tabaco 24 horas antes.</li>
+<li>Suspender corticoides 3 días antes.</li>
+<li>Sin uso de antibióticos 3 días antes.</li>
+<li>No realizar ejercicio 60 minutos antes.</li>
+<li>No debe estar resfriado. En caso contrario, reagendar 2 semanas después.</li>
+              </ul>
+            </div>
+          </div>
+        </article>        <article class="exam-flip-card" tabindex="0" aria-label="Espirometría Pre y Post Broncodilatador">
+          <div class="exam-flip-inner">
+            <div class="exam-face exam-front">
+              <h3>Espirometría Pre y Post Broncodilatador</h3>
+              <p>Consiste en realizar una espirometría basal y repetirla minutos después de administrar un broncodilatador para evaluar la respuesta de las vías aéreas.</p>
+              <span class="exam-price">Valor particular: $35.000</span>
+              <div class="exam-convenio">Convenio: Fonasa, Consalud, Vida Tres, Banmédica, Cruz Blanca</div>
+              <p class="exam-note">Pasa el cursor o toca la tarjeta para revisar preparación.</p>
+            </div>
+            <div class="exam-face exam-back">
+              <h3>Espirometría Pre y Post Broncodilatador</h3>
+              <div class="exam-prep-title">Indicaciones de preparación</div>
+              <ul class="exam-prep-list">
+<li>No fumar 1 hora antes ni exponerse a humo de tabaco 24 horas antes.</li>
+<li>Suspender corticoides 3 días antes.</li>
+<li>Sin uso de antibióticos 3 días antes.</li>
+<li>No realizar ejercicio 60 minutos antes.</li>
+<li>No debe estar resfriado. En caso contrario, reagendar 2 semanas después.</li>
+              </ul>
+            </div>
+          </div>
+        </article>        <article class="exam-flip-card" tabindex="0" aria-label="Test de Difusión de Monóxido de Carbono (DLCO)">
+          <div class="exam-flip-inner">
+            <div class="exam-face exam-front">
+              <h3>Test de Difusión de Monóxido de Carbono (DLCO)</h3>
+              <p>Evalúa con precisión la eficacia con que los pulmones transfieren oxígeno desde el aire inspirado hacia los glóbulos rojos.</p>
+              <span class="exam-price">Valor particular con Espirometría Basal: $58.000</span>
+              <div class="exam-convenio">Convenio: Fonasa, Consalud, Banmédica, Vida Tres</div>
+              <p class="exam-note">Pasa el cursor o toca la tarjeta para revisar preparación.</p>
+            </div>
+            <div class="exam-face exam-back">
+              <h3>Test de Difusión de Monóxido de Carbono (DLCO)</h3>
+              <div class="exam-prep-title">Indicaciones de preparación</div>
+              <ul class="exam-prep-list">
+<li>Requiere hemoglobina de máximo 14 días antes.</li>
+<li>Suspender inhaladores según su tipo: acción rápida, larga o prolongada.</li>
+<li>Suspender antialérgicos: Clorfenamina 3 días antes; Cetirizina, Loratadina o Desloratadina 7 días antes.</li>
+<li>No fumar 1 hora antes ni exponerse a humo del tabaco durante 24 horas previas.</li>
+<li>Suspender 24 horas antes café, té, bebidas cola o energizantes, alcohol, tranquilizantes e hipnóticos.</li>
+<li>Asistir con ropa holgada y cabello recogido. No venir en ayunas.</li>
+<li>Continuar medicamentos habituales para presión, diabetes, colesterol u otros.</li>
+<li>No debe estar resfriado. En caso contrario, reagendar 2 semanas después.</li>
+              </ul>
+            </div>
+          </div>
+        </article>        <article class="exam-flip-card" tabindex="0" aria-label="Volúmenes Pulmonares (Pletismografía)">
+          <div class="exam-flip-inner">
+            <div class="exam-face exam-front">
+              <h3>Volúmenes Pulmonares (Pletismografía)</h3>
+              <p>Mide la capacidad total y real de aire que pueden contener los pulmones, incluyendo el volumen residual tras una exhalación máxima.</p>
+              <span class="exam-price">Valor particular: $50.000</span>
+              <div class="exam-convenio">Consultar convenios disponibles</div>
+              <p class="exam-note">Pasa el cursor o toca la tarjeta para revisar preparación.</p>
+            </div>
+            <div class="exam-face exam-back">
+              <h3>Volúmenes Pulmonares (Pletismografía)</h3>
+              <div class="exam-prep-title">Indicaciones de preparación</div>
+              <ul class="exam-prep-list">
+<li>Suspender inhaladores según su tipo: Salbutamol 6 horas; Bromuro de ipratropio 12 horas; Seretide o Symbicort 12 horas; Anoro o Relvar 24 horas antes.</li>
+<li>Suspender antialérgicos: Clorfenamina 3 días antes; Cetirizina, Loratadina o Desloratadina 7 días antes.</li>
+<li>No fumar ni vapear 1 hora antes; evitar humo de tabaco 24 horas antes.</li>
+<li>Suspender 24 horas antes café, té, bebidas cola o energizantes, alcohol, tranquilizantes e hipnóticos.</li>
+<li>Asistir con ropa holgada y cabello recogido. No venir en ayunas.</li>
+<li>Evitar ejercicio físico 30 minutos antes.</li>
+<li>Continuar medicamentos habituales.</li>
+<li>No debe estar resfriado. En caso contrario, reagendar 2 semanas después.</li>
+              </ul>
+            </div>
+          </div>
+        </article>        <article class="exam-flip-card" tabindex="0" aria-label="Test de Provocación con Metacolina">
+          <div class="exam-flip-inner">
+            <div class="exam-face exam-front">
+              <h3>Test de Provocación con Metacolina</h3>
+              <p>Evalúa el grado de hiperreactividad de los bronquios mediante la inhalación de dosis controladas y progresivas de un agente inductor.</p>
+              <span class="exam-price">Valor particular: $65.000</span>
+              <div class="exam-convenio">Convenio: Fonasa, Consalud, Vida Tres, Banmédica, Cruz Blanca</div>
+              <p class="exam-note">Pasa el cursor o toca la tarjeta para revisar preparación.</p>
+            </div>
+            <div class="exam-face exam-back">
+              <h3>Test de Provocación con Metacolina</h3>
+              <div class="exam-prep-title">Indicaciones de preparación</div>
+              <ul class="exam-prep-list">
+<li>Suspender inhaladores según su tipo: Salbutamol 6 horas; Bromuro de ipratropio 12 horas; Seretide o Symbicort 12 horas; Anoro o Relvar 24 horas antes.</li>
+<li>Suspender antialérgicos: Clorfenamina 3 días antes; Cetirizina, Loratadina o Desloratadina 7 días antes.</li>
+<li>No fumar ni vapear 1 hora antes; evitar humo de tabaco 24 horas antes.</li>
+<li>Suspender 24 horas antes café, té, bebidas cola o energizantes, alcohol, tranquilizantes e hipnóticos.</li>
+<li>Asistir con ropa holgada y cabello recogido. No venir en ayunas.</li>
+<li>Evitar ejercicio físico 30 minutos antes.</li>
+<li>Continuar medicamentos habituales.</li>
+<li>No debe estar resfriado. En caso contrario, reagendar 2 semanas después.</li>
+              </ul>
+            </div>
+          </div>
+        </article>        <article class="exam-flip-card" tabindex="0" aria-label="Test de Marcha de 6 Minutos">
+          <div class="exam-flip-inner">
+            <div class="exam-face exam-front">
+              <h3>Test de Marcha de 6 Minutos</h3>
+              <p>Monitorea la oxigenación y ritmo cardíaco mientras el paciente camina a paso constante, evaluando respuesta funcional y tolerancia al esfuerzo.</p>
+              <span class="exam-price">Valor particular: $25.000</span>
+              <div class="exam-convenio">Consultar convenios disponibles</div>
+              <p class="exam-note">Pasa el cursor o toca la tarjeta para revisar preparación.</p>
+            </div>
+            <div class="exam-face exam-back">
+              <h3>Test de Marcha de 6 Minutos</h3>
+              <div class="exam-prep-title">Indicaciones de preparación</div>
+              <ul class="exam-prep-list">
+<li>No suspenda sus medicamentos broncodilatadores el día del examen.</li>
+<li>Mantenga el resto de sus medicamentos habituales.</li>
+<li>Venga con ropa liviana y zapatos cómodos para caminar.</li>
+<li>No debe venir en ayunas.</li>
+<li>No haga ejercicio vigoroso 2 horas antes del examen.</li>
+<li>No debe estar resfriado. En caso contrario, reagendar 2 semanas después.</li>
+              </ul>
+            </div>
+          </div>
+        </article>        <article class="exam-flip-card" tabindex="0" aria-label="FeNO (Óxido Nítrico Exhalado)">
+          <div class="exam-flip-inner">
+            <div class="exam-face exam-front">
+              <h3>FeNO (Óxido Nítrico Exhalado)</h3>
+              <p>Mide la concentración de óxido nítrico en el aire exhalado mediante un soplido controlado, evaluando inflamación de vías aéreas.</p>
+              <span class="exam-price">Valor particular: $30.000</span>
+              <div class="exam-convenio">Consultar convenios disponibles</div>
+              <p class="exam-note">Pasa el cursor o toca la tarjeta para revisar preparación.</p>
+            </div>
+            <div class="exam-face exam-back">
+              <h3>FeNO (Óxido Nítrico Exhalado)</h3>
+              <div class="exam-prep-title">Indicaciones de preparación</div>
+              <ul class="exam-prep-list">
+<li>No alimentarse 2 horas antes del examen.</li>
+<li>Evitar brócoli, lechuga, apio, repollo, escabeches o ahumados 3 horas antes.</li>
+<li>No fumar 1 hora antes ni exponerse a humo de tabaco 24 horas antes.</li>
+<li>Suspender corticoides 3 días antes del examen.</li>
+<li>Sin uso de antibióticos 3 días antes.</li>
+<li>No realizar ejercicio 60 minutos antes del examen.</li>
+<li>No debe estar resfriado. En caso contrario, reagendar 2 semanas después.</li>
+              </ul>
+            </div>
+          </div>
+        </article>        <article class="exam-flip-card" tabindex="0" aria-label="Test Cutáneo (Prick Test)">
+          <div class="exam-flip-inner">
+            <div class="exam-face exam-front">
+              <h3>Test Cutáneo (Prick Test)</h3>
+              <p>Identifica sensibilidad a alérgenos ambientales o alimentarios mediante microaplicaciones superficiales en la piel.</p>
+              <span class="exam-price">Valor individual: $20.000 · Pack: $35.000</span>
+              <div class="exam-convenio">Convenio: Fonasa, Consalud, Vida Tres, Banmédica</div>
+              <p class="exam-note">Pasa el cursor o toca la tarjeta para revisar preparación.</p>
+            </div>
+            <div class="exam-face exam-back">
+              <h3>Test Cutáneo (Prick Test)</h3>
+              <div class="exam-prep-title">Indicaciones de preparación</div>
+              <ul class="exam-prep-list">
+<li>Suspender Clorfenamina 3 días antes del examen.</li>
+<li>Suspender Cetirizina, Loratadina o Desloratadina 7 días antes.</li>
+<li>Mantener el resto de sus medicamentos habituales.</li>
+<li>No usar cremas, jabón humectante ni loción en los brazos el día del examen.</li>
+<li>No requiere ayuno.</li>
+<li>No ingerir leche, mariscos, pescados ni embutidos 24 horas antes.</li>
+              </ul>
+            </div>
+          </div>
+        </article>        <article class="exam-flip-card" tabindex="0" aria-label="Poligrafía de Sueño">
+          <div class="exam-flip-inner">
+            <div class="exam-face exam-front">
+              <h3>Poligrafía de Sueño</h3>
+              <p>Examen no invasivo que permite diagnosticar apneas obstructivas del sueño mediante un equipo portátil con sensores respiratorios.</p>
+              <span class="exam-price">Valor particular: $80.000</span>
+              <div class="exam-convenio">Consultar convenios disponibles</div>
+              <p class="exam-note">Pasa el cursor o toca la tarjeta para revisar preparación.</p>
+            </div>
+            <div class="exam-face exam-back">
+              <h3>Poligrafía de Sueño</h3>
+              <div class="exam-prep-title">Indicaciones de preparación</div>
+              <ul class="exam-prep-list">
+<li>No dormir siesta durante el día del examen.</li>
+<li>Bañarse antes de retirar el equipo.</li>
+<li>No aplicar cremas, aceites ni lociones corporales en pecho ni dedos.</li>
+<li>Evitar alcohol, café, té, bebidas energizantes o estimulantes desde las 14:00 horas.</li>
+<li>Mantener medicamentos diarios salvo indicación médica distinta.</li>
+<li>Dormir con prenda cómoda, polera o pijama, donde se puedan asegurar las bandas del equipo.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="exam-area" id="cardiovascular-nutricion-deporte">
+    <div class="container">
+      <span class="exam-label">B · Salud Cardiovascular, Nutrición y Deporte</span>
+
+      <div class="exam-intro-panel">
+        <h2>Evaluación integral del paciente</h2>
+        <p>Prestaciones complementarias para apoyar el diagnóstico cardiovascular, nutricional, metabólico y deportivo.</p>
+      </div>
+
+      <div class="exam-flip-grid">
+        <article class="exam-flip-card" tabindex="0" aria-label="Electrocardiograma">
+          <div class="exam-flip-inner">
+            <div class="exam-face exam-front">
+              <h3>Electrocardiograma</h3>
+              <p>Registro de la actividad eléctrica del corazón para apoyar la evaluación del ritmo cardíaco y controles clínicos.</p>
+              <span class="exam-price">Valor: consultar</span>
+              <div class="exam-convenio">Consultar convenios disponibles</div>
+              <p class="exam-note">Pasa el cursor o toca la tarjeta para revisar preparación.</p>
+            </div>
+            <div class="exam-face exam-back">
+              <h3>Electrocardiograma</h3>
+              <div class="exam-prep-title">Indicaciones de preparación</div>
+              <ul class="exam-prep-list">
+<li>Asistir con ropa cómoda.</li>
+<li>Informar medicamentos en uso.</li>
+<li>Seguir indicaciones entregadas al momento de agendar.</li>
+              </ul>
+            </div>
+          </div>
+        </article>        <article class="exam-flip-card" tabindex="0" aria-label="Ecocardiograma">
+          <div class="exam-flip-inner">
+            <div class="exam-face exam-front">
+              <h3>Ecocardiograma</h3>
+              <p>Ultrasonido del corazón en movimiento que permite observar estructura, válvulas y función cardíaca.</p>
+              <span class="exam-price">Valor: consultar</span>
+              <div class="exam-convenio">Consultar convenios disponibles</div>
+              <p class="exam-note">Pasa el cursor o toca la tarjeta para revisar preparación.</p>
+            </div>
+            <div class="exam-face exam-back">
+              <h3>Ecocardiograma</h3>
+              <div class="exam-prep-title">Indicaciones de preparación</div>
+              <ul class="exam-prep-list">
+<li>Asistir con ropa cómoda.</li>
+<li>Llevar exámenes previos si los tiene.</li>
+<li>Seguir indicaciones entregadas al momento de agendar.</li>
+              </ul>
+            </div>
+          </div>
+        </article>        <article class="exam-flip-card" tabindex="0" aria-label="Bioimpedancia">
+          <div class="exam-flip-inner">
+            <div class="exam-face exam-front">
+              <h3>Bioimpedancia</h3>
+              <p>Análisis de composición corporal que estima masa grasa, masa muscular y agua corporal.</p>
+              <span class="exam-price">Valor: consultar</span>
+              <div class="exam-convenio">Consultar convenios disponibles</div>
+              <p class="exam-note">Pasa el cursor o toca la tarjeta para revisar preparación.</p>
+            </div>
+            <div class="exam-face exam-back">
+              <h3>Bioimpedancia</h3>
+              <div class="exam-prep-title">Indicaciones de preparación</div>
+              <ul class="exam-prep-list">
+<li>Evitar ejercicio intenso antes del examen.</li>
+<li>Seguir indicaciones de hidratación entregadas al agendar.</li>
+<li>Informar condiciones especiales o dispositivos médicos.</li>
+              </ul>
+            </div>
+          </div>
+        </article>        <article class="exam-flip-card" tabindex="0" aria-label="Calorimetría Indirecta">
+          <div class="exam-flip-inner">
+            <div class="exam-face exam-front">
+              <h3>Calorimetría Indirecta</h3>
+              <p>Medición del gasto energético en reposo para apoyar planificación nutricional y metabólica.</p>
+              <span class="exam-price">Valor: consultar</span>
+              <div class="exam-convenio">Consultar convenios disponibles</div>
+              <p class="exam-note">Pasa el cursor o toca la tarjeta para revisar preparación.</p>
+            </div>
+            <div class="exam-face exam-back">
+              <h3>Calorimetría Indirecta</h3>
+              <div class="exam-prep-title">Indicaciones de preparación</div>
+              <ul class="exam-prep-list">
+<li>Seguir indicaciones de ayuno o alimentación entregadas al agendar.</li>
+<li>Evitar ejercicio previo.</li>
+<li>Asistir con ropa cómoda.</li>
+              </ul>
+            </div>
+          </div>
+        </article>        <article class="exam-flip-card" tabindex="0" aria-label="Antropometría ISAK2">
+          <div class="exam-flip-inner">
+            <div class="exam-face exam-front">
+              <h3>Antropometría ISAK2</h3>
+              <p>Medición técnica de pliegues, perímetros y diámetros corporales para evaluación clínica, nutricional o deportiva.</p>
+              <span class="exam-price">Valor: consultar</span>
+              <div class="exam-convenio">Consultar convenios disponibles</div>
+              <p class="exam-note">Pasa el cursor o toca la tarjeta para revisar preparación.</p>
+            </div>
+            <div class="exam-face exam-back">
+              <h3>Antropometría ISAK2</h3>
+              <div class="exam-prep-title">Indicaciones de preparación</div>
+              <ul class="exam-prep-list">
+<li>Asistir con ropa cómoda.</li>
+<li>Seguir indicaciones entregadas al agendar.</li>
+<li>Llevar antecedentes nutricionales o deportivos si corresponde.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="exam-area alt" id="imagenologia">
+    <div class="container">
+      <span class="exam-label">C · Imagenología</span>
+
+      <div class="exam-intro-panel">
+        <h2>Apoyo visual diagnóstico</h2>
+        <p>Estudios de imagen para complementar la evaluación médica y orientar decisiones clínicas.</p>
+      </div>
+
+      <div class="exam-flip-grid">
+        <article class="exam-flip-card" tabindex="0" aria-label="Radiografías">
+          <div class="exam-flip-inner">
+            <div class="exam-face exam-front">
+              <h3>Radiografías</h3>
+              <p>Estudios de imagenología que apoyan el diagnóstico y seguimiento clínico mediante imágenes radiográficas.</p>
+              <span class="exam-price">Valor: consultar</span>
+              <div class="exam-convenio">Consultar convenios disponibles</div>
+              <p class="exam-note">Pasa el cursor o toca la tarjeta para revisar preparación.</p>
+            </div>
+            <div class="exam-face exam-back">
+              <h3>Radiografías</h3>
+              <div class="exam-prep-title">Indicaciones de preparación</div>
+              <ul class="exam-prep-list">
+<li>Llevar orden médica si corresponde.</li>
+<li>Informar embarazo o sospecha de embarazo.</li>
+<li>Seguir indicaciones específicas entregadas al agendar.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band orientation-band">
+    <div class="container orientation-grid">
+      <div>
+        <div class="eyebrow">CONTACTO Y ORIENTACIÓN</div>
+        <h2>¿Necesitas orientación?</h2>
+        <p class="sub">Puedes contactarnos para resolver dudas sobre exámenes, preparación, valores o convenios disponibles.</p>
+      </div>
+
+      <div class="orientation-card">
+        <div class="actions orientation-actions">
+          <a class="btn primary orientation-btn" href="contacto.html">Agendar consulta</a>
+          <a class="btn white orientation-btn" href="pacientes.html">Información para pacientes</a>
+        </div>
+
+        <div class="social-links">
+          <a href="https://www.facebook.com/cenresin/?locale=es_LA" target="_blank" rel="noopener">
+            <span class="icon-circle"><img src="assets/img/facebook.svg" alt="Facebook"></span>
+            Facebook
+          </a>
+          <a href="https://www.instagram.com/cenresin/" target="_blank" rel="noopener">
+            <span class="icon-circle"><img src="assets/img/instagram.svg" alt="Instagram"></span>
+            Instagram
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<a class="whatsapp-float" href="https://wa.me/56332316393" target="_blank" rel="noopener" aria-label="WhatsApp CENRESIN">
+  <img src="assets/img/whatsapp.svg" alt="WhatsApp">
+</a>
+
+
+
+<footer class="footer">
+  <div class="container">
+    <span>CENRESIN · Centro Respiratorio Integral</span>
+    <span>San Martín 502, Quillota · 33 2 316393 · www.cenresin.cl</span>
+  </div>
+</footer>
+<script src="assets/js/main.js"></script>
+
+</body>
+</html>
