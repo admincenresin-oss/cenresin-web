@@ -6,6 +6,7 @@
 // Si la base de datos no está conectada, el sitio sigue funcionando con las
 // noticias de ejemplo publicadas como páginas estáticas.
 
+import { NOTICIAS_SEMILLA } from './noticias-semilla.js';
 import { paginaLista, paginaNoticia, rss, sitemap, crearSlug, resumenDe, urlNoticia } from './plantilla.js';
 
 const SESION_COOKIE = 'cenresin_sesion';
@@ -18,6 +19,7 @@ export default {
     const url = new URL(request.url);
     const ruta = url.pathname;
     try {
+      if (env.DB && (ruta.startsWith('/noticias') || ruta.startsWith('/api/noticias') || ruta === '/sitemap.xml')) await sembrarNoticias(env);
       if (ruta === '/admin-login' || ruta === '/admin-login/') return panel(request, env);
       if (ruta.startsWith('/admin-login/api/')) return await apiAdmin(request, env, ruta.slice('/admin-login/api'.length));
       if (ruta === '/api/noticias') return await apiNoticiasPublicas(request, env, url);
@@ -50,6 +52,27 @@ async function estatico(request, env) {
     if (conBarra.ok) return Response.redirect(new URL(url.pathname + '/', request.url), 301);
   }
   return r;
+}
+
+/* ---------- noticias de ejemplo ---------- */
+
+// La primera vez que el sitio se publica con la base de datos conectada, carga las
+// noticias de ejemplo (una sola vez; si luego se borran, no vuelven a aparecer).
+let sembrado = false;
+async function sembrarNoticias(env) {
+  if (sembrado) return;
+  await env.DB.prepare('CREATE TABLE IF NOT EXISTS ajustes (clave TEXT PRIMARY KEY, valor TEXT)').run();
+  const marca = await env.DB.prepare("SELECT valor FROM ajustes WHERE clave = 'noticias_ejemplo'").first();
+  if (!marca) {
+    const insertar = env.DB.prepare(
+      'INSERT OR IGNORE INTO noticias (slug, titulo, resumen, cuerpo, fecha, imagen_url, imagen_alt, mostrar_inicio, mostrar_estudios, autor, creado, actualizado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+    );
+    await env.DB.batch([
+      ...NOTICIAS_SEMILLA.map((n) => insertar.bind(n.slug, n.titulo, n.resumen, n.cuerpo, n.fecha, n.imagen_url, n.imagen_alt, n.mostrar_inicio, n.mostrar_estudios, 'cenresin', n.fecha, n.fecha)),
+      env.DB.prepare("INSERT OR IGNORE INTO ajustes (clave, valor) VALUES ('noticias_ejemplo', ?)").bind(ahora())
+    ]);
+  }
+  sembrado = true;
 }
 
 /* ---------- utilidades ---------- */

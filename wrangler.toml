@@ -3,6 +3,10 @@ name = "cenresin-web"
 main = "worker/index.js"
 compatibility_date = "2026-09-01"
 
+# Antes de cada publicación se arma la carpeta «publicar» (páginas de noticias, sitemap, imágenes)
+[build]
+command = "node scripts/preparar-publicacion.mjs"
+
 [assets]
 directory = "./publicar"
 binding = "ASSETS"
