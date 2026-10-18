@@ -1,0 +1,11 @@
+{
+  "name": "cenresin-web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "preparar": "node scripts/preparar-publicacion.mjs",
+    "dev": "node scripts/preparar-publicacion.mjs && npx --yes wrangler@4 dev",
+    "migrar": "npx --yes wrangler@4 d1 migrations apply cenresin-noticias --remote",
+    "publicar": "node scripts/preparar-publicacion.mjs && npx --yes wrangler@4 deploy"
+  }
+}

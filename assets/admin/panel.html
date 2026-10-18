@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="/assets/img/favicon.png">
+<title>Panel de noticias | CENRESIN</title>
+<style>
+:root{--verde:#d9e000;--verde-dark:#a9b300;--oliva:#817867;--texto:#37332d;--muted:#756e61;--bg:#f8f7f1;--line:#e6e1d1;--turquesa:#159aa1;--turquesa-pale:#e9fbfb;--rojo:#b42318}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,Arial,Helvetica,sans-serif;color:var(--texto);background:var(--bg);font-size:17px;line-height:1.5}
+button,input,textarea{font:inherit}
+a{color:inherit}
+.oculto{display:none!important}
+.barra{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}
+.barra .cont{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:72px;flex-wrap:wrap}
+.barra img{height:42px}
+.barra nav{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.cont{width:min(1040px,92%);margin:auto}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:999px;border:0;background:var(--oliva);color:#fff;font-weight:800;cursor:pointer;text-decoration:none}
+.btn:hover{filter:brightness(.95)}
+.btn.verde{background:var(--verde);color:#3d3a1c}
+.btn.claro{background:#fff;color:var(--oliva);border:1px solid var(--line)}
+.btn.peligro{background:#fff;color:var(--rojo);border:1px solid #f1c4bf}
+.btn.grande{padding:16px 28px;font-size:18px}
+.btn:disabled{opacity:.6;cursor:wait}
+h1{color:var(--oliva);font-size:34px;margin:28px 0 6px}
+.sub{color:var(--muted);margin:0 0 22px}
+.tarjeta{background:#fff;border:1px solid var(--line);border-radius:22px;padding:28px;box-shadow:0 14px 40px rgba(37,38,24,.07)}
+.login{max-width:430px;margin:8vh auto}
+.login img{height:54px;margin-bottom:10px}
+label.campo{display:block;font-weight:800;margin:18px 0 6px;color:var(--oliva)}
+label.campo small{font-weight:500;color:var(--muted)}
+input[type=text],input[type=password],input[type=date],textarea{width:100%;padding:14px 16px;border:2px solid var(--line);border-radius:14px;background:#fff;color:var(--texto)}
+input:focus,textarea:focus{outline:none;border-color:var(--verde-dark)}
+textarea{min-height:300px;resize:vertical;line-height:1.55}
+.aviso{margin-top:14px;padding:12px 16px;border-radius:12px;font-weight:700}
+.aviso.error{background:#fdecea;color:var(--rojo)}
+.aviso.ok{background:#f3f7c9;color:#4d5100}
+.cabecera-lista{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap}
+.leyenda{display:flex;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:15px;margin:6px 0 18px}
+.leyenda b{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.fila{display:grid;grid-template-columns:96px 1fr auto;gap:18px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:12px}
+.fila img,.fila .sin-foto{width:96px;height:72px;border-radius:12px;object-fit:cover;background:var(--bg)}
+.fila .sin-foto{display:grid;place-items:center;color:var(--muted);font-size:12px;text-align:center}
+.fila h3{margin:0 0 4px;font-size:18px;color:var(--texto)}
+.fila .fecha{color:var(--muted);font-size:14px}
+.fila .acciones{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.fila .acciones .btn{padding:8px 14px;font-size:14px}
+.interruptores{display:grid;gap:10px;min-width:230px}
+.interruptor{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 12px;border-radius:12px;background:var(--bg);cursor:pointer;user-select:none;font-weight:700;font-size:15px}
+.interruptor input{position:absolute;opacity:0;width:1px;height:1px}
+.interruptor .riel{position:relative;width:52px;height:30px;border-radius:999px;background:#cfcabb;transition:.2s;flex:0 0 auto}
+.interruptor .riel:after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.2);transition:.2s}
+.interruptor input:checked+.riel:after{left:25px}
+.interruptor.inicio input:checked+.riel{background:var(--verde-dark)}
+.interruptor.estudios input:checked+.riel{background:var(--turquesa)}
+.interruptor input:focus-visible+.riel{outline:3px solid #222;outline-offset:2px}
+.interruptor .estado{font-size:12px;color:var(--muted);font-weight:600;display:block}
+.vacio{text-align:center;padding:40px;color:var(--muted)}
+.foto-zona{border:2px dashed var(--line);border-radius:16px;padding:18px;display:flex;gap:18px;align-items:center;flex-wrap:wrap;background:#fdfdf9}
+.foto-zona img{width:180px;height:120px;object-fit:cover;border-radius:12px}
+.herramientas{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.herramientas button{padding:8px 12px;border-radius:10px;border:1px solid var(--line);background:#fff;cursor:pointer;font-weight:700;color:var(--oliva)}
+.ayuda{font-size:14px;color:var(--muted);margin:6px 0 0}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.pie-form{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px;padding-top:20px;border-top:1px solid var(--line)}
+@media(max-width:760px){.fila{grid-template-columns:72px 1fr}.fila img,.fila .sin-foto{width:72px;height:56px}.interruptores{grid-column:1/-1;min-width:0}.dos{grid-template-columns:1fr}h1{font-size:28px}}
+</style>
+</head>
+<body>
+
+<section id="vista-login" class="cont oculto">
+  <div class="tarjeta login">
+    <img src="/assets/img/logo-cenresin.png" alt="CENRESIN">
+    <h1>Panel de noticias</h1>
+    <p class="sub">Ingresa para publicar o editar noticias del sitio.</p>
+    <form id="form-login">
+      <label class="campo" for="usuario">Usuario</label>
+      <input type="text" id="usuario" name="usuario" autocomplete="username" required autocapitalize="none">
+      <label class="campo" for="clave">Contraseña</label>
+      <input type="password" id="clave" name="clave" autocomplete="current-password" required>
+      <div id="login-aviso" class="aviso error oculto" role="alert"></div>
+      <p><button class="btn verde grande" type="submit" style="width:100%;margin-top:14px">Entrar</button></p>
+    </form>
+  </div>
+</section>
+
+<div id="vista-panel" class="oculto">
+  <header class="barra">
+    <div class="cont">
+      <a href="/" target="_blank" rel="noopener"><img src="/assets/img/logo-cenresin.png" alt="CENRESIN"></a>
+      <nav>
+        <span id="hola" class="sub" style="margin:0"></span>
+        <a class="btn claro" href="/noticias/" target="_blank" rel="noopener">Ver noticias en el sitio</a>
+        <button class="btn claro" id="btn-salir" type="button">Salir</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="cont" style="padding-bottom:60px">
+    <section id="vista-lista">
+      <div class="cabecera-lista">
+        <div>
+          <h1>Noticias</h1>
+          <p class="sub" style="margin-bottom:0">Todas las noticias aparecen en la página <b>Noticias</b>. Con los interruptores eliges si también se muestran en la portada de bienvenida o en la portada de Estudios Clínicos.</p>
+        </div>
+        <button class="btn verde grande" id="btn-nueva" type="button">+ Nueva noticia</button>
+      </div>
+      <div class="leyenda"><span><b style="background:var(--verde-dark)"></b>Bienvenida: portada de cenresin.cl</span><span><b style="background:var(--turquesa)"></b>Estudios clínicos: portada de Estudios Clínicos</span></div>
+      <div id="lista-aviso" class="aviso oculto" role="status"></div>
+      <div id="lista"></div>
+    </section>
+
+    <section id="vista-form" class="oculto">
+      <h1 id="form-titulo">Nueva noticia</h1>
+      <p class="sub">Completa los campos y presiona <b>Publicar</b>. Solo el título y el texto son obligatorios.</p>
+      <form id="form-noticia" class="tarjeta" novalidate>
+        <label class="campo" for="titulo">Título *</label>
+        <input type="text" id="titulo" name="titulo" maxlength="160" required placeholder="Ej.: Campaña de invierno: cómo proteger tus pulmones">
+        <p class="ayuda">Un buen título explica el tema en pocas palabras. Ayuda a que la noticia aparezca en Google.</p>
+
+        <label class="campo">Foto <small>(opcional, máximo 1)</small></label>
+        <div class="foto-zona">
+          <img id="foto-vista" class="oculto" alt="Vista previa de la foto">
+          <div>
+            <input type="file" id="foto" accept="image/jpeg,image/png,image/webp" class="oculto">
+            <button class="btn claro" type="button" id="btn-foto">Elegir foto</button>
+            <button class="btn peligro oculto" type="button" id="btn-quitar-foto">Quitar foto</button>
+            <p class="ayuda">JPG, PNG o WebP. Si es muy grande, se achica sola antes de subir.</p>
+          </div>
+        </div>
+        <label class="campo" for="imagen_alt">Descripción de la foto <small>(para personas con discapacidad visual y Google)</small></label>
+        <input type="text" id="imagen_alt" name="imagen_alt" maxlength="200" placeholder="Ej.: Paciente realizando una espirometría en CENRESIN">
+
+        <label class="campo" for="resumen">Resumen <small>(opcional, 1 o 2 frases que aparecen en las tarjetas y en Google)</small></label>
+        <input type="text" id="resumen" name="resumen" maxlength="300">
+
+        <label class="campo" for="cuerpo">Texto de la noticia *</label>
+        <div class="herramientas" aria-label="Formato">
+          <button type="button" data-formato="subtitulo">Subtítulo</button>
+          <button type="button" data-formato="negrita"><b>Negrita</b></button>
+          <button type="button" data-formato="lista">• Lista</button>
+          <button type="button" data-formato="enlace">Enlace</button>
+        </div>
+        <textarea id="cuerpo" name="cuerpo" required placeholder="Escribe aquí. Deja una línea en blanco entre párrafos."></textarea>
+        <p class="ayuda">Deja una línea en blanco entre párrafos. Los botones agregan formato: <code>## Subtítulo</code>, <code>**negrita**</code>, <code>- elemento de lista</code>. Si agregas un subtítulo «Preguntas frecuentes» con preguntas como subtítulo chico (<code>### ¿Pregunta?</code>), Google puede mostrarlas como respuestas.</p>
+
+        <div class="dos">
+          <div>
+            <label class="campo" for="fecha">Fecha de publicación</label>
+            <input type="date" id="fecha" name="fecha">
+            <p class="ayuda">Si eliges una fecha futura, la noticia aparecerá ese día.</p>
+          </div>
+          <div>
+            <label class="campo">¿Dónde más se muestra?</label>
+            <div class="interruptores">
+              <label class="interruptor inicio"><span>Bienvenida<span class="estado">Portada de cenresin.cl</span></span><input type="checkbox" id="f-inicio"><span class="riel"></span></label>
+              <label class="interruptor estudios"><span>Estudios clínicos<span class="estado">Portada de Estudios Clínicos</span></span><input type="checkbox" id="f-estudios"><span class="riel"></span></label>
+            </div>
+          </div>
+        </div>
+
+        <div id="form-aviso" class="aviso error oculto" role="alert"></div>
+        <div class="pie-form">
+          <button class="btn verde grande" type="submit" id="btn-publicar">Publicar</button>
+          <button class="btn claro grande" type="button" id="btn-cancelar">Cancelar</button>
+        </div>
+      </form>
+    </section>
+  </main>
+</div>
+
+<script>
+(() => {
+  const $ = (s) => document.querySelector(s);
+  const API = '/admin-login/api';
+  const MAX_LADO = 1600;
+  const MAX_BYTES = 1.4 * 1024 * 1024;
+  let noticias = [];
+  let editando = null;
+  let fotoNueva = null;
+  let quitarFoto = false;
+  let cambiosSinGuardar = false;
+
+  const mostrar = (id) => ['#vista-login', '#vista-panel'].forEach((v) => $(v).classList.toggle('oculto', v !== id));
+  const verSeccion = (id) => ['#vista-lista', '#vista-form'].forEach((v) => $(v).classList.toggle('oculto', v !== id));
+  const aviso = (el, texto, tipo = 'error') => { el.textContent = texto; el.className = `aviso ${tipo}`; el.classList.toggle('oculto', !texto); };
+  const esc = (t) => String(t ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  const fechaLarga = (iso) => { const [a, m, d] = String(iso).split('-').map(Number); return a ? `${d} de ${MESES[m - 1]} de ${a}` : ''; };
+  const hoy = () => new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Santiago' }).format(new Date());
+
+  async function api(ruta, opciones = {}) {
+    const r = await fetch(API + ruta, { credentials: 'same-origin', ...opciones });
+    let datos = {};
+    try { datos = await r.json(); } catch (e) {}
+    if (r.status === 401 && ruta !== '/entrar') { mostrar('#vista-login'); throw new Error(datos.error || 'Sesión terminada'); }
+    if (!r.ok) throw new Error(datos.error || 'No se pudo completar la acción.');
+    return datos;
+  }
+
+  async function iniciar() {
+    try {
+      const s = await api('/sesion');
+      $('#hola').textContent = `Hola, ${s.nombre || s.usuario}`;
+      mostrar('#vista-panel');
+      verSeccion('#vista-lista');
+      await cargar();
+    } catch (e) {
+      mostrar('#vista-login');
+      if (!/Sesión|sesión/.test(e.message)) aviso($('#login-aviso'), e.message);
+      $('#usuario').focus();
+    }
+  }
+
+  $('#form-login').addEventListener('submit', async (ev) => {
+    ev.preventDefault();
+    aviso($('#login-aviso'), '');
+    const boton = ev.submitter || ev.target.querySelector('button');
+    boton.disabled = true;
+    try {
+      await api('/entrar', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ usuario: $('#usuario').value, clave: $('#clave').value }) });
+      $('#clave').value = '';
+      await iniciar();
+    } catch (e) { aviso($('#login-aviso'), e.message); }
+    boton.disabled = false;
+  });
+
+  $('#btn-salir').addEventListener('click', async () => {
+    await api('/salir', { method: 'POST' }).catch(() => {});
+    mostrar('#vista-login');
+  });
+
+  async function cargar() {
+    noticias = await api('/noticias');
+    pintar();
+  }
+
+  function interruptor(n, campo, clase, etiqueta, detalle) {
+    return `<label class="interruptor ${clase}"><span>${etiqueta}<span class="estado">${n[campo] ? 'Se muestra' : 'No se muestra'} en ${detalle}</span></span><input type="checkbox" data-id="${n.id}" data-campo="${campo}" ${n[campo] ? 'checked' : ''} aria-label="Mostrar en ${detalle}"><span class="riel"></span></label>`;
+  }
+
+  function pintar() {
+    const lista = $('#lista');
+    if (!noticias.length) { lista.innerHTML = '<div class="vacio tarjeta">Todavía no hay noticias. Presiona <b>+ Nueva noticia</b> para crear la primera.</div>'; return; }
+    const hoyIso = hoy();
+    lista.innerHTML = noticias.map((n) => `
+      <article class="fila">
+        ${n.imagen_url ? `<img src="${esc(n.imagen_url)}" alt="">` : '<div class="sin-foto">Sin foto</div>'}
+        <div>
+          <h3>${esc(n.titulo)}</h3>
+          <div class="fecha">${fechaLarga(n.fecha)}${n.fecha > hoyIso ? ' · <b>Programada</b>' : ''}</div>
+          <div class="acciones">
+            <button class="btn claro" type="button" data-editar="${n.id}">Editar</button>
+            <a class="btn claro" href="/noticias/${encodeURIComponent(n.slug)}/" target="_blank" rel="noopener">Ver</a>
+            <button class="btn peligro" type="button" data-borrar="${n.id}">Eliminar</button>
+          </div>
+        </div>
+        <div class="interruptores">
+          ${interruptor(n, 'mostrar_inicio', 'inicio', 'Bienvenida', 'la portada')}
+          ${interruptor(n, 'mostrar_estudios', 'estudios', 'Estudios clínicos', 'Estudios Clínicos')}
+        </div>
+      </article>`).join('');
+  }
+
+  $('#lista').addEventListener('change', async (ev) => {
+    const c = ev.target.closest('input[data-campo]');
+    if (!c) return;
+    const n = noticias.find((x) => x.id === Number(c.dataset.id));
+    c.disabled = true;
+    try {
+      await api(`/noticias/${n.id}/interruptor`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ campo: c.dataset.campo, valor: c.checked }) });
+      n[c.dataset.campo] = c.checked ? 1 : 0;
+      pintar();
+      aviso($('#lista-aviso'), 'Cambio guardado.', 'ok');
+      setTimeout(() => aviso($('#lista-aviso'), ''), 2500);
+    } catch (e) { c.checked = !c.checked; c.disabled = false; aviso($('#lista-aviso'), e.message); }
+  });
+
+  $('#lista').addEventListener('click', async (ev) => {
+    const editar = ev.target.closest('[data-editar]');
+    const borrar = ev.target.closest('[data-borrar]');
+    if (editar) abrirFormulario(noticias.find((n) => n.id === Number(editar.dataset.editar)));
+    if (borrar) {
+      const n = noticias.find((x) => x.id === Number(borrar.dataset.borrar));
+      if (!confirm(`¿Eliminar la noticia «${n.titulo}»? Esta acción no se puede deshacer.`)) return;
+      try { await api(`/noticias/${n.id}`, { method: 'DELETE' }); await cargar(); aviso($('#lista-aviso'), 'Noticia eliminada.', 'ok'); }
+      catch (e) { aviso($('#lista-aviso'), e.message); }
+    }
+  });
+
+  $('#btn-nueva').addEventListener('click', () => abrirFormulario(null));
+
+  function abrirFormulario(n) {
+    editando = n;
+    fotoNueva = null;
+    quitarFoto = false;
+    $('#form-titulo').textContent = n ? 'Editar noticia' : 'Nueva noticia';
+    $('#btn-publicar').textContent = n ? 'Guardar cambios' : 'Publicar';
+    $('#titulo').value = n?.titulo || '';
+    $('#resumen').value = n?.resumen || '';
+    $('#cuerpo').value = n?.cuerpo || '';
+    $('#imagen_alt').value = n?.imagen_alt || '';
+    $('#fecha').value = n?.fecha || hoy();
+    $('#f-inicio').checked = !!n?.mostrar_inicio;
+    $('#f-estudios').checked = !!n?.mostrar_estudios;
+    ponerVistaFoto(n?.imagen_url || null);
+    aviso($('#form-aviso'), '');
+    cambiosSinGuardar = false;
+    verSeccion('#vista-form');
+    window.scrollTo(0, 0);
+    $('#titulo').focus();
+  }
+
+  function ponerVistaFoto(src) {
+    $('#foto-vista').classList.toggle('oculto', !src);
+    if (src) $('#foto-vista').src = src; else $('#foto-vista').removeAttribute('src');
+    $('#btn-quitar-foto').classList.toggle('oculto', !src);
+    $('#btn-foto').textContent = src ? 'Cambiar foto' : 'Elegir foto';
+  }
+
+  $('#btn-cancelar').addEventListener('click', () => {
+    if (cambiosSinGuardar && !confirm('Hay cambios sin guardar. ¿Salir de todas formas?')) return;
+    cambiosSinGuardar = false;
+    verSeccion('#vista-lista');
+  });
+  $('#form-noticia').addEventListener('input', () => { cambiosSinGuardar = true; });
+  window.addEventListener('beforeunload', (e) => { if (cambiosSinGuardar) { e.preventDefault(); e.returnValue = ''; } });
+
+  $('#btn-foto').addEventListener('click', () => $('#foto').click());
+  $('#btn-quitar-foto').addEventListener('click', () => { fotoNueva = null; quitarFoto = true; $('#foto').value = ''; ponerVistaFoto(null); cambiosSinGuardar = true; });
+  $('#foto').addEventListener('change', async () => {
+    const archivo = $('#foto').files[0];
+    $('#foto').value = '';
+    if (!archivo) return;
+    if (!/^image\/(jpeg|png|webp)$/.test(archivo.type)) { aviso($('#form-aviso'), 'La foto debe ser JPG, PNG o WebP.'); return; }
+    try {
+      fotoNueva = await achicar(archivo);
+      quitarFoto = false;
+      ponerVistaFoto(URL.createObjectURL(fotoNueva));
+      aviso($('#form-aviso'), '');
+      cambiosSinGuardar = true;
+    } catch (e) { aviso($('#form-aviso'), 'No se pudo leer la foto. Prueba con otra.'); }
+  });
+
+  async function achicar(archivo) {
+    const bitmap = await createImageBitmap(archivo);
+    const escala = Math.min(1, MAX_LADO / Math.max(bitmap.width, bitmap.height));
+    if (escala === 1 && archivo.size <= MAX_BYTES && archivo.type !== 'image/png') return archivo;
+    const canvas = document.createElement('canvas');
+    canvas.width = Math.round(bitmap.width * escala);
+    canvas.height = Math.round(bitmap.height * escala);
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+    for (const calidad of [0.85, 0.75, 0.65, 0.5]) {
+      const blob = await new Promise((ok) => canvas.toBlob(ok, 'image/jpeg', calidad));
+      if (blob.size <= MAX_BYTES) return new File([blob], 'foto.jpg', { type: 'image/jpeg' });
+    }
+    throw new Error('Foto muy pesada');
+  }
+
+  document.querySelector('.herramientas').addEventListener('click', (ev) => {
+    const b = ev.target.closest('[data-formato]');
+    if (!b) return;
+    const t = $('#cuerpo');
+    const ini = t.selectionStart, fin = t.selectionEnd;
+    const sel = t.value.slice(ini, fin);
+    let nuevo;
+    switch (b.dataset.formato) {
+      case 'subtitulo': nuevo = `\n\n## ${sel || 'Subtítulo'}\n\n`; break;
+      case 'negrita': nuevo = `**${sel || 'texto destacado'}**`; break;
+      case 'lista': nuevo = '\n\n' + (sel ? sel.split('\n').map((l) => `- ${l}`).join('\n') : '- Primer punto\n- Segundo punto') + '\n\n'; break;
+      case 'enlace': {
+        const url = prompt('Pega la dirección del enlace (por ejemplo https://cenresin.cl/examenes.html):', 'https://');
+        if (!url || url === 'https://') return;
+        nuevo = `[${sel || 'texto del enlace'}](${url.trim()})`;
+        break;
+      }
+    }
+    t.setRangeText(nuevo, ini, fin, 'end');
+    t.focus();
+    cambiosSinGuardar = true;
+  });
+
+  $('#form-noticia').addEventListener('submit', async (ev) => {
+    ev.preventDefault();
+    if (!$('#titulo').value.trim()) { aviso($('#form-aviso'), 'Falta el título.'); $('#titulo').focus(); return; }
+    if (!$('#cuerpo').value.trim()) { aviso($('#form-aviso'), 'Falta el texto de la noticia.'); $('#cuerpo').focus(); return; }
+    const datos = new FormData();
+    ['titulo', 'resumen', 'cuerpo', 'imagen_alt', 'fecha'].forEach((c) => datos.append(c, $('#' + c).value));
+    datos.append('mostrar_inicio', $('#f-inicio').checked ? '1' : '0');
+    datos.append('mostrar_estudios', $('#f-estudios').checked ? '1' : '0');
+    if (fotoNueva) datos.append('foto', fotoNueva, 'foto.jpg');
+    if (quitarFoto) datos.append('quitar_foto', '1');
+    const boton = $('#btn-publicar');
+    boton.disabled = true;
+    boton.textContent = 'Guardando…';
+    try {
+      await api(editando ? `/noticias/${editando.id}` : '/noticias', { method: 'POST', body: datos });
+      cambiosSinGuardar = false;
+      await cargar();
+      verSeccion('#vista-lista');
+      aviso($('#lista-aviso'), editando ? 'Cambios guardados.' : '¡Noticia publicada!', 'ok');
+      window.scrollTo(0, 0);
+    } catch (e) { aviso($('#form-aviso'), e.message); }
+    boton.disabled = false;
+    boton.textContent = editando ? 'Guardar cambios' : 'Publicar';
+  });
+
+  iniciar();
+})();
+</script>
+</body>
+</html>

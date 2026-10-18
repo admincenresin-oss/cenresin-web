@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Profesionales | CENRESIN</title>
   <meta name="description" content="Equipo de profesionales de CENRESIN.">
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/style.css?v=5.0">
+<link rel="stylesheet" href="assets/css/noticias.css?v=5.0">
 
 <style>
   .professionals-area{
@@ -157,37 +158,13 @@
 <header class="site-header">
   <div class="container nav">
     <a class="logo" href="index.html"><img src="assets/img/logo-cenresin.png" alt="Logo CENRESIN Centro Respiratorio Integral"></a>
-    <button class="mobile-toggle" type="button">Menú</button>
+    <button class="mobile-toggle" type="button" aria-label="Abrir menú">Menú</button>
     <nav class="menu" aria-label="Navegación principal">
       <a class="menu-link" href="index.html">Inicio</a>
-
-      <div class="dropdown">
-        <button class="drop-toggle" type="button">Quiénes Somos</button>
-        <div class="dropdown-content">
-          <a href="quienes-somos.html">Historia, misión y visión</a>
-          <a href="nuestro-equipo.html">Nuestro Equipo</a>
-        </div>
-      </div>
-
-      <div class="dropdown">
-        <button class="drop-toggle" type="button">Centro Médico</button>
-        <div class="dropdown-content">
-          <a href="centro-medico.html">Especialidades</a>
-          <a href="profesionales.html">Profesionales</a>
-          <a href="examenes.html">Exámenes</a>
-        </div>
-      </div>
-
-      <div class="dropdown">
-        <button class="drop-toggle" type="button">Estudios Clínicos</button>
-        <div class="dropdown-content">
-          <a href="estudios-clinicos.html">Investigación Clínica</a>
-          <a href="pacientes.html">Pacientes</a>
-          <a href="patrocinadores.html">Patrocinadores / CROs</a>
-        </div>
-      </div>
-
-      <a class="btn" href="contacto.html">Contacto</a>
+      <div class="dropdown"><button class="drop-toggle" type="button">Quiénes Somos</button><div class="dropdown-content"><a href="quienes-somos.html">Historia, misión y visión</a><a href="nuestro-equipo.html">Nuestro Equipo</a></div></div>
+      <div class="dropdown"><button class="drop-toggle" type="button">Centro Médico</button><div class="dropdown-content"><a href="centro-medico.html">Especialidades</a><a href="profesionales.html">Profesionales</a><a href="examenes.html">Exámenes</a></div></div>
+      <div class="dropdown clinical-dropdown"><button class="drop-toggle" type="button">Estudios Clínicos</button><div class="dropdown-content clinical-menu"><a class="clinical-menu-home" href="estudios-clinicos.html">Inicio de Estudios Clínicos</a><span>Para participantes</span><a href="estudios-disponibles.html">Áreas de estudio</a><a href="pacientes.html">¿Qué es un estudio clínico?</a><a href="estudios-clinicos.html#experiencia-participacion">Tu experiencia de estudio</a><a href="formulario-estudios-clinicos.html">Cómo participar</a><a href="estudios-clinicos.html#preguntas">Preguntas frecuentes</a><span>Para patrocinadores y CRO</span><a href="patrocinadores-cro.html">Experiencia y capacidades</a><a href="patrocinadores-cro.html#contacto-factibilidad">Factibilidad y contacto</a></div></div>
+      <a class="menu-link menu-noticias" href="noticias/">Noticias</a><a class="btn" href="contacto.html">Contacto</a>
     </nav>
   </div>
 </header>
@@ -375,7 +352,7 @@
 
       <div class="center-gallery">
         <article class="center-card">
-          <img src="assets/img/2.png" alt="Fachada principal de CENRESIN">
+          <img src="assets/img/2.jpg" alt="Fachada principal de CENRESIN">
           <div class="body">
             <h3>Centro Respiratorio Integral</h3>
             <p>Fachada principal de CENRESIN en Quillota.</p>
@@ -416,6 +393,25 @@
       </div>
     </div>
   </section>
+<section class="cta-band orientation-band">
+  <div class="container orientation-grid">
+    <div>
+      <div class="eyebrow">CONTACTO Y ORIENTACIÓN</div>
+      <h2>¿Necesitas orientación?</h2>
+      <p class="sub">Puedes contactarnos para resolver dudas sobre atención médica, exámenes o participación en estudios clínicos.</p>
+    </div>
+    <div class="orientation-card">
+      <div class="actions orientation-actions">
+        <a class="btn primary orientation-btn" href="contacto.html">Agendar consulta</a>
+        <a class="btn white orientation-btn" href="pacientes.html">Información para pacientes</a>
+      </div>
+      <div class="social-links">
+        <a href="https://www.facebook.com/cenresin/?locale=es_LA" target="_blank" rel="noopener"><span class="icon-circle"><img src="assets/img/facebook.svg" alt="Facebook"></span>Facebook</a>
+        <a href="https://www.instagram.com/cenresin/" target="_blank" rel="noopener"><span class="icon-circle"><img src="assets/img/instagram.svg" alt="Instagram"></span>Instagram</a>
+      </div>
+    </div>
+  </div>
+</section>
 </main>
 
 
@@ -425,7 +421,8 @@
     <span>San Martín 502, Quillota · 33 2 316393 · www.cenresin.cl</span>
   </div>
 </footer>
-<script src="assets/js/main.js"></script>
+<a class="whatsapp-float" href="https://wa.me/56332316393" target="_blank" rel="noopener" aria-label="WhatsApp CENRESIN"><img src="assets/img/whatsapp.svg" alt="WhatsApp"></a>
+<script src="assets/js/main.js?v=5.0"></script>
 
 </body>
 </html>

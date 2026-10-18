@@ -346,3 +346,24 @@ textarea{min-height:130px}
     justify-content:center;
   }
 }
+form .consent-field{display:flex;align-items:flex-start;gap:10px;line-height:1.45}
+form .consent-field input{width:18px;height:18px;min-width:18px;margin-top:2px}
+
+/* Grupos del menú de Estudios Clínicos */
+.clinical-menu{min-width:285px;padding:10px}
+.clinical-menu>span{display:block;padding:10px 15px 5px;color:#159aa1;font-size:11px;font-weight:900;letter-spacing:1.3px;text-transform:uppercase}
+.clinical-menu>span:not(:first-child){margin-top:7px;border-top:1px solid #d9efef}
+.clinical-menu>a{border-radius:8px}
+@media(max-width:900px){.clinical-menu{min-width:100%}}
+
+/* CENRESIN 5.0 — íconos y avisos de formularios */
+.form-aviso{margin:0;padding:12px 16px;border-radius:12px;background:#fdecea;color:#b42318;font-weight:700}
+.icono{width:1em;height:1em;display:block}
+.quick-index .quick-card span.quick-icon{display:inline-grid;place-items:center;width:58px;height:58px;border-radius:50%;background:var(--verde);color:var(--oliva);font-size:30px}
+.route-card .route-icon{display:inline-grid;place-items:center;width:52px;height:52px;margin-bottom:14px;border-radius:16px;background:var(--verde);color:var(--oliva);font-size:28px}
+.exam-front .exam-icon{display:grid;place-items:center;flex:0 0 44px;width:44px;height:44px;margin-bottom:10px;border-radius:14px;background:var(--verde);color:var(--oliva)}
+.exam-flip-grid .exam-flip-card,.exam-flip-grid .exam-flip-inner{min-height:480px}
+.quick-icon .icono{width:32px;height:32px}
+.route-icon .icono{width:30px;height:30px}
+.exam-icon .icono{width:28px;height:28px}
+@media(max-width:680px){.exam-flip-grid .exam-flip-card,.exam-flip-grid .exam-flip-inner{min-height:560px}}

@@ -10,8 +10,9 @@
 <meta name="theme-color" content="#d9e000">
 
   <title>CENRESIN | Centro Respiratorio Integral en Quillota</title>
-  <meta name="description" content="Índice general de CENRESIN: centro médico, profesionales, exámenes, estudios clínicos, pacientes, patrocinadores y contacto.">
-  <link rel="stylesheet" href="assets/css/style.css">
+  <meta name="description" content="CENRESIN, Centro Respiratorio Integral en Quillota: atención broncopulmonar, exámenes de función pulmonar, estudios clínicos y noticias de salud respiratoria.">
+  <link rel="stylesheet" href="assets/css/style.css?v=5.0">
+<link rel="stylesheet" href="assets/css/noticias.css?v=5.0">
 
 <style>
 
@@ -158,37 +159,13 @@
 <header class="site-header">
   <div class="container nav">
     <a class="logo" href="index.html"><img src="assets/img/logo-cenresin.png" alt="Logo CENRESIN Centro Respiratorio Integral"></a>
-    <button class="mobile-toggle" type="button">Menú</button>
+    <button class="mobile-toggle" type="button" aria-label="Abrir menú">Menú</button>
     <nav class="menu" aria-label="Navegación principal">
       <a class="menu-link" href="index.html">Inicio</a>
-
-      <div class="dropdown">
-        <button class="drop-toggle" type="button">Quiénes Somos</button>
-        <div class="dropdown-content">
-          <a href="quienes-somos.html">Historia, misión y visión</a>
-          <a href="nuestro-equipo.html">Nuestro Equipo</a>
-        </div>
-      </div>
-
-      <div class="dropdown">
-        <button class="drop-toggle" type="button">Centro Médico</button>
-        <div class="dropdown-content">
-          <a href="centro-medico.html">Especialidades</a>
-          <a href="profesionales.html">Profesionales</a>
-          <a href="examenes.html">Exámenes</a>
-        </div>
-      </div>
-
-      <div class="dropdown">
-        <button class="drop-toggle" type="button">Estudios Clínicos</button>
-        <div class="dropdown-content">
-          <a href="estudios-clinicos.html">Investigación Clínica</a>
-          <a href="pacientes.html">Pacientes</a>
-          <a href="patrocinadores.html">Patrocinadores / CROs</a>
-        </div>
-      </div>
-
-      <a class="btn" href="contacto.html">Contacto</a>
+      <div class="dropdown"><button class="drop-toggle" type="button">Quiénes Somos</button><div class="dropdown-content"><a href="quienes-somos.html">Historia, misión y visión</a><a href="nuestro-equipo.html">Nuestro Equipo</a></div></div>
+      <div class="dropdown"><button class="drop-toggle" type="button">Centro Médico</button><div class="dropdown-content"><a href="centro-medico.html">Especialidades</a><a href="profesionales.html">Profesionales</a><a href="examenes.html">Exámenes</a></div></div>
+      <div class="dropdown clinical-dropdown"><button class="drop-toggle" type="button">Estudios Clínicos</button><div class="dropdown-content clinical-menu"><a class="clinical-menu-home" href="estudios-clinicos.html">Inicio de Estudios Clínicos</a><span>Para participantes</span><a href="estudios-disponibles.html">Áreas de estudio</a><a href="pacientes.html">¿Qué es un estudio clínico?</a><a href="estudios-clinicos.html#experiencia-participacion">Tu experiencia de estudio</a><a href="formulario-estudios-clinicos.html">Cómo participar</a><a href="estudios-clinicos.html#preguntas">Preguntas frecuentes</a><span>Para patrocinadores y CRO</span><a href="patrocinadores-cro.html">Experiencia y capacidades</a><a href="patrocinadores-cro.html#contacto-factibilidad">Factibilidad y contacto</a></div></div>
+      <a class="menu-link menu-noticias" href="noticias/">Noticias</a><a class="btn" href="contacto.html">Contacto</a>
     </nav>
   </div>
 </header>
@@ -200,14 +177,14 @@
       <div>
         <div class="eyebrow">Centro Respiratorio Integral · Quillota</div>
         <h1>Todo CENRESIN en un solo lugar.</h1>
-        <p class="lead">El inicio funciona como índice general de la web: desde aquí puedes conocer el centro, revisar profesionales, especialidades, exámenes, estudios clínicos, pacientes, patrocinadores y contacto.</p>
+        <p class="lead">Desde aquí puedes conocer el centro, revisar profesionales, especialidades, exámenes, estudios clínicos, pacientes, patrocinadores y contacto.</p>
         <div class="actions">
           <a class="btn primary" href="centro-medico.html">Ir al Centro Médico</a>
           <a class="btn" href="estudios-clinicos.html">Ver Estudios Clínicos</a>
           <a class="btn white" href="contacto.html">Contactar</a>
         </div>
       </div>
-      <div class="hero-card"><img src="assets/img/1.png" alt="Centro Respiratorio Integral CENRESIN Quillota"></div>
+      <div class="hero-card"><img src="assets/img/1.jpg" alt="Centro Respiratorio Integral CENRESIN Quillota"></div>
     </div>
   </section>
 
@@ -216,15 +193,14 @@
   <section class="section alt routes-section">
     <div class="container">
       <div class="section-head">
-        <div><h2>Rutas de navegación</h2><p class="sub">Accesos directos según el tipo de usuario que llega a la web.</p></div>
+        <div><h2>¿Qué necesitas hoy?</h2><p class="sub">Elige el camino que mejor se ajuste a lo que buscas.</p></div>
       </div>
       <div class="grid-3">
-        <a class="feature-link route-card" href="examenes.html"><div><h3>Necesito un examen</h3><p>Revisa el catálogo de exámenes disponibles.</p></div><strong>→</strong></a>
-        <a class="feature-link route-card" href="profesionales.html"><div><h3>Busco un profesional</h3><p>Conoce al equipo y sus áreas de atención.</p></div><strong>→</strong></a>
-        <a class="feature-link route-card" href="contacto.html"><div><h3>Quiero agendar o consultar</h3><p>Teléfonos, WhatsApp, dirección y formulario.</p></div><strong>→</strong></a>
-        <a class="feature-link route-card" href="pacientes.html"><div><h3>Quiero participar en un estudio</h3><p>Información para pacientes interesados.</p></div><strong>→</strong></a>
-        <a class="feature-link route-card" href="patrocinadores.html"><div><h3>Soy patrocinador o CRO</h3><p>Capacidades e infraestructura del centro.</p></div><strong>→</strong></a>
-        <a class="feature-link route-card" href="quienes-somos.html"><div><h3>Quiero conocer CENRESIN</h3><p>Propósito, equipo y estándar de atención.</p></div><strong>→</strong></a>
+        <a class="feature-link route-card" href="examenes.html"><div><span class="route-icon" aria-hidden="true"><svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="5" y="4.5" width="14" height="16.5" rx="2.5"/><path d="M9 4.5V3.5h6v1"/><path d="M8.5 11h7M8.5 14.5h7M8.5 18h4"/></svg></span><h3>Necesito un examen</h3><p>Revisa el catálogo de exámenes disponibles.</p></div><strong>→</strong></a>
+        <a class="feature-link route-card" href="profesionales.html"><div><span class="route-icon" aria-hidden="true"><svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5.5 3H4.8a.8.8 0 0 0-.8.8V8a4.5 4.5 0 0 0 9 0V3.8a.8.8 0 0 0-.8-.8h-.7"/><path d="M8.5 12.5V15a5 5 0 0 0 10 0v-2.2"/><circle cx="18.5" cy="10.5" r="2.2"/></svg></span><h3>Busco un profesional</h3><p>Conoce al equipo y sus áreas de atención.</p></div><strong>→</strong></a>
+        <a class="feature-link route-card" href="contacto.html"><div><span class="route-icon" aria-hidden="true"><svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/><path d="M8 13.5h2M14 13.5h2M8 17h2"/></svg></span><h3>Quiero agendar o consultar</h3><p>Teléfonos, WhatsApp, dirección y formulario.</p></div><strong>→</strong></a>
+        <a class="feature-link route-card" href="pacientes.html"><div><span class="route-icon" aria-hidden="true"><svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="5" y="4.5" width="14" height="16.5" rx="2.5"/><path d="M9 4.5V3.5h6v1"/><path d="m8.8 13 2.2 2.2 4.4-4.4"/></svg></span><h3>Quiero participar en un estudio</h3><p>Información para pacientes interesados.</p></div><strong>→</strong></a>
+        <a class="feature-link route-card" href="quienes-somos.html"><div><span class="route-icon" aria-hidden="true"><svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 21V8l8-5 8 5v13"/><path d="M2.5 21h19"/><path d="M12 9.5v5M9.5 12h5"/><path d="M10 21v-3.5h4V21"/></svg></span><h3>Quiero conocer CENRESIN</h3><p>Propósito, equipo y estándar de atención.</p></div><strong>→</strong></a>
       </div>
     </div>
   </section>
@@ -234,18 +210,18 @@
       <div class="section-head">
         <div>
           <h2>Índice rápido</h2>
-          <p class="sub">Elige qué necesitas conocer. Cada botón lleva a una pestaña independiente de la web.</p>
+          <p class="sub">Elige qué necesitas conocer.</p>
         </div>
       </div>
       <div class="quick-grid">
-        <a class="quick-card" href="quienes-somos.html"><span>👥</span><h3>Quiénes Somos</h3><p>Equipo humano, enfoque institucional y áreas de gestión.</p></a>
-        <a class="quick-card" href="profesionales.html"><span>🩺</span><h3>Profesionales</h3><p>Fichas del equipo médico, clínico y administrativo.</p></a>
-        <a class="quick-card" href="centro-medico.html"><span>🏥</span><h3>Centro Médico</h3><p>Especialidades, atención clínica y bienestar integral.</p></a>
-        <a class="quick-card" href="examenes.html"><span>🔬</span><h3>Exámenes</h3><p>Función pulmonar, cardiología, nutrición e imagenología.</p></a>
-        <a class="quick-card" href="estudios-clinicos.html"><span>🧪</span><h3>Estudios Clínicos</h3><p>Investigación respiratoria con seguridad y calidad.</p></a>
-        <a class="quick-card" href="pacientes.html"><span>🙋</span><h3>Pacientes</h3><p>Cómo participar, seguridad, confidencialidad y preguntas frecuentes.</p></a>
-        <a class="quick-card" href="patrocinadores.html"><span>🤝</span><h3>Patrocinadores / CROs</h3><p>Capacidades, infraestructura y evaluación de factibilidad.</p></a>
-        <a class="quick-card" href="contacto.html"><span>📍</span><h3>Contacto</h3><p>Dirección, teléfonos, WhatsApp, horario y formulario.</p></a>
+        <a class="quick-card" href="quienes-somos.html"><span class="quick-icon" aria-hidden="true"><svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M15.5 4.9a3.2 3.2 0 0 1 0 6.2M17.5 14.3c2 .8 3.5 2.9 3.5 5.7"/></svg></span><h3>Quiénes Somos</h3><p>Equipo humano, enfoque institucional y áreas de gestión.</p></a>
+        <a class="quick-card" href="profesionales.html"><span class="quick-icon" aria-hidden="true"><svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5.5 3H4.8a.8.8 0 0 0-.8.8V8a4.5 4.5 0 0 0 9 0V3.8a.8.8 0 0 0-.8-.8h-.7"/><path d="M8.5 12.5V15a5 5 0 0 0 10 0v-2.2"/><circle cx="18.5" cy="10.5" r="2.2"/></svg></span><h3>Profesionales</h3><p>Fichas del equipo médico, clínico y administrativo.</p></a>
+        <a class="quick-card" href="centro-medico.html"><span class="quick-icon" aria-hidden="true"><svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 21V8l8-5 8 5v13"/><path d="M2.5 21h19"/><path d="M12 9.5v5M9.5 12h5"/><path d="M10 21v-3.5h4V21"/></svg></span><h3>Centro Médico</h3><p>Especialidades, atención clínica y bienestar integral.</p></a>
+        <a class="quick-card" href="examenes.html"><span class="quick-icon" aria-hidden="true"><svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9.5 3h5M10.5 3v6L5 18.2A1.9 1.9 0 0 0 6.7 21h10.6a1.9 1.9 0 0 0 1.7-2.8L13.5 9V3"/><path d="M7.5 14.5h9"/></svg></span><h3>Exámenes</h3><p>Función pulmonar, cardiología, nutrición e imagenología.</p></a>
+        <a class="quick-card" href="estudios-clinicos.html"><span class="quick-icon" aria-hidden="true"><svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 4v7.5"/><path d="M12 11.5c-1 .9-2 1.3-2 1.3M12 11.5c1 .9 2 1.3 2 1.3"/><path d="M8.6 7.2C5.9 7.9 4 11.6 4 15.6 4 17.9 4.9 19 6.4 19c2.1 0 3.6-1 3.6-3.6V8.9c0-1.1-.5-1.8-1.4-1.7Z"/><path d="M15.4 7.2c2.7.7 4.6 4.4 4.6 8.4 0 2.3-.9 3.4-2.4 3.4-2.1 0-3.6-1-3.6-3.6V8.9c0-1.1.5-1.8 1.4-1.7Z"/></svg></span><h3>Estudios Clínicos</h3><p>Investigación respiratoria con seguridad y calidad.</p></a>
+        <a class="quick-card" href="pacientes.html"><span class="quick-icon" aria-hidden="true"><svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21c-3.6 0-6.5-2.9-6.5-6.5V9.8a1.4 1.4 0 0 1 2.8 0V12"/><path d="M8.3 11V5.4a1.4 1.4 0 0 1 2.8 0V11M11.1 10.5V4.2a1.4 1.4 0 0 1 2.8 0v6.3M13.9 10.8V5.6a1.4 1.4 0 0 1 2.8 0v8.9c0 3.6-2.9 6.5-6.5 6.5"/></svg></span><h3>Pacientes</h3><p>Cómo participar, seguridad, confidencialidad y preguntas frecuentes.</p></a>
+        <a class="quick-card" href="noticias/"><span class="quick-icon" aria-hidden="true"><svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 5.5h13v13.2a1.8 1.8 0 0 0 1.8 1.8H6a2 2 0 0 1-2-2Z"/><path d="M17 9h3v9.7a1.8 1.8 0 0 1-3.6 0"/><path d="M7 9h7M7 12.5h7M7 16h4.5"/></svg></span><h3>Noticias</h3><p>Salud respiratoria, prevención, exámenes y estudios clínicos.</p></a>
+        <a class="quick-card" href="contacto.html"><span class="quick-icon" aria-hidden="true"><svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg></span><h3>Contacto</h3><p>Dirección, teléfonos, WhatsApp, horario y formulario.</p></a>
       </div>
     </div>
   </section>
@@ -281,7 +257,16 @@
   </section>
 
 
-  
+  <section class="news-section news-section--inicio" id="noticias" data-noticias="inicio" data-limite="3" aria-labelledby="titulo-noticias-inicio">
+    <div class="container">
+      <div class="section-head">
+        <div><div class="eyebrow"><svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 5.5h13v13.2a1.8 1.8 0 0 0 1.8 1.8H6a2 2 0 0 1-2-2Z"/><path d="M17 9h3v9.7a1.8 1.8 0 0 1-3.6 0"/><path d="M7 9h7M7 12.5h7M7 16h4.5"/></svg>Noticias CENRESIN</div><h2 id="titulo-noticias-inicio">Últimas noticias</h2><p class="sub">Información clara sobre salud respiratoria, prevención, exámenes y estudios clínicos.</p></div>
+        <a class="btn" href="noticias/">Ver todas las noticias</a>
+      </div>
+      <div class="news-grid" data-noticias-lista><article class="news-card"><a class="news-card-img" href="/noticias/virus-respiratorio-sincicial-vrs-adultos-mayores/" tabindex="-1" aria-hidden="true"><img src="/assets/img/noticias/vrs-adultos-mayores.jpg" alt="Coordinadora de CENRESIN conversando con una paciente adulta mayor" loading="lazy" width="800" height="450"></a><div class="news-card-body"><time datetime="2026-10-15">15 de octubre de 2026</time><h3><a href="/noticias/virus-respiratorio-sincicial-vrs-adultos-mayores/">Virus respiratorio sincicial (VRS) en adultos mayores: qué es y cómo prevenirlo</a></h3><p>El VRS no solo afecta a los niños: en personas de 60 años o más y en quienes viven con enfermedades crónicas puede causar neumonía y hospitalización. Te explicamos síntomas, riesgos y cómo prevenirlo.</p><a class="news-card-more" href="/noticias/virus-respiratorio-sincicial-vrs-adultos-mayores/">Leer noticia <span aria-hidden="true">›</span></a></div></article><article class="news-card"><a class="news-card-img" href="/noticias/rinitis-alergica-primavera-diferencia-resfrio/" tabindex="-1" aria-hidden="true"><img src="/assets/img/noticias/rinitis-primavera.jpg" alt="Familia respirando al aire libre en un día de primavera" loading="lazy" width="800" height="450"></a><div class="news-card-body"><time datetime="2026-10-08">8 de octubre de 2026</time><h3><a href="/noticias/rinitis-alergica-primavera-diferencia-resfrio/">Rinitis alérgica en primavera: cómo distinguirla de un resfrío</a></h3><p>Estornudos, picazón y nariz que gotea durante semanas suelen ser rinitis alérgica y no un resfrío. Te contamos cómo diferenciarlos, por qué conviene tratarla y qué exámenes ayudan a identificar la causa.</p><a class="news-card-more" href="/noticias/rinitis-alergica-primavera-diferencia-resfrio/">Leer noticia <span aria-hidden="true">›</span></a></div></article><article class="news-card"><a class="news-card-img" href="/noticias/asma-senales-tratamiento-necesita-revision/" tabindex="-1" aria-hidden="true"><img src="/assets/img/noticias/asma-control.jpg" alt="Box de atención médica de CENRESIN en Quillota" loading="lazy" width="800" height="450"></a><div class="news-card-body"><time datetime="2026-09-29">29 de septiembre de 2026</time><h3><a href="/noticias/asma-senales-tratamiento-necesita-revision/">Asma: 5 señales de que tu tratamiento necesita revisión</a></h3><p>Despertar de noche con tos o usar el inhalador de rescate más de dos veces por semana son señales de que el asma no está bien controlada. Revisa estas cinco alertas y cuándo consultar.</p><a class="news-card-more" href="/noticias/asma-senales-tratamiento-necesita-revision/">Leer noticia <span aria-hidden="true">›</span></a></div></article></div>
+    </div>
+  </section>
+
 <section class="section alt">
     <div class="container grid-2">
 
@@ -325,54 +310,26 @@
 
     </div>
   </section>
-
-  <section class="cta-band orientation-band">
-    <div class="container orientation-grid">
-      <div>
-        <div class="eyebrow">CONTACTO Y ORIENTACIÓN</div>
-        <h2>¿Necesitas orientación?</h2>
-        <p class="sub">Puedes contactarnos para resolver dudas sobre atención médica, exámenes o participación en estudios clínicos.</p>
+<section class="cta-band orientation-band">
+  <div class="container orientation-grid">
+    <div>
+      <div class="eyebrow">CONTACTO Y ORIENTACIÓN</div>
+      <h2>¿Necesitas orientación?</h2>
+      <p class="sub">Puedes contactarnos para resolver dudas sobre atención médica, exámenes o participación en estudios clínicos.</p>
+    </div>
+    <div class="orientation-card">
+      <div class="actions orientation-actions">
+        <a class="btn primary orientation-btn" href="contacto.html">Agendar consulta</a>
+        <a class="btn white orientation-btn" href="pacientes.html">Información para pacientes</a>
       </div>
-
-      <div class="orientation-card">
-        <div class="actions orientation-actions">
-          <a class="btn primary orientation-btn" href="contacto.html">Agendar o consultar</a>
-          <a class="btn white orientation-btn" href="pacientes.html">Información para pacientes</a>
-        </div>
-
-        
-<div class="social-links">
-
-    <a href="https://www.facebook.com/cenresin/?locale=es_LA" target="_blank" rel="noopener">
-        <span class="icon-circle">
-            <img src="assets/img/facebook.svg" alt="Facebook">
-        </span>
-        Facebook
-    </a>
-
-    <a href="https://www.instagram.com/cenresin/" target="_blank" rel="noopener">
-        <span class="icon-circle">
-            <img src="assets/img/instagram.svg" alt="Instagram">
-        </span>
-        Instagram
-    </a>
-
-</div>
+      <div class="social-links">
+        <a href="https://www.facebook.com/cenresin/?locale=es_LA" target="_blank" rel="noopener"><span class="icon-circle"><img src="assets/img/facebook.svg" alt="Facebook"></span>Facebook</a>
+        <a href="https://www.instagram.com/cenresin/" target="_blank" rel="noopener"><span class="icon-circle"><img src="assets/img/instagram.svg" alt="Instagram"></span>Instagram</a>
       </div>
     </div>
-  </section>
-
+  </div>
+</section>
 </main>
-
-
-
-<a class="whatsapp-float"
-   href="https://wa.me/56332316393"
-   target="_blank"
-   rel="noopener"
-   aria-label="WhatsApp">
-    <img src="assets/img/whatsapp.svg" alt="WhatsApp">
-</a>
 
 
 
@@ -383,7 +340,9 @@
     <span>San Martín 502, Quillota · 33 2 316393 · www.cenresin.cl</span>
   </div>
 </footer>
-<script src="assets/js/main.js"></script>
+<a class="whatsapp-float" href="https://wa.me/56332316393" target="_blank" rel="noopener" aria-label="WhatsApp CENRESIN"><img src="assets/img/whatsapp.svg" alt="WhatsApp"></a>
+<script src="assets/js/main.js?v=5.0"></script>
+<script src="assets/js/noticias.js?v=5.0" defer></script>
 
 </body>
 </html>

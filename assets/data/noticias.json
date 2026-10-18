@@ -1,0 +1,52 @@
+[
+  {
+    "slug": "virus-respiratorio-sincicial-vrs-adultos-mayores",
+    "titulo": "Virus respiratorio sincicial (VRS) en adultos mayores: qué es y cómo prevenirlo",
+    "resumen": "El VRS no solo afecta a los niños: en personas de 60 años o más y en quienes viven con enfermedades crónicas puede causar neumonía y hospitalización. Te explicamos síntomas, riesgos y cómo prevenirlo.",
+    "fecha": "2026-10-15",
+    "imagen_url": "/assets/img/noticias/vrs-adultos-mayores.jpg",
+    "imagen_alt": "Coordinadora de CENRESIN conversando con una paciente adulta mayor",
+    "mostrar_inicio": 1,
+    "mostrar_estudios": 1
+  },
+  {
+    "slug": "rinitis-alergica-primavera-diferencia-resfrio",
+    "titulo": "Rinitis alérgica en primavera: cómo distinguirla de un resfrío",
+    "resumen": "Estornudos, picazón y nariz que gotea durante semanas suelen ser rinitis alérgica y no un resfrío. Te contamos cómo diferenciarlos, por qué conviene tratarla y qué exámenes ayudan a identificar la causa.",
+    "fecha": "2026-10-08",
+    "imagen_url": "/assets/img/noticias/rinitis-primavera.jpg",
+    "imagen_alt": "Familia respirando al aire libre en un día de primavera",
+    "mostrar_inicio": 1,
+    "mostrar_estudios": 0
+  },
+  {
+    "slug": "asma-senales-tratamiento-necesita-revision",
+    "titulo": "Asma: 5 señales de que tu tratamiento necesita revisión",
+    "resumen": "Despertar de noche con tos o usar el inhalador de rescate más de dos veces por semana son señales de que el asma no está bien controlada. Revisa estas cinco alertas y cuándo consultar.",
+    "fecha": "2026-09-29",
+    "imagen_url": "/assets/img/noticias/asma-control.jpg",
+    "imagen_alt": "Box de atención médica de CENRESIN en Quillota",
+    "mostrar_inicio": 1,
+    "mostrar_estudios": 0
+  },
+  {
+    "slug": "epoc-espirometria-diagnostico-temprano",
+    "titulo": "EPOC: por qué la espirometría es clave para el diagnóstico temprano",
+    "resumen": "La EPOC suele confundirse con el \"cansancio de la edad\" o la \"tos del fumador\". La espirometría es el examen que confirma el diagnóstico y permite iniciar el tratamiento a tiempo.",
+    "fecha": "2026-09-17",
+    "imagen_url": "/assets/img/noticias/epoc-espirometria.jpg",
+    "imagen_alt": "Sala de atención de CENRESIN preparada para exámenes respiratorios",
+    "mostrar_inicio": 0,
+    "mostrar_estudios": 1
+  },
+  {
+    "slug": "estudios-clinicos-mitos-y-verdades",
+    "titulo": "Estudios clínicos: 6 mitos y verdades sobre participar",
+    "resumen": "¿Participar en un estudio clínico es ser \"conejillo de Indias\"? ¿Me puedo retirar cuando quiera? Respondemos las dudas más comunes sobre la investigación clínica y cómo se protege a los participantes.",
+    "fecha": "2026-09-03",
+    "imagen_url": "/assets/img/noticias/estudios-clinicos-mitos.jpg",
+    "imagen_alt": "Participante conversando con una coordinadora de estudios clínicos de CENRESIN",
+    "mostrar_inicio": 0,
+    "mostrar_estudios": 1
+  }
+]

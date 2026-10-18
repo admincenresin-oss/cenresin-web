@@ -11,10 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('.drop-toggle').forEach((btn) => {
     btn.addEventListener('click', (event) => {
+      const dropdown = btn.closest('.dropdown');
       event.preventDefault();
       event.stopPropagation();
-
-      const dropdown = btn.closest('.dropdown');
       document.querySelectorAll('.dropdown.open').forEach((item) => {
         if (item !== dropdown) item.classList.remove('open');
       });
@@ -31,10 +30,41 @@ document.addEventListener('DOMContentLoaded', () => {
     content.addEventListener('click', (event) => event.stopPropagation());
   });
 
-  document.querySelectorAll('form').forEach((form) => {
-    form.addEventListener('submit', (event) => {
+  // Formularios: se envían a /api/formulario y luego se muestra la página de gracias.
+  document.querySelectorAll('form[data-clinical-form], form[data-formulario]').forEach((form) => {
+    const trampa = document.createElement('input');
+    trampa.type = 'text';
+    trampa.name = 'sitio_web';
+    trampa.tabIndex = -1;
+    trampa.autocomplete = 'off';
+    trampa.setAttribute('aria-hidden', 'true');
+    trampa.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px;opacity:0';
+    form.appendChild(trampa);
+
+    const aviso = document.createElement('p');
+    aviso.className = 'form-aviso';
+    aviso.setAttribute('role', 'alert');
+    aviso.hidden = true;
+    form.appendChild(aviso);
+
+    form.addEventListener('submit', async (event) => {
       event.preventDefault();
-      alert('Formulario listo. Falta conectar el envío al correo o WhatsApp desde el hosting.');
+      const boton = form.querySelector('[type="submit"]');
+      const datos = new FormData(form);
+      datos.append('origen', location.pathname);
+      aviso.hidden = true;
+      if (boton) boton.disabled = true;
+      try {
+        const respuesta = await fetch('/api/formulario', { method: 'POST', body: datos });
+        let resultado = {};
+        try { resultado = await respuesta.json(); } catch (e) {}
+        if (!respuesta.ok || !resultado.ok) throw new Error(resultado.error);
+        window.location.href = 'gracias.html';
+      } catch (error) {
+        aviso.textContent = (error && error.message) || 'No pudimos enviar tu mensaje. Por favor llámanos al 33 2 316393 o escríbenos por WhatsApp.';
+        aviso.hidden = false;
+        if (boton) boton.disabled = false;
+      }
     });
   });
 });

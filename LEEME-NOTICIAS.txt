@@ -1,0 +1,77 @@
+CENRESIN — BLOG «NOTICIAS» Y PANEL DE ADMINISTRACIÓN (versión 5.0, 18 de octubre de 2026)
+==========================================================================================
+
+QUÉ HAY NUEVO
+- Enlace «Noticias» en el menú de todas las páginas  ->  cenresin.cl/noticias/
+- Sección «Últimas noticias» en la portada de bienvenida (verde limón).
+- Sección de noticias en la portada de Estudios Clínicos (turquesa).
+- Panel para publicar noticias  ->  cenresin.cl/admin-login
+- 5 noticias de ejemplo sobre salud respiratoria (VRS, rinitis, asma, EPOC, estudios clínicos).
+
+USUARIO DE PRUEBA DEL PANEL
+  Usuario:     prueba
+  Contraseña:  Noticias-Cenresin-2026
+  (Cámbiala o crea usuarios reales antes de entregar el sitio: ver «Crear o cambiar usuarios».)
+
+CÓMO SE USA EL PANEL
+1. Entra a cenresin.cl/admin-login con el usuario y la contraseña.
+2. Presiona «+ Nueva noticia», escribe el título y el texto, y si quieres agrega 1 foto.
+3. Elige con los interruptores dónde más se muestra:
+     Bienvenida         -> sección «Últimas noticias» de la portada (muestra las 3 más recientes encendidas)
+     Estudios clínicos  -> sección de noticias de Estudios Clínicos (las 3 más recientes encendidas)
+   Todas las noticias aparecen siempre en la página Noticias.
+4. Presiona «Publicar». Los interruptores también se pueden cambiar después, desde la lista.
+
+-------------------------------------------------------------------------
+PUBLICAR EN CLOUDFLARE (lo hace quien administra la cuenta, una sola vez)
+-------------------------------------------------------------------------
+El sitio se publica en el Worker de Cloudflare «cenresin-web» (ya existe en la cuenta).
+La base de datos «cenresin-noticias» (Cloudflare D1) ya fue creada y su ID está en wrangler.toml.
+
+Requisito: Node.js instalado (https://nodejs.org, versión LTS).
+
+FORMA FÁCIL (Mac): doble clic en  PUBLICAR-EN-CLOUDFLARE.command
+  Te pide iniciar sesión en Cloudflare en el navegador, prepara la base de datos y sube el sitio.
+  Si el Mac no lo deja abrir: clic derecho > Abrir.
+
+FORMA MANUAL (Terminal, dentro de esta carpeta):
+  1) npx wrangler login
+  2) npm run migrar      (crea las tablas, carga las 5 noticias de ejemplo y el usuario de prueba)
+  3) npm run publicar    (prepara la carpeta «publicar» y sube el sitio)
+
+Para revisar antes en tu computador:  npm run dev  ->  abre http://localhost:8787
+
+IMPORTANTE: «npm run publicar» reemplaza la versión que hoy está en el Worker «cenresin-web».
+
+FORMULARIOS (antes no enviaban nada; solo mostraban un aviso)
+Ahora se envían por correo con Resend. Agrega estos valores en Cloudflare
+(Workers > cenresin-web > Configuración > Variables y secretos):
+  RESEND_API_KEY   clave de https://resend.com
+  FORM_TO_EMAIL    correo(s) que reciben las solicitudes, separados por coma
+  FORM_FROM_EMAIL  remitente verificado en Resend, ej.: CENRESIN <formularios@cenresin.cl>
+Mientras falten, el formulario avisa que se comuniquen por teléfono o WhatsApp.
+
+CREAR O CAMBIAR USUARIOS DEL PANEL
+  node scripts/crear-usuario.mjs nombreusuario "Contraseña segura" "Nombre visible"
+  Copia la instrucción que aparece y ejecútala con:
+  npx wrangler d1 execute cenresin-noticias --remote --command "<instrucción>"
+Desactivar el usuario de prueba:
+  npx wrangler d1 execute cenresin-noticias --remote --command "UPDATE usuarios SET activo = 0 WHERE usuario = 'prueba'"
+
+ARCHIVOS
+  worker/            programa del sitio (noticias, panel, formularios)
+  assets/admin/      pantalla del panel
+  assets/css/noticias.css, assets/js/noticias.js
+  migraciones/       base de datos (tablas, noticias de ejemplo, usuario de prueba)
+  scripts/           preparar la publicación y crear usuarios
+  noticias/          páginas de respaldo de las noticias de ejemplo (se regeneran solas)
+  publicar/          se genera con «npm run publicar»; no se edita a mano
+  _respaldos/        copia completa de la carpeta antes de estos cambios; NO subir al hosting
+
+NOTAS
+- Las 5 noticias son textos de ejemplo con información médica general. Conviene que un médico
+  de CENRESIN las revise antes de publicarlas.
+- Cada noticia se publica con datos estructurados para Google (artículo, preguntas frecuentes,
+  ruta de navegación y datos del centro), título y descripción propios, imagen para redes
+  sociales y aparece en sitemap.xml y en noticias/rss.xml.
+- Las fotos subidas en el panel se achican solas (máximo 1600 px) y se guardan en la base de datos.

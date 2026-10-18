@@ -1,0 +1,22 @@
+# Configuración de Cloudflare para cenresin.cl (ver LEEME-NOTICIAS.txt)
+name = "cenresin-web"
+main = "worker/index.js"
+compatibility_date = "2026-09-01"
+
+[assets]
+directory = "./publicar"
+binding = "ASSETS"
+run_worker_first = true
+html_handling = "none"
+not_found_handling = "none"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "cenresin-noticias"
+database_id = "6f17b191-5c20-471a-8f8a-345cd398887e"
+migrations_dir = "migraciones"
+
+# Variables para el envío de formularios (agregar en Cloudflare como "secrets"):
+#   RESEND_API_KEY  -> clave de https://resend.com
+#   FORM_TO_EMAIL   -> correo(s) que reciben las solicitudes, separados por coma
+#   FORM_FROM_EMAIL -> remitente verificado en Resend, ej. "CENRESIN <formularios@cenresin.cl>"
