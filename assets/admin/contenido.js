@@ -253,6 +253,11 @@
     'cardiovascular-nutricion-deporte':'cardiovascular',
     'imagenologia':'imagenologia'
   };
+  const grupoExamenesPorTitulo={
+    'Área Respiratoria':'respiratoria',
+    'Evaluación integral del paciente':'cardiovascular',
+    'Apoyo visual diagnóstico':'imagenologia'
+  };
 
   function bloqueCatalogoExamenes(grupo){
     const borrador=cms.examenes?.borrador;
@@ -306,7 +311,7 @@
         return `<article class="cms-page-field"><h4>${titulo}</h4><label for="cms-page-link-text-${esc(f.id)}">Texto del botón o enlace</label><textarea id="cms-page-link-text-${esc(f.id)}" data-page-link-text="${esc(f.id)}">${esc(paginaEdicion.links[f.id]?.text??f.text)}</textarea><label for="cms-page-link-href-${esc(f.id)}">Destino del enlace</label><input id="cms-page-link-href-${esc(f.id)}" type="url" data-page-link-href="${esc(f.id)}" value="${esc(paginaEdicion.links[f.id]?.href??f.href)}"></article>`;
       }).join('');
       const areaId=entries.find(entry=>entry.field.areaId)?.field.areaId;
-      const grupoExamenes=grupoExamenesPorArea[areaId];
+      const grupoExamenes=grupoExamenesPorArea[areaId]||grupoExamenesPorTitulo[nombre];
       const catalogo=paginaSeleccionada==='/examenes.html'&&grupoExamenes?bloqueCatalogoExamenes(grupoExamenes):'';
       return `<section class="cms-page-section"><h3>${esc(nombre)}</h3><div class="cms-page-section-fields">${contenido}${catalogo}</div></section>`;
     }).join('');
