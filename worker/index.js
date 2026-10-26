@@ -69,7 +69,7 @@ function inyectarRespuestaHtml(respuesta) {
 
 function inyectarEditorSitio(cuerpo) {
   if (!/<\/body>/i.test(cuerpo) || /contenido-sitio\.js/.test(cuerpo)) return cuerpo;
-  return cuerpo.replace(/<\/body>/i, '<script src="/assets/js/contenido-sitio.js?v=6.1" defer></script></body>');
+  return cuerpo.replace(/<\/body>/i, '<script src="/assets/js/contenido-sitio.js?v=6.2" defer></script></body>');
 }
 
 /* ---------- noticias de ejemplo ---------- */
