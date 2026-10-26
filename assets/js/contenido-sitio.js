@@ -24,10 +24,20 @@
   }
 
   function camposPagina() {
-    const texts = elementosTexto().map((el, i) => ({ id: `t${i}`, tag: el.tagName.toLowerCase(), label: etiquetaSeccion(el), value: el.textContent.trim() }));
     const root = document.body;
-    const images = [...root.querySelectorAll('img')].filter((img) => !img.closest('.site-header,header,nav,form,[data-cms-collection]')).map((img, i) => ({ id: `i${i}`, label: etiquetaSeccion(img), src: img.getAttribute('src') || '', alt: img.getAttribute('alt') || '' }));
-    const links = [...root.querySelectorAll('main a,footer a')].filter((a)=>!a.closest('[data-cms-collection]')&&a.textContent.trim()).map((a,i)=>({id:`l${i}`,label:etiquetaSeccion(a),text:a.textContent.trim(),href:a.getAttribute('href')||''}));
+    const textos = elementosTexto();
+    const imagenes = [...root.querySelectorAll('img')].filter((img) => !img.closest('.site-header,header,nav,form,[data-cms-collection]'));
+    const enlaces = [...root.querySelectorAll('main a,footer a')].filter((a)=>!a.closest('[data-cms-collection]')&&a.textContent.trim());
+    const elementos = [...new Set([...textos, ...imagenes, ...enlaces])].sort((a,b) => {
+      const posicion = a.compareDocumentPosition(b);
+      if (posicion & Node.DOCUMENT_POSITION_FOLLOWING) return -1;
+      if (posicion & Node.DOCUMENT_POSITION_PRECEDING) return 1;
+      return 0;
+    });
+    const orden = new Map(elementos.map((el, indice) => [el, indice]));
+    const texts = textos.map((el, i) => ({ id: `t${i}`, orden: orden.get(el), tag: el.tagName.toLowerCase(), label: etiquetaSeccion(el), value: el.textContent.trim() }));
+    const images = imagenes.map((img, i) => ({ id: `i${i}`, orden: orden.get(img), label: etiquetaSeccion(img), src: img.getAttribute('src') || '', alt: img.getAttribute('alt') || '' }));
+    const links = enlaces.map((a,i)=>({id:`l${i}`,orden:orden.get(a),label:etiquetaSeccion(a),text:a.textContent.trim(),href:a.getAttribute('href')||''}));
     return { texts, images, links };
   }
 
