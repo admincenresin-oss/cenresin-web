@@ -235,9 +235,10 @@
     return value||'Contenido general';
   }
 
-  function etiquetaCampo(label){
+  function etiquetaCampo(label,seccion){
     const parts=String(label||'').split(' · ');
-    return parts.length>1?parts.slice(1).join(' · ').trim():'Contenido de esta sección';
+    const detail=parts.length>1?parts.slice(1).join(' · ').trim():'Contenido de esta sección';
+    return detail.toLocaleLowerCase()===String(seccion||'').toLocaleLowerCase()?'Título de la sección':detail;
   }
 
   function dibujarCamposPagina(fields){
@@ -255,7 +256,7 @@
     });
     const html=[...grupos.entries()].map(([nombre,entries])=>{
       const contenido=entries.map(({tipo,field:f})=>{
-        const titulo=esc(etiquetaCampo(f.label));
+        const titulo=esc(etiquetaCampo(f.label,nombre));
         if(tipo==='texto')return `<article class="cms-page-field"><label for="cms-page-text-${esc(f.id)}">${titulo}</label><textarea id="cms-page-text-${esc(f.id)}" data-page-text="${esc(f.id)}">${esc(paginaEdicion.text[f.id]??f.value)}</textarea></article>`;
         if(tipo==='imagen')return `<article class="cms-page-field"><h4>${titulo}</h4><img src="${esc(paginaEdicion.images[f.id]?.src||f.src)}" alt=""><label for="cms-page-image-${esc(f.id)}">Cambiar imagen</label><input id="cms-page-image-${esc(f.id)}" type="file" accept="image/jpeg,image/png,image/webp" data-page-image="${esc(f.id)}"><label for="cms-page-alt-${esc(f.id)}">Descripción de la imagen</label><input id="cms-page-alt-${esc(f.id)}" type="text" data-page-alt="${esc(f.id)}" value="${esc(paginaEdicion.images[f.id]?.alt??f.alt)}"></article>`;
         return `<article class="cms-page-field"><h4>${titulo}</h4><label for="cms-page-link-text-${esc(f.id)}">Texto del botón o enlace</label><textarea id="cms-page-link-text-${esc(f.id)}" data-page-link-text="${esc(f.id)}">${esc(paginaEdicion.links[f.id]?.text??f.text)}</textarea><label for="cms-page-link-href-${esc(f.id)}">Destino del enlace</label><input id="cms-page-link-href-${esc(f.id)}" type="url" data-page-link-href="${esc(f.id)}" value="${esc(paginaEdicion.links[f.id]?.href??f.href)}"></article>`;
