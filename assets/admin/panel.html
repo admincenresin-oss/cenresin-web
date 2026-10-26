@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/png" href="/assets/img/favicon.png">
-<link rel="stylesheet" href="/assets/admin/contenido.css?v=6.2">
+<link rel="stylesheet" href="/assets/admin/contenido.css?v=6.3">
 <title>Panel de noticias | CENRESIN</title>
 <style>
 :root{--verde:#d9e000;--verde-dark:#a9b300;--oliva:#817867;--texto:#37332d;--muted:#756e61;--bg:#f8f7f1;--line:#e6e1d1;--turquesa:#159aa1;--turquesa-pale:#e9fbfb;--rojo:#b42318}
@@ -136,11 +136,19 @@ textarea{min-height:300px;resize:vertical;line-height:1.55}
         </div>
       </div>
       <div id="cms-paginas" class="oculto">
-        <div class="cabecera-lista"><div><h2>Textos e imágenes de las páginas</h2><p class="sub">Selecciona una pestaña del sitio. Puedes editar los textos e imágenes visibles en esa página.</p></div></div>
-        <label class="campo" for="cms-pagina">Página</label><select id="cms-pagina"></select>
-        <div id="cms-pagina-campos" class="cms-pagina-campos"></div>
-        <div class="cms-pie"><button class="btn claro grande" id="cms-pagina-preview" type="button">Vista previa de página</button><button class="btn claro grande" id="cms-pagina-guardar" type="button">Guardar borrador</button><button class="btn verde grande" id="cms-pagina-publicar" type="button">Publicar cambios</button></div>
-        <iframe id="cms-frame-lectura" title="Vista de lectura de la página" class="cms-frame-lectura"></iframe>
+        <div class="cabecera-lista"><div><h2>Editar páginas del sitio</h2><p class="sub">Elige una página y modifica sus textos, imágenes y enlaces. La vista se actualiza mientras escribes.</p></div></div>
+        <div class="cms-page-selector"><label class="campo" for="cms-pagina">Página que estás editando</label><select id="cms-pagina"></select></div>
+        <div class="cms-page-workspace">
+          <section class="cms-page-editor" aria-labelledby="cms-pagina-titulo">
+            <div class="cms-page-editor-heading"><span class="cms-page-kicker">PÁGINA</span><h2 id="cms-pagina-titulo">Inicio</h2><p>Organiza los cambios por secciones. Los cambios se guardan como borrador o se publican con los botones inferiores.</p></div>
+            <div id="cms-pagina-campos" class="cms-pagina-campos"></div>
+          </section>
+          <section class="cms-page-preview" aria-label="Vista previa en vivo">
+            <div class="cms-page-preview-heading"><div><span class="cms-page-kicker">VISTA PREVIA EN VIVO</span><h2 id="cms-preview-title">Así se verá tu página</h2></div><div class="cms-preview-tools"><button id="cms-vista-escritorio" type="button" aria-pressed="true">Escritorio</button><button id="cms-vista-celular" type="button" aria-pressed="false">Celular</button></div></div>
+            <div class="cms-preview-stage" id="cms-preview-stage" data-size="desktop"><iframe id="cms-frame-lectura" title="Vista previa en vivo de la página" class="cms-frame-lectura"></iframe></div>
+          </section>
+        </div>
+        <div class="cms-pie"><button class="btn claro grande" id="cms-pagina-guardar" type="button">Guardar borrador</button><button class="btn verde grande" id="cms-pagina-publicar" type="button">Publicar cambios</button></div>
       </div>
       <div id="cms-modal" class="cms-modal oculto" role="dialog" aria-modal="true" aria-labelledby="cms-modal-titulo">
         <div class="cms-modal-caja"><button id="cms-modal-cerrar" class="cms-cerrar" type="button" aria-label="Cerrar vista previa">×</button><h2 id="cms-modal-titulo">Vista previa</h2><div id="cms-modal-contenido"></div></div>
@@ -488,6 +496,6 @@ textarea{min-height:300px;resize:vertical;line-height:1.55}
   iniciar();
 })();
 </script>
-<script src="/assets/admin/contenido.js?v=6.1" defer></script>
+<script src="/assets/admin/contenido.js?v=6.3" defer></script>
 </body>
 </html>
