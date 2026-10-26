@@ -35,7 +35,7 @@
       return 0;
     });
     const orden = new Map(elementos.map((el, indice) => [el, indice]));
-    const texts = textos.map((el, i) => ({ id: `t${i}`, orden: orden.get(el), tag: el.tagName.toLowerCase(), label: etiquetaSeccion(el), value: el.textContent.trim() }));
+    const texts = textos.map((el, i) => ({ id: `t${i}`, orden: orden.get(el), areaId: el.closest('.exam-area')?.id || '', tag: el.tagName.toLowerCase(), label: etiquetaSeccion(el), value: el.textContent.trim() }));
     const images = imagenes.map((img, i) => ({ id: `i${i}`, orden: orden.get(img), label: etiquetaSeccion(img), src: img.getAttribute('src') || '', alt: img.getAttribute('alt') || '' }));
     const links = enlaces.map((a,i)=>({id:`l${i}`,orden:orden.get(a),label:etiquetaSeccion(a),text:a.textContent.trim(),href:a.getAttribute('href')||''}));
     return { texts, images, links };
