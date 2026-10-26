@@ -7,6 +7,7 @@
 // noticias de ejemplo publicadas como páginas estáticas.
 
 import { NOTICIAS_SEMILLA } from './noticias-semilla.js';
+import { CONTENIDO_SEMILLA } from './contenido-semilla.js';
 import { paginaLista, paginaNoticia, rss, sitemap, crearSlug, resumenDe, urlNoticia } from './plantilla.js';
 
 const SESION_COOKIE = 'cenresin_sesion';
@@ -22,6 +23,7 @@ export default {
       if (env.DB && (ruta.startsWith('/noticias') || ruta.startsWith('/api/noticias') || ruta === '/sitemap.xml')) await sembrarNoticias(env);
       if (ruta === '/admin-login' || ruta === '/admin-login/') return panel(request, env);
       if (ruta.startsWith('/admin-login/api/')) return await apiAdmin(request, env, ruta.slice('/admin-login/api'.length));
+      if (ruta === '/api/contenido-sitio') return await apiContenidoPublico(env);
       if (ruta === '/api/noticias') return await apiNoticiasPublicas(request, env, url);
       if (ruta.startsWith('/api/imagen/')) return await imagen(env, ruta.slice('/api/imagen/'.length));
       if (ruta === '/api/formulario') return await formulario(request, env);
@@ -43,15 +45,31 @@ async function estatico(request, env) {
   const url = new URL(request.url);
   if (url.pathname.endsWith('/')) {
     url.pathname += 'index.html';
-    return env.ASSETS.fetch(new Request(url, request));
+    return inyectarRespuestaHtml(await env.ASSETS.fetch(new Request(url, request)));
   }
   if (url.pathname === '/index.html') return Response.redirect(new URL('/', request.url), 301);
   const r = await env.ASSETS.fetch(request);
+  if (r.ok && (r.headers.get('content-type') || '').includes('text/html')) return inyectarRespuestaHtml(r);
   if (r.status === 404 && !/\.[a-z0-9]+$/i.test(url.pathname)) {
     const conBarra = await env.ASSETS.fetch(new Request(new URL(url.pathname + '/index.html', url), request));
     if (conBarra.ok) return Response.redirect(new URL(url.pathname + '/', request.url), 301);
   }
   return r;
+}
+
+function inyectarRespuestaHtml(respuesta) {
+  return respuesta.text().then((cuerpo) => {
+    const headers = new Headers(respuesta.headers);
+    headers.delete('content-length');
+    headers.delete('content-encoding');
+    headers.delete('etag');
+    return new Response(inyectarEditorSitio(cuerpo), { status: respuesta.status, statusText: respuesta.statusText, headers });
+  });
+}
+
+function inyectarEditorSitio(cuerpo) {
+  if (!/<\/body>/i.test(cuerpo) || /contenido-sitio\.js/.test(cuerpo)) return cuerpo;
+  return cuerpo.replace(/<\/body>/i, '<script src="/assets/js/contenido-sitio.js?v=6.0" defer></script></body>');
 }
 
 /* ---------- noticias de ejemplo ---------- */
@@ -85,7 +103,7 @@ function json(datos, estado = 200, cabeceras = {}) {
 }
 
 function html(cuerpo, estado = 200, extra = {}) {
-  return new Response(cuerpo, {
+  return new Response(inyectarEditorSitio(cuerpo), {
     status: estado,
     headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'public, max-age=120', ...extra }
   });
@@ -291,6 +309,8 @@ async function apiAdmin(request, env, ruta) {
   const usuario = await usuarioDeSesion(request, env);
   if (!usuario) return json({ error: 'Tu sesión terminó. Vuelve a ingresar.' }, 401);
 
+  if (ruta.startsWith('/contenido-sitio')) return await apiContenidoAdmin(request, env, ruta.slice('/contenido-sitio'.length));
+
   if (ruta === '/sesion') return json({ usuario: usuario.usuario, nombre: usuario.nombre });
 
   if (ruta === '/noticias' && request.method === 'GET') {
@@ -346,6 +366,102 @@ async function entrar(request, env) {
   return json({ ok: true }, 200, {
     'set-cookie': `${SESION_COOKIE}=${token}; Path=/admin-login; HttpOnly; Secure; SameSite=Strict; Max-Age=${SESION_HORAS * 3600}`
   });
+}
+
+/* ---------- contenido editable del sitio ---------- */
+
+let contenidoListo = false;
+async function asegurarContenido(env) {
+  if (contenidoListo) return;
+  await env.DB.prepare(`CREATE TABLE IF NOT EXISTS contenido_sitio (
+    clave TEXT PRIMARY KEY,
+    borrador TEXT NOT NULL,
+    publicado TEXT NOT NULL,
+    actualizado TEXT NOT NULL,
+    publicado_en TEXT
+  )`).run();
+  const ahoraIso = ahora();
+  for (const [clave, valor] of Object.entries(CONTENIDO_SEMILLA)) {
+    const inicial = JSON.stringify(valor);
+    await env.DB.prepare('INSERT OR IGNORE INTO contenido_sitio (clave, borrador, publicado, actualizado, publicado_en) VALUES (?, ?, ?, ?, ?)')
+      .bind(clave, inicial, inicial, ahoraIso, ahoraIso).run();
+  }
+  contenidoListo = true;
+}
+
+async function apiContenidoPublico(env) {
+  if (!env.DB) return json(CONTENIDO_SEMILLA);
+  await asegurarContenido(env);
+  const { results } = await env.DB.prepare('SELECT clave, publicado FROM contenido_sitio').all();
+  const contenido = { ...CONTENIDO_SEMILLA };
+  for (const fila of results) {
+    try { contenido[fila.clave] = JSON.parse(fila.publicado); } catch (e) {}
+  }
+  return json(contenido, 200, { 'cache-control': 'public, max-age=60' });
+}
+
+function menuSeguro(items) {
+  if (!Array.isArray(items)) return false;
+  return items.every((item) => {
+    if (!item || typeof item.label !== 'string' || (item.tipo !== 'grupo' && typeof item.url !== 'string')) return false;
+    if (item.tipo === 'grupo' && item.children?.length) return false;
+    const href = (item.url || '').trim();
+    if (href && !(/^(\/(?!\/)|#|https:\/\/|mailto:|tel:)/i.test(href))) return false;
+    return !item.children || menuSeguro(item.children);
+  });
+}
+
+async function apiContenidoAdmin(request, env, ruta) {
+  if (!env.DB) return json({ error: 'La base de datos del panel aún no está conectada.' }, 503);
+  await asegurarContenido(env);
+  const claves = Object.keys(CONTENIDO_SEMILLA);
+
+  if (ruta === '' && request.method === 'GET') {
+    const { results } = await env.DB.prepare('SELECT clave, borrador, publicado, actualizado, publicado_en FROM contenido_sitio').all();
+    const datos = {};
+    for (const fila of results) {
+      try { datos[fila.clave] = { borrador: JSON.parse(fila.borrador), publicado: JSON.parse(fila.publicado), actualizado: fila.actualizado, publicado_en: fila.publicado_en }; } catch (e) {}
+    }
+    return json(datos);
+  }
+
+  if (ruta === '/imagen' && request.method === 'POST') {
+    const datos = await request.formData();
+    const foto = datos.get('foto');
+    if (!foto || typeof foto !== 'object' || !foto.size) return json({ error: 'Elige una foto.' }, 400);
+    if (!TIPOS_IMAGEN.includes(foto.type)) return json({ error: 'La foto debe ser JPG, PNG o WebP.' }, 400);
+    if (foto.size > MAX_IMAGEN) return json({ error: 'La foto debe pesar menos de 1,5 MB.' }, 400);
+    const id = aleatorio(16);
+    await env.DB.prepare('INSERT INTO imagenes (id, tipo, datos, creado) VALUES (?, ?, ?, ?)').bind(id, foto.type, await foto.arrayBuffer(), ahora()).run();
+    return json({ ok: true, url: `/api/imagen/${id}` });
+  }
+
+  const coincidencia = ruta.match(/^\/([a-z-]+)\/(borrador|publicar|descartar)$/);
+  if (!coincidencia) return json({ error: 'No encontrado' }, 404);
+  const [, clave, accion] = coincidencia;
+  if (!claves.includes(clave)) return json({ error: 'Sección desconocida.' }, 404);
+
+  if (accion === 'borrador' && request.method === 'POST') {
+    const cuerpo = await request.json().catch(() => null);
+    if (!cuerpo || !Object.prototype.hasOwnProperty.call(cuerpo, 'contenido')) return json({ error: 'No se recibió el contenido.' }, 400);
+    let serializado;
+    try { serializado = JSON.stringify(cuerpo.contenido); } catch (e) { return json({ error: 'El contenido no es válido.' }, 400); }
+    if (clave === 'menu' && !menuSeguro(cuerpo.contenido)) return json({ error: 'Revisa los nombres, enlaces y submenús del menú.' }, 400);
+    if (serializado.length > 800000) return json({ error: 'El contenido excede el tamaño permitido.' }, 413);
+    await env.DB.prepare('UPDATE contenido_sitio SET borrador = ?, actualizado = ? WHERE clave = ?').bind(serializado, ahora(), clave).run();
+    return json({ ok: true });
+  }
+
+  if (accion === 'publicar' && request.method === 'POST') {
+    await env.DB.prepare('UPDATE contenido_sitio SET publicado = borrador, publicado_en = ?, actualizado = ? WHERE clave = ?').bind(ahora(), ahora(), clave).run();
+    return json({ ok: true });
+  }
+
+  if (accion === 'descartar' && request.method === 'POST') {
+    await env.DB.prepare('UPDATE contenido_sitio SET borrador = publicado, actualizado = ? WHERE clave = ?').bind(ahora(), clave).run();
+    return json({ ok: true });
+  }
+  return json({ error: 'Método no permitido.' }, 405);
 }
 
 async function borrarImagenSubida(env, imagenUrl) {

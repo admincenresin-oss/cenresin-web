@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+<link rel="stylesheet" href="/assets/admin/contenido.css?v=6.0">
 <title>Panel de noticias | CENRESIN</title>
 <style>
 :root{--verde:#d9e000;--verde-dark:#a9b300;--oliva:#817867;--texto:#37332d;--muted:#756e61;--bg:#f8f7f1;--line:#e6e1d1;--turquesa:#159aa1;--turquesa-pale:#e9fbfb;--rojo:#b42318}
@@ -93,6 +94,7 @@ textarea{min-height:300px;resize:vertical;line-height:1.55}
       <a href="/" target="_blank" rel="noopener"><img src="/assets/img/logo-cenresin.png" alt="CENRESIN"></a>
       <nav>
         <span id="hola" class="sub" style="margin:0"></span>
+        <button class="btn claro" id="btn-editar-sitio" type="button">Editar sitio</button>
         <a class="btn claro" href="/noticias/" target="_blank" rel="noopener">Ver noticias en el sitio</a>
         <button class="btn claro" id="btn-salir" type="button">Salir</button>
       </nav>
@@ -100,6 +102,49 @@ textarea{min-height:300px;resize:vertical;line-height:1.55}
   </header>
 
   <main class="cont" style="padding-bottom:60px">
+    <section id="panel-cms" class="oculto">
+      <div class="cms-top">
+        <div><h1>Contenido del sitio</h1><p class="sub">Elige una sección, edita su contenido, revisa la vista previa y publícala cuando esté lista.</p></div>
+        <button class="btn claro" id="btn-volver-noticias" type="button">Volver a Noticias</button>
+      </div>
+      <div class="cms-toolbar tarjeta">
+        <label class="campo" for="cms-modulo">¿Qué quieres administrar?</label>
+        <select id="cms-modulo"></select>
+        <p id="cms-ayuda" class="ayuda"></p>
+      </div>
+      <div id="cms-aviso" class="aviso oculto" role="status"></div>
+      <div id="cms-coleccion">
+        <div class="cabecera-lista">
+          <div><h2 id="cms-titulo-lista"></h2><p id="cms-descripcion-lista" class="sub"></p></div>
+          <button class="btn verde grande" id="cms-nuevo" type="button">+ Agregar</button>
+        </div>
+        <div id="cms-lista"></div>
+        <div class="cms-pie">
+          <button class="btn claro grande" id="cms-borrador" type="button">Guardar borrador</button>
+          <button class="btn verde grande" id="cms-publicar" type="button">Publicar cambios</button>
+        </div>
+      </div>
+      <div id="cms-edicion" class="oculto">
+        <div class="cabecera-lista"><div><h2 id="cms-titulo-form"></h2><p class="sub">Completa los campos y revisa la vista previa antes de publicar.</p></div></div>
+        <div id="cms-campos" class="tarjeta cms-form"></div>
+        <div class="cms-pie">
+          <button class="btn claro grande" id="cms-vista-previa" type="button">Vista previa</button>
+          <button class="btn claro grande" id="cms-cancelar" type="button">Volver a la lista</button>
+          <button class="btn verde grande" id="cms-guardar" type="button">Guardar borrador</button>
+          <button class="btn verde grande" id="cms-publicar-form" type="button">Publicar</button>
+        </div>
+      </div>
+      <div id="cms-paginas" class="oculto">
+        <div class="cabecera-lista"><div><h2>Textos e imágenes de las páginas</h2><p class="sub">Selecciona una pestaña del sitio. Puedes editar los textos e imágenes visibles en esa página.</p></div></div>
+        <label class="campo" for="cms-pagina">Página</label><select id="cms-pagina"></select>
+        <div id="cms-pagina-campos" class="cms-pagina-campos"></div>
+        <div class="cms-pie"><button class="btn claro grande" id="cms-pagina-preview" type="button">Vista previa de página</button><button class="btn claro grande" id="cms-pagina-guardar" type="button">Guardar borrador</button><button class="btn verde grande" id="cms-pagina-publicar" type="button">Publicar cambios</button></div>
+        <iframe id="cms-frame-lectura" title="Vista de lectura de la página" class="cms-frame-lectura"></iframe>
+      </div>
+      <div id="cms-modal" class="cms-modal oculto" role="dialog" aria-modal="true" aria-labelledby="cms-modal-titulo">
+        <div class="cms-modal-caja"><button id="cms-modal-cerrar" class="cms-cerrar" type="button" aria-label="Cerrar vista previa">×</button><h2 id="cms-modal-titulo">Vista previa</h2><div id="cms-modal-contenido"></div></div>
+      </div>
+    </section>
     <section id="vista-lista">
       <div class="cabecera-lista">
         <div>
@@ -164,12 +209,16 @@ textarea{min-height:300px;resize:vertical;line-height:1.55}
 
         <div id="form-aviso" class="aviso error oculto" role="alert"></div>
         <div class="pie-form">
+          <button class="btn claro grande" type="button" id="btn-vista-previa-noticia">Vista previa</button>
           <button class="btn verde grande" type="submit" id="btn-publicar">Publicar</button>
           <button class="btn claro grande" type="button" id="btn-cancelar">Cancelar</button>
         </div>
       </form>
     </section>
   </main>
+  <div id="modal-preview-noticia" class="cms-modal oculto" role="dialog" aria-modal="true" aria-labelledby="titulo-preview-noticia">
+    <div class="cms-modal-caja"><button id="cerrar-preview-noticia" class="cms-cerrar" type="button" aria-label="Cerrar vista previa">×</button><h2 id="titulo-preview-noticia">Vista previa de la noticia</h2><div id="contenido-preview-noticia"></div></div>
+  </div>
 </div>
 
 <script>
@@ -208,6 +257,7 @@ textarea{min-height:300px;resize:vertical;line-height:1.55}
       mostrar('#vista-panel');
       verSeccion('#vista-lista');
       await cargar();
+      window.dispatchEvent(new Event('cenresin-authenticated'));
     } catch (e) {
       mostrar('#vista-login');
       if (!/Sesión|sesión/.test(e.message)) aviso($('#login-aviso'), e.message);
@@ -411,8 +461,32 @@ textarea{min-height:300px;resize:vertical;line-height:1.55}
     boton.textContent = editando ? 'Guardar cambios' : 'Publicar';
   });
 
+  function textoPreview(cuerpo) {
+    return String(cuerpo || '').split(/\n\s*\n/).map((bloque) => {
+      const lineas = bloque.split('\n').map((x) => x.trim()).filter(Boolean);
+      if (!lineas.length) return '';
+      if (lineas.every((x) => x.startsWith('- '))) return `<ul>${lineas.map((x) => `<li>${esc(x.slice(2))}</li>`).join('')}</ul>`;
+      return lineas.map((linea) => {
+        const nivel = linea.match(/^(#{2,3})\s+(.*)$/);
+        return nivel ? `<h${nivel[1].length + 1}>${esc(nivel[2])}</h${nivel[1].length + 1}>` : `<p>${esc(linea)}</p>`;
+      }).join('');
+    }).join('');
+  }
+
+  $('#btn-vista-previa-noticia').addEventListener('click', () => {
+    const titulo = $('#titulo').value.trim() || 'Título de la noticia';
+    const fotoVisible = !$('#foto-vista').classList.contains('oculto');
+    const imagen = fotoVisible ? `<img src="${esc($('#foto-vista').src)}" alt="${esc($('#imagen_alt').value || titulo)}">` : '';
+    const resumen = $('#resumen').value.trim();
+    $('#contenido-preview-noticia').innerHTML = `<article class="cms-preview-card cms-preview-noticia">${imagen}<div><p class="fecha">${esc(fechaLarga($('#fecha').value || hoy()))}</p><h3>${esc(titulo)}</h3>${resumen?`<p class="cms-resumen">${esc(resumen)}</p>`:''}<div class="cms-noticia-texto">${textoPreview($('#cuerpo').value)}</div></div></article>`;
+    $('#modal-preview-noticia').classList.remove('oculto');
+  });
+  $('#cerrar-preview-noticia').addEventListener('click', () => $('#modal-preview-noticia').classList.add('oculto'));
+  $('#modal-preview-noticia').addEventListener('click', (ev) => { if (ev.target === $('#modal-preview-noticia')) $('#modal-preview-noticia').classList.add('oculto'); });
+
   iniciar();
 })();
 </script>
+<script src="/assets/admin/contenido.js?v=6.0" defer></script>
 </body>
 </html>
