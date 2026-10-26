@@ -9,7 +9,10 @@
   function elementosTexto() {
     const raiz = document.body;
     const selectores = 'h1,h2,h3,h4,p,li,blockquote,.role,.area-label,.specialty-label,.exam-price,.exam-convenio,.clinical-kicker';
-    return [...raiz.querySelectorAll(selectores)].filter((el) => !el.closest('.site-header,header,nav,form,[data-cms-collection]') && el.textContent.trim() && !el.closest('svg'));
+    const elementos = [...raiz.querySelectorAll(selectores)].filter((el) => !el.closest('.site-header,header,nav,form,[data-cms-collection]') && el.textContent.trim() && !el.closest('svg'));
+    const citaInstitucional = document.querySelector('.quote');
+    if (citaInstitucional && !elementos.includes(citaInstitucional) && citaInstitucional.textContent.trim()) elementos.push(citaInstitucional);
+    return elementos;
   }
 
   function marcarColecciones() {
@@ -29,6 +32,7 @@
   }
 
   function etiquetaSeccion(el) {
+    if (el.matches('.quote')) return 'Frase institucional · Cita institucional';
     const seccion = el.closest('section,article');
     const heading = seccion?.querySelector('h1,h2,h3') || document.querySelector('main h1');
     const titulo = heading?.textContent.trim();
