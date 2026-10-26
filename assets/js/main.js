@@ -22,7 +22,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  document.addEventListener('click', () => {
+  document.addEventListener('click', (event) => {
+    // The editable CMS replaces the menu items after this file loads. Ignore
+    // clicks inside dropdowns so the delegated handler can leave them open.
+    if (event.target.closest('.dropdown')) return;
     document.querySelectorAll('.dropdown.open').forEach((item) => item.classList.remove('open'));
   });
 
