@@ -315,9 +315,12 @@
 @media(max-width:760px){.pathology-icon .icono{width:38px;height:38px}}
 
 
-/* Equipo clínico: conserva las fichas de Profesionales con la paleta de investigación. */
-.clinical-team-roster{position:relative;z-index:1;padding-top:8px;padding-bottom:84px}
-.clinical-team-roster .professional-row-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:0}
+/* Equipo clínico en sección independiente con contraste y fichas de profesionales. */
+.clinical-team-section{background:var(--clinical-ink);color:#fff}
+.clinical-team-section .clinical-heading>span{color:var(--menta)}
+.clinical-team-section .clinical-heading h2{color:#fff}
+.clinical-team-roster{position:relative;z-index:1;padding-top:0;padding-bottom:0}
+.clinical-team-roster .professional-row-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:30px}
 .clinical-team-roster .professional-row-card{display:grid;grid-template-columns:165px minmax(0,1fr);gap:22px;align-items:center;min-height:195px;overflow:hidden;border:1px solid rgba(21,154,161,.24);border-radius:24px;background:linear-gradient(135deg,#fff,var(--menta-pale));box-shadow:0 14px 34px rgba(8,119,126,.09);transition:transform .25s ease,box-shadow .25s ease}
 .clinical-team-roster .professional-row-card:hover{transform:translateY(-4px);box-shadow:0 24px 55px rgba(8,119,126,.16)}
 .clinical-team-roster .professional-row-card img{width:100%;height:100%;min-height:195px;object-fit:cover}
@@ -326,4 +329,4 @@
 .clinical-team-roster .professional-row-info .role{display:block;margin-bottom:10px;color:var(--menta-dark);font-size:15px;font-weight:900}
 .clinical-team-roster .professional-row-info p{margin:0;color:#5d7478;font-size:15px}
 @media(max-width:980px){.clinical-team-roster .professional-row-grid{grid-template-columns:1fr}}
-@media(max-width:620px){.clinical-team-roster{padding-bottom:62px}.clinical-team-roster .professional-row-card{grid-template-columns:1fr}.clinical-team-roster .professional-row-card img{aspect-ratio:4/5;min-height:auto}.clinical-team-roster .professional-row-info{padding:0 22px 22px}}
+@media(max-width:620px){.clinical-team-roster .professional-row-card{grid-template-columns:1fr}.clinical-team-roster .professional-row-card img{aspect-ratio:4/5;min-height:auto}.clinical-team-roster .professional-row-info{padding:0 22px 22px}}
