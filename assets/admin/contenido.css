@@ -86,3 +86,6 @@
 .cms-pie{position:sticky;bottom:0;z-index:3;background:var(--bg)}
 @media(max-width:900px){.cms-page-workspace{grid-template-columns:1fr}.cms-page-editor{max-height:none}.cms-page-preview{position:static}}
 @media(max-width:700px){.cms-page-editor,.cms-page-preview{padding:14px}.cms-page-preview-heading{align-items:flex-start}.cms-page-preview-heading{flex-direction:column}}
+
+#cms-pagina-campos{display:flex!important;flex-direction:column;gap:0;margin:0}
+#cms-pagina-campos .cms-page-section-fields{display:flex;flex-direction:column;gap:10px}
