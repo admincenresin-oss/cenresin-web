@@ -75,3 +75,18 @@ NOTAS
   ruta de navegación y datos del centro), título y descripción propios, imagen para redes
   sociales y aparece en sitemap.xml y en noticias/rss.xml.
 - Las fotos subidas en el panel se achican solas (máximo 1600 px) y se guardan en la base de datos.
+
+ACTUALIZACIÓN — PANEL EDITABLE DEL SITIO
+-----------------------------------------
+Desde el mismo panel de administración, el botón «Editar sitio» abre los módulos de:
+  - Menú de navegación y submenús.
+  - Equipos, profesionales, patrocinadores/CRO, estudios clínicos, servicios y exámenes.
+  - Textos, imágenes y enlaces de las páginas públicas.
+
+Las fichas se pueden ocultar temporalmente y volver a activar. Al ocultarlas, no se borran.
+Los cambios se guardan como borrador, se pueden previsualizar y solo aparecen en el sitio
+después de presionar «Publicar». Las fotografías se optimizan y se guardan en D1.
+
+La tabla contenido_sitio se crea automáticamente al abrir el panel o el contenido público.
+También se incluye la migración migraciones/0004_contenido_editable.sql para instalaciones
+nuevas o para mantener actualizado el historial de migraciones.
