@@ -21,6 +21,7 @@
   let camposPagina = null;
   let paginaSeleccionada = '/';
   let paginaEdicion = { text:{}, images:{}, links:{} };
+  let paginaEdicionPendiente = null;
   let previewFrame = null;
 
   const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
@@ -221,7 +222,13 @@
 
   function cargarPagina(path){
     paginaSeleccionada=path;
-    paginaEdicion=structuredClone(cms.pagina?.borrador?.[path]||{text:{},images:{},links:{}});
+    if(paginaEdicionPendiente?.path===path){
+      paginaEdicion=structuredClone(paginaEdicionPendiente.contenido);
+      paginaEdicionPendiente=null;
+    }else{
+      paginaEdicionPendiente=null;
+      paginaEdicion=structuredClone(cms.pagina?.borrador?.[path]||{text:{},images:{},links:{}});
+    }
     paginaEdicion.text=paginaEdicion.text||{};paginaEdicion.images=paginaEdicion.images||{};paginaEdicion.links=paginaEdicion.links||{};
     const frame=$('#cms-frame-lectura');
     const page=PAGES.find(([url])=>url===path);
@@ -239,6 +246,42 @@
     const parts=String(label||'').split(' · ');
     const detail=parts.length>1?parts.slice(1).join(' · ').trim():'Contenido de esta sección';
     return detail.toLocaleLowerCase()===String(seccion||'').toLocaleLowerCase()?'Título de la sección':detail;
+  }
+
+  const grupoExamenesPorArea={
+    'funcion-pulmonar':'respiratoria',
+    'cardiovascular-nutricion-deporte':'cardiovascular',
+    'imagenologia':'imagenologia'
+  };
+
+  function bloqueCatalogoExamenes(grupo){
+    const borrador=cms.examenes?.borrador;
+    const catalogo=Array.isArray(borrador)?borrador:(Array.isArray(cms.examenes?.publicado)?cms.examenes.publicado:[]);
+    const lista=catalogo.filter(item=>item.grupo===grupo).slice().sort((a,b)=>(a.orden||0)-(b.orden||0));
+    const fichas=lista.length?lista.map(item=>{
+      const foto=item.foto||item.imagen||'';
+      const visible=item.activo!==false;
+      const preparacion=Array.isArray(item.preparacion)?item.preparacion.length:0;
+      return `<article class="cms-fila">${foto?`<img src="${esc(foto)}" alt="">`:'<div class="cms-sin-foto">Sin foto</div>'}<div><h3>${esc(item.titulo||'Examen sin título')}</h3><p>${esc(item.valor||'Sin valor indicado')} · ${preparacion} indicaciones de preparación</p><div class="cms-acciones"><button class="btn claro" type="button" data-page-exam-edit="${esc(item.id)}">Editar ficha</button></div></div><span class="cms-estado">${visible?'Visible en la página':'Oculto temporalmente'}</span></article>`;
+    }).join(''):'<p class="ayuda">Todavía no hay exámenes en esta área.</p>';
+    return `<div class="cms-page-exam-catalog"><p class="ayuda">Fichas que aparecen en esta área. Desde aquí puedes abrir cada ficha o agregar otra.</p>${fichas}<div class="cms-acciones"><button class="btn claro" type="button" data-page-exam-add="${esc(grupo)}">+ Agregar examen en esta área</button></div></div>`;
+  }
+
+  function abrirExamenDesdePagina(id,grupo){
+    paginaEdicionPendiente={path:paginaSeleccionada,contenido:structuredClone(paginaEdicion)};
+    modulo='examenes';
+    $('#cms-modulo').value='examenes';
+    mostrarModulo();
+    if(id!==null){
+      const indice=items.findIndex(item=>String(item.id)===String(id));
+      if(indice<0){aviso('No encontré esa ficha en el catálogo de exámenes.');return;}
+      abrirEdicion(indice);
+      return;
+    }
+    abrirEdicion();
+    formItem.grupo=grupo;
+    const selector=$('#cms-campos [data-field="grupo"]');
+    if(selector)selector.value=grupo;
   }
 
   function dibujarCamposPagina(fields){
@@ -262,7 +305,10 @@
         if(tipo==='imagen')return `<article class="cms-page-field"><h4>${titulo}</h4><img src="${esc(paginaEdicion.images[f.id]?.src||f.src)}" alt=""><label for="cms-page-image-${esc(f.id)}">Cambiar imagen</label><input id="cms-page-image-${esc(f.id)}" type="file" accept="image/jpeg,image/png,image/webp" data-page-image="${esc(f.id)}"><label for="cms-page-alt-${esc(f.id)}">Descripción de la imagen</label><input id="cms-page-alt-${esc(f.id)}" type="text" data-page-alt="${esc(f.id)}" value="${esc(paginaEdicion.images[f.id]?.alt??f.alt)}"></article>`;
         return `<article class="cms-page-field"><h4>${titulo}</h4><label for="cms-page-link-text-${esc(f.id)}">Texto del botón o enlace</label><textarea id="cms-page-link-text-${esc(f.id)}" data-page-link-text="${esc(f.id)}">${esc(paginaEdicion.links[f.id]?.text??f.text)}</textarea><label for="cms-page-link-href-${esc(f.id)}">Destino del enlace</label><input id="cms-page-link-href-${esc(f.id)}" type="url" data-page-link-href="${esc(f.id)}" value="${esc(paginaEdicion.links[f.id]?.href??f.href)}"></article>`;
       }).join('');
-      return `<section class="cms-page-section"><h3>${esc(nombre)}</h3><div class="cms-page-section-fields">${contenido}</div></section>`;
+      const areaId=entries.find(entry=>entry.field.areaId)?.field.areaId;
+      const grupoExamenes=grupoExamenesPorArea[areaId];
+      const catalogo=paginaSeleccionada==='/examenes.html'&&grupoExamenes?bloqueCatalogoExamenes(grupoExamenes):'';
+      return `<section class="cms-page-section"><h3>${esc(nombre)}</h3><div class="cms-page-section-fields">${contenido}${catalogo}</div></section>`;
     }).join('');
     $('#cms-pagina-campos').innerHTML=html||'<div class="vacio tarjeta">No encontré textos ni imágenes editables en esta página.</div>';
     Object.assign($('#cms-pagina-campos').style,{display:'flex',flexDirection:'column',gap:'0',margin:'0'});
@@ -270,6 +316,8 @@
     $('#cms-pagina-campos').querySelectorAll('[data-page-alt]').forEach(el=>el.addEventListener('input',()=>{const id=el.dataset.pageAlt;paginaEdicion.images[id]=paginaEdicion.images[id]||{};paginaEdicion.images[id].alt=el.value;previewPagina();}));
     $('#cms-pagina-campos').querySelectorAll('[data-page-link-text]').forEach(el=>el.addEventListener('input',()=>{const id=el.dataset.pageLinkText;paginaEdicion.links[id]=paginaEdicion.links[id]||{};paginaEdicion.links[id].text=el.value;previewPagina();}));
     $('#cms-pagina-campos').querySelectorAll('[data-page-link-href]').forEach(el=>el.addEventListener('input',()=>{const id=el.dataset.pageLinkHref;paginaEdicion.links[id]=paginaEdicion.links[id]||{};paginaEdicion.links[id].href=el.value;previewPagina();}));
+    $('#cms-pagina-campos').querySelectorAll('[data-page-exam-edit]').forEach(el=>el.addEventListener('click',()=>abrirExamenDesdePagina(el.dataset.pageExamEdit,null)));
+    $('#cms-pagina-campos').querySelectorAll('[data-page-exam-add]').forEach(el=>el.addEventListener('click',()=>abrirExamenDesdePagina(null,el.dataset.pageExamAdd)));
     $('#cms-pagina-campos').querySelectorAll('[data-page-image]').forEach(el=>el.addEventListener('change',async()=>{
       if(!el.files?.[0])return;const f=await optimizar(el.files[0]).catch(()=>null);if(!f){aviso('No se pudo procesar la imagen.');return;}
       const data=new FormData();data.append('foto',f,'pagina.jpg');try{const r=await api('/imagen',{method:'POST',body:data});const id=el.dataset.pageImage;paginaEdicion.images[id]={...(paginaEdicion.images[id]||{}),src:r.url};dibujarCamposPagina(camposPagina);aviso('Imagen lista. Guarda el borrador o publícala.',true);}catch(e){aviso(e.message);}
@@ -310,6 +358,7 @@
     const draft=structuredClone(cms.pagina.borrador||{});draft[paginaSeleccionada]=structuredClone(paginaEdicion);
     await api('/pagina/borrador',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({contenido:draft})});
     cms.pagina.borrador=draft;
+    paginaEdicionPendiente=null;
     if(publish){await api('/pagina/publicar',{method:'POST',headers:{'content-type':'application/json'},body:'{}'});cms.pagina.publicado=structuredClone(draft);aviso('Cambios publicados en esta página.',true);}
     else aviso('Borrador guardado. Todavía no se muestra en el sitio.',true);
   }
