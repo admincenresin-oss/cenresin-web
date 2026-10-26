@@ -1,0 +1,53 @@
+#cms-modulo,#cms-pagina{width:100%;max-width:620px;padding:14px 16px;border:2px solid var(--line);border-radius:14px;background:#fff;color:var(--texto)}
+.cms-top,.cms-pie{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.cms-top{margin:24px 0}
+.cms-top h1{margin:0 0 6px}
+.cms-toolbar{margin-bottom:24px}
+.cms-toolbar .campo{margin-top:0}
+#cms-titulo-lista,#cms-titulo-form{color:var(--oliva);margin:24px 0 4px}
+#cms-descripcion-lista{margin:0}
+.cms-pie{margin:24px 0 40px;padding:18px 0;border-top:1px solid var(--line)}
+.cms-fila{display:grid;grid-template-columns:88px minmax(0,1fr) auto;gap:16px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:12px}
+.cms-fila img,.cms-sin-foto{width:88px;height:72px;object-fit:cover;border-radius:12px;background:var(--bg)}
+.cms-sin-foto{display:grid;place-items:center;color:var(--muted);font-size:12px;text-align:center}
+.cms-fila h3{font-size:18px;margin:0 0 4px}
+.cms-fila p{margin:0;color:var(--muted);font-size:14px}
+.cms-acciones{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.cms-acciones .btn{padding:8px 13px;font-size:14px}
+.cms-estado{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:14px;white-space:nowrap}
+.cms-estado input{width:20px;height:20px;accent-color:var(--turquesa)}
+.cms-form{margin:8px 0 20px}
+.cms-campo{margin:0 0 15px}
+.cms-campo label{display:block;font-weight:800;color:var(--oliva);margin-bottom:6px}
+.cms-campo input[type=text],.cms-campo input[type=url],.cms-campo input[type=number],.cms-campo textarea,.cms-campo select{width:100%;padding:13px 15px;border:2px solid var(--line);border-radius:12px;background:#fff;color:var(--texto);font:inherit}
+.cms-campo textarea{min-height:100px;resize:vertical}
+.cms-campo .ayuda{margin:5px 0 0}
+.cms-foto{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.cms-foto img{width:150px;height:110px;object-fit:cover;border-radius:12px;border:1px solid var(--line)}
+.cms-check{display:flex!important;align-items:center;gap:10px!important}
+.cms-check input{width:20px;height:20px;accent-color:var(--turquesa)}
+.cms-pagina-campos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:20px 0}
+.cms-page-field{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;min-width:0}
+.cms-page-field label{display:block;font-weight:700;color:var(--oliva);font-size:14px;margin-bottom:8px}
+.cms-page-field textarea{width:100%;min-height:74px;padding:10px;border:1px solid var(--line);border-radius:10px;font:inherit;resize:vertical}
+.cms-page-field img{display:block;width:100%;max-width:180px;max-height:120px;object-fit:contain;background:#f7f7f2;border-radius:10px;margin:8px 0}
+.cms-frame-lectura{position:fixed;left:-10000px;top:0;width:1200px;height:900px;visibility:hidden;pointer-events:none}
+.cms-modal{position:fixed;inset:0;z-index:1000;background:rgba(30,30,30,.64);display:grid;place-items:center;padding:20px}
+.cms-modal.oculto{display:none}
+.cms-modal-caja{position:relative;width:min(960px,96vw);max-height:90vh;overflow:auto;background:#fff;border-radius:20px;padding:28px;box-shadow:0 22px 70px rgba(0,0,0,.28)}
+.cms-modal-caja h2{color:var(--oliva);margin:0 42px 18px 0}
+.cms-cerrar{position:absolute;right:18px;top:12px;border:0;background:transparent;font-size:34px;line-height:1;color:var(--muted);cursor:pointer}
+.cms-preview-card{max-width:500px;margin:auto;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 8px 24px rgba(37,38,24,.08)}
+.cms-preview-card img{display:block;width:100%;height:220px;object-fit:cover;background:var(--bg)}
+.cms-preview-card div{padding:18px}
+.cms-preview-card h3{margin:0 0 8px;color:var(--texto)}
+.cms-preview-card p{margin:0;color:var(--muted)}
+.cms-preview-card .role{display:block;margin-bottom:8px;color:var(--turquesa);font-weight:700}
+.cms-preview-noticia{max-width:760px}
+.cms-preview-noticia .fecha{font-size:14px;color:var(--muted);margin:0 0 8px}
+.cms-preview-noticia h3{font-size:28px;line-height:1.2}
+.cms-preview-noticia .cms-resumen{font-size:18px;font-weight:700;color:var(--oliva);margin-bottom:18px}
+.cms-preview-noticia .cms-noticia-texto p{line-height:1.7;margin:0 0 14px;color:var(--texto)}
+.cms-preview-noticia .cms-noticia-texto h3,.cms-preview-noticia .cms-noticia-texto h4{font-size:20px;color:var(--oliva);margin:20px 0 8px}
+.cms-preview-wide{width:100%;height:72vh;border:1px solid var(--line);border-radius:12px}
+@media(max-width:700px){.cms-fila{grid-template-columns:64px minmax(0,1fr)}.cms-fila img,.cms-sin-foto{width:64px;height:58px}.cms-estado{grid-column:2}.cms-pagina-campos{grid-template-columns:1fr}.cms-modal-caja{padding:22px 16px}}
