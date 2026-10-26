@@ -36,6 +36,14 @@
     if (!response.ok) throw new Error(data.error || 'No se pudo guardar el contenido.');
     return data;
   }
+  async function conProgreso(button, texto, accion) {
+    if (button?.disabled) return;
+    const original = button?.textContent;
+    if (button) { button.disabled = true; button.textContent = texto; }
+    aviso(texto, true);
+    try { return await accion(); }
+    finally { if (button) { button.disabled = false; button.textContent = original; } }
+  }
 
   async function cargar() {
     try {
@@ -252,18 +260,32 @@
     else aviso('Borrador guardado. Todavía no se muestra en el sitio.',true);
   }
 
+  function herramientasVista(markup){
+    return `<div class="cms-preview-tools" role="group" aria-label="Tamaño de vista previa"><button type="button" data-cms-preview-size="desktop" aria-pressed="true">Vista escritorio</button><button type="button" data-cms-preview-size="mobile" aria-pressed="false">Vista celular</button></div><div class="cms-preview-stage" id="cms-preview-stage" data-size="desktop">${markup}</div>`;
+  }
+  function conectarHerramientasVista(){
+    const stage=$('#cms-preview-stage');
+    $('#cms-modal-contenido').querySelectorAll('[data-cms-preview-size]').forEach((button)=>button.addEventListener('click',()=>{
+      stage.dataset.size=button.dataset.cmsPreviewSize;
+      $('#cms-modal-contenido').querySelectorAll('[data-cms-preview-size]').forEach((item)=>item.setAttribute('aria-pressed',String(item===button)));
+    }));
+  }
   function abrirPreview(){
     const title=formItem?.nombre||formItem?.titulo||formItem?.label||'Vista previa';
     const img=imagenItem(formItem);
     $('#cms-modal-titulo').textContent='Vista previa';
-    $('#cms-modal-contenido').innerHTML=`<article class="cms-preview-card">${img?`<img src="${esc(img)}" alt="${esc(formItem.alt||title)}">`:''}<div><h3>${esc(title)}</h3>${formItem.cargo?`<span class="role">${esc(formItem.cargo)}</span>`:''}${formItem.categoria?`<p><b>${esc(formItem.categoria)}</b></p>`:''}${formItem.descripcion?`<p>${esc(formItem.descripcion)}</p>`:''}${formItem.valor?`<p>${esc(formItem.valor)}</p>`:''}</div></article>`;
+    const tarjeta=`<article class="cms-preview-card">${img?`<img src="${esc(img)}" alt="${esc(formItem.alt||title)}">`:''}<div><h3>${esc(title)}</h3>${formItem.cargo?`<span class="role">${esc(formItem.cargo)}</span>`:''}${formItem.categoria?`<p><b>${esc(formItem.categoria)}</b></p>`:''}${formItem.descripcion?`<p>${esc(formItem.descripcion)}</p>`:''}${formItem.valor?`<p>${esc(formItem.valor)}</p>`:''}</div></article>`;
+    $('#cms-modal-contenido').innerHTML=herramientasVista(tarjeta);
+    conectarHerramientasVista();
     $('#cms-modal').classList.remove('oculto');
   }
 
   function abrirVistaPagina(){
     $('#cms-modal-titulo').textContent='Vista previa de la página';
-    $('#cms-modal-contenido').innerHTML=`<iframe class="cms-preview-wide" title="Vista previa de la página" src="${esc(paginaSeleccionada+(paginaSeleccionada.includes('?')?'&':'?')+'cmsAdminPreview=1&preview=modal')}"></iframe>`;
-    previewFrame=$('#cms-modal-contenido iframe');
+    const frame=`<iframe class="cms-preview-wide" title="Vista previa de la página" src="${esc(paginaSeleccionada+(paginaSeleccionada.includes('?')?'&':'?')+'cmsAdminPreview=1&preview=modal')}"></iframe>`;
+    $('#cms-modal-contenido').innerHTML=herramientasVista(frame);
+    conectarHerramientasVista();
+    previewFrame=$('#cms-preview-stage iframe');
     previewFrame.addEventListener('load',previewPagina);
     $('#cms-modal').classList.remove('oculto');
   }
@@ -280,13 +302,13 @@
   });
   $('#cms-lista').addEventListener('change',(event)=>{const input=event.target.closest('[data-cms-visible]');if(!input)return;const idx=Number(input.dataset.cmsVisible);if(modulo==='menu'){const row=aplanarMenu(items)[idx];row.item.visible=input.checked;}else items[idx].activo=input.checked;pintarLista();});
   $('#cms-cancelar').addEventListener('click',()=>{$('#cms-edicion').classList.add('oculto');$('#cms-coleccion').classList.remove('oculto');});
-  $('#cms-guardar').addEventListener('click',()=>{if(guardarEnLista())guardarBorrador().catch(e=>aviso(e.message));});
+  $('#cms-guardar').addEventListener('click',(event)=>conProgreso(event.currentTarget,'Guardando borrador…',async()=>{if(guardarEnLista())await guardarBorrador();}).catch(e=>aviso(e.message)));
   $('#cms-vista-previa').addEventListener('click',abrirPreview);
-  $('#cms-borrador').addEventListener('click',()=>guardarBorrador().catch(e=>aviso(e.message)));
-  $('#cms-publicar').addEventListener('click',()=>publicar().catch(e=>aviso(e.message)));
-  $('#cms-publicar-form').addEventListener('click',()=>{if(guardarEnLista())publicar().catch(e=>aviso(e.message));});
-  $('#cms-pagina-guardar').addEventListener('click',()=>guardarPagina(false).catch(e=>aviso(e.message)));
-  $('#cms-pagina-publicar').addEventListener('click',()=>guardarPagina(true).catch(e=>aviso(e.message)));
+  $('#cms-borrador').addEventListener('click',(event)=>conProgreso(event.currentTarget,'Guardando borrador…',guardarBorrador).catch(e=>aviso(e.message)));
+  $('#cms-publicar').addEventListener('click',(event)=>conProgreso(event.currentTarget,'Publicando…',publicar).catch(e=>aviso(e.message)));
+  $('#cms-publicar-form').addEventListener('click',(event)=>conProgreso(event.currentTarget,'Publicando…',async()=>{if(guardarEnLista())await publicar();}).catch(e=>aviso(e.message)));
+  $('#cms-pagina-guardar').addEventListener('click',(event)=>conProgreso(event.currentTarget,'Guardando borrador…',()=>guardarPagina(false)).catch(e=>aviso(e.message)));
+  $('#cms-pagina-publicar').addEventListener('click',(event)=>conProgreso(event.currentTarget,'Publicando…',()=>guardarPagina(true)).catch(e=>aviso(e.message)));
   $('#cms-pagina-preview').addEventListener('click',abrirVistaPagina);
   $('#cms-modal-cerrar').addEventListener('click',()=>$('#cms-modal').classList.add('oculto'));
   $('#cms-modal').addEventListener('click',(e)=>{if(e.target===$('#cms-modal'))$('#cms-modal').classList.add('oculto');});
