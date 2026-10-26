@@ -67,7 +67,7 @@
 .cms-page-editor-heading h2,.cms-page-preview-heading h2{margin:2px 0 4px;color:var(--oliva);font-size:24px}
 .cms-page-editor-heading p{margin:4px 0 0;font-size:14px;color:var(--muted)}
 .cms-page-kicker{font-size:11px;letter-spacing:.12em;color:var(--turquesa);font-weight:900}
-.cms-page-campos{display:block;margin:0}
+.cms-pagina-campos{display:block;margin:0}
 .cms-page-section{padding:0;margin:0 0 20px}
 .cms-page-section>h3{margin:0 0 10px;padding:10px 12px;border-radius:10px;background:var(--bg);color:var(--oliva);font-size:17px}
 .cms-page-section-fields{display:grid;grid-template-columns:1fr;gap:10px}
