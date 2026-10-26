@@ -264,6 +264,7 @@
       return `<section class="cms-page-section"><h3>${esc(nombre)}</h3><div class="cms-page-section-fields">${contenido}</div></section>`;
     }).join('');
     $('#cms-pagina-campos').innerHTML=html||'<div class="vacio tarjeta">No encontré textos ni imágenes editables en esta página.</div>';
+    Object.assign($('#cms-pagina-campos').style,{display:'flex',flexDirection:'column',gap:'0',margin:'0'});
     $('#cms-pagina-campos').querySelectorAll('[data-page-text]').forEach(el=>el.addEventListener('input',()=>{paginaEdicion.text[el.dataset.pageText]=el.value;previewPagina();}));
     $('#cms-pagina-campos').querySelectorAll('[data-page-alt]').forEach(el=>el.addEventListener('input',()=>{const id=el.dataset.pageAlt;paginaEdicion.images[id]=paginaEdicion.images[id]||{};paginaEdicion.images[id].alt=el.value;previewPagina();}));
     $('#cms-pagina-campos').querySelectorAll('[data-page-link-text]').forEach(el=>el.addEventListener('input',()=>{const id=el.dataset.pageLinkText;paginaEdicion.links[id]=paginaEdicion.links[id]||{};paginaEdicion.links[id].text=el.value;previewPagina();}));
