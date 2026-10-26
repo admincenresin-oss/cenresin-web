@@ -248,23 +248,14 @@
       ...(fields.images||[]).map(f=>({tipo:'imagen',field:f})),
       ...(fields.links||[]).map(f=>({tipo:'enlace',field:f}))
     ];
+    entradas.sort((a,b)=>(a.field.orden??Number.MAX_SAFE_INTEGER)-(b.field.orden??Number.MAX_SAFE_INTEGER));
     const grupos=new Map();
     entradas.forEach(entry=>{
       const nombre=tituloSeccion(entry.field.label);
       if(!grupos.has(nombre))grupos.set(nombre,[]);
       grupos.get(nombre).push(entry);
     });
-    const gruposOrdenados=[...grupos.entries()];
-    if(paginaSeleccionada==='/'){
-      const indiceFrase=gruposOrdenados.findIndex(([nombre])=>nombre==='Frase institucional');
-      const indiceNecesitas=gruposOrdenados.findIndex(([nombre])=>nombre.startsWith('¿Qué necesitas hoy?'));
-      if(indiceFrase>=0&&indiceNecesitas>=0&&indiceFrase!==indiceNecesitas-1){
-        const [frase]=gruposOrdenados.splice(indiceFrase,1);
-        const destino=gruposOrdenados.findIndex(([nombre])=>nombre.startsWith('¿Qué necesitas hoy?'));
-        gruposOrdenados.splice(destino,0,frase);
-      }
-    }
-    const html=gruposOrdenados.map(([nombre,entries])=>{
+    const html=[...grupos.entries()].map(([nombre,entries])=>{
       const contenido=entries.map(({tipo,field:f})=>{
         const titulo=esc(etiquetaCampo(f.label,nombre));
         if(tipo==='texto')return `<article class="cms-page-field"><label for="cms-page-text-${esc(f.id)}">${titulo}</label><textarea id="cms-page-text-${esc(f.id)}" data-page-text="${esc(f.id)}">${esc(paginaEdicion.text[f.id]??f.value)}</textarea></article>`;
