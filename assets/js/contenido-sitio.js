@@ -19,8 +19,8 @@
     document.querySelectorAll('.team-area .people-grid').forEach((el,i)=>{if(i<3)el.dataset.cmsCollection='personas';});
     document.querySelectorAll('.professionals-area .professional-row-grid,.specialty-professionals').forEach((el)=>el.dataset.cmsCollection='personas');
     document.querySelectorAll('.sponsor-logo-track,.pathology-grid,.study-grid-areas,.specialty-area,.exam-area .exam-flip-grid').forEach((el)=>el.dataset.cmsCollection='contenido');
-    const trust=document.querySelector('.team-trust');
-    if(trust&&!trust.querySelector('.team-cms-grid')){const roster=document.createElement('div');roster.className='container clinical-team-roster';const block=document.createElement('div');block.className='professional-row-grid team-cms-grid';block.dataset.cmsCollection='personas';roster.append(block);trust.append(roster);}
+    const teamGrid=document.querySelector('.clinical-team-section .team-cms-grid');
+    if(teamGrid)teamGrid.dataset.cmsCollection='personas';
   }
 
   function camposPagina() {
@@ -147,7 +147,7 @@
       const list=visibles.filter((p)=>p.area===key).sort((a,b)=>(a.orden||0)-(b.orden||0));
       grid.innerHTML=list.map((p)=>professionalCard(p,true)).join('');
     });
-    const bloqueClinico = document.querySelector('.team-trust .team-cms-grid');
+    const bloqueClinico = document.querySelector('.clinical-team-section .team-cms-grid');
     if (bloqueClinico) {
       const lista = visibles.filter((p) => p.grupo === 'investigacion').sort((a,b) => (a.orden||0)-(b.orden||0));
       bloqueClinico.innerHTML = lista.map((p) => professionalCard(p)).join('');
