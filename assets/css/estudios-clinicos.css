@@ -316,9 +316,9 @@
 
 
 /* Equipo clínico en sección independiente con contraste y fichas de profesionales. */
-.clinical-team-section{background:var(--clinical-ink);color:#fff}
-.clinical-team-section .clinical-heading>span{color:var(--menta)}
-.clinical-team-section .clinical-heading h2{color:#fff}
+.clinical-team-section{background:var(--menta-pale);color:var(--clinical-ink)}
+.clinical-team-section .clinical-heading>span{color:var(--menta-deep)}
+.clinical-team-section .clinical-heading h2{color:var(--clinical-ink)}
 .clinical-team-roster{position:relative;z-index:1;padding-top:0;padding-bottom:0}
 .clinical-team-roster .professional-row-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:30px}
 .clinical-team-roster .professional-row-card{display:grid;grid-template-columns:165px minmax(0,1fr);gap:22px;align-items:center;min-height:195px;overflow:hidden;border:1px solid rgba(21,154,161,.24);border-radius:24px;background:linear-gradient(135deg,#fff,var(--menta-pale));box-shadow:0 14px 34px rgba(8,119,126,.09);transition:transform .25s ease,box-shadow .25s ease}
