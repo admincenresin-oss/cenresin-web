@@ -224,25 +224,76 @@
     paginaEdicion=structuredClone(cms.pagina?.borrador?.[path]||{text:{},images:{},links:{}});
     paginaEdicion.text=paginaEdicion.text||{};paginaEdicion.images=paginaEdicion.images||{};paginaEdicion.links=paginaEdicion.links||{};
     const frame=$('#cms-frame-lectura');
+    const page=PAGES.find(([url])=>url===path);
+    $('#cms-pagina-titulo').textContent=page?.[1]||path;
     frame.src=path+(path.includes('?')?'&':'?')+'cmsAdminPreview=1';
     camposPagina=null;$('#cms-pagina-campos').innerHTML='<div class="vacio tarjeta">Cargando el contenido de la página…</div>';
   }
 
+  function tituloSeccion(label){
+    const value=String(label||'').split(' · ')[0].trim();
+    return value||'Contenido general';
+  }
+
+  function etiquetaCampo(label){
+    const parts=String(label||'').split(' · ');
+    return parts.length>1?parts.slice(1).join(' · ').trim():'Contenido de esta sección';
+  }
+
   function dibujarCamposPagina(fields){
     camposPagina=fields;
-    const text=(fields.texts||[]).map(f=>`<article class="cms-page-field"><label>${esc(f.label)}</label><textarea data-page-text="${esc(f.id)}">${esc(paginaEdicion.text[f.id]??f.value)}</textarea></article>`).join('');
-    const images=(fields.images||[]).map(f=>`<article class="cms-page-field"><label>${esc(f.label)}</label><img src="${esc(paginaEdicion.images[f.id]?.src||f.src)}" alt=""><input type="file" accept="image/jpeg,image/png,image/webp" data-page-image="${esc(f.id)}"><textarea data-page-alt="${esc(f.id)}" aria-label="Descripción de la imagen">${esc(paginaEdicion.images[f.id]?.alt??f.alt)}</textarea></article>`).join('');
-    const links=(fields.links||[]).map(f=>`<article class="cms-page-field"><label>${esc(f.label)}</label><textarea data-page-link-text="${esc(f.id)}">${esc(paginaEdicion.links[f.id]?.text??f.text)}</textarea><input type="url" data-page-link-href="${esc(f.id)}" value="${esc(paginaEdicion.links[f.id]?.href??f.href)}" aria-label="Enlace"></article>`).join('');
-    $('#cms-pagina-campos').innerHTML=(text+images+links)||'<div class="vacio tarjeta">No encontré textos ni imágenes editables en esta página.</div>';
+    const entradas=[
+      ...(fields.texts||[]).map(f=>({tipo:'texto',field:f})),
+      ...(fields.images||[]).map(f=>({tipo:'imagen',field:f})),
+      ...(fields.links||[]).map(f=>({tipo:'enlace',field:f}))
+    ];
+    const grupos=new Map();
+    entradas.forEach(entry=>{
+      const nombre=tituloSeccion(entry.field.label);
+      if(!grupos.has(nombre))grupos.set(nombre,[]);
+      grupos.get(nombre).push(entry);
+    });
+    const html=[...grupos.entries()].map(([nombre,entries])=>{
+      const contenido=entries.map(({tipo,field:f})=>{
+        const titulo=esc(etiquetaCampo(f.label));
+        if(tipo==='texto')return `<article class="cms-page-field"><label for="cms-page-text-${esc(f.id)}">${titulo}</label><textarea id="cms-page-text-${esc(f.id)}" data-page-text="${esc(f.id)}">${esc(paginaEdicion.text[f.id]??f.value)}</textarea></article>`;
+        if(tipo==='imagen')return `<article class="cms-page-field"><h4>${titulo}</h4><img src="${esc(paginaEdicion.images[f.id]?.src||f.src)}" alt=""><label for="cms-page-image-${esc(f.id)}">Cambiar imagen</label><input id="cms-page-image-${esc(f.id)}" type="file" accept="image/jpeg,image/png,image/webp" data-page-image="${esc(f.id)}"><label for="cms-page-alt-${esc(f.id)}">Descripción de la imagen</label><input id="cms-page-alt-${esc(f.id)}" type="text" data-page-alt="${esc(f.id)}" value="${esc(paginaEdicion.images[f.id]?.alt??f.alt)}"></article>`;
+        return `<article class="cms-page-field"><h4>${titulo}</h4><label for="cms-page-link-text-${esc(f.id)}">Texto del botón o enlace</label><textarea id="cms-page-link-text-${esc(f.id)}" data-page-link-text="${esc(f.id)}">${esc(paginaEdicion.links[f.id]?.text??f.text)}</textarea><label for="cms-page-link-href-${esc(f.id)}">Destino del enlace</label><input id="cms-page-link-href-${esc(f.id)}" type="url" data-page-link-href="${esc(f.id)}" value="${esc(paginaEdicion.links[f.id]?.href??f.href)}"></article>`;
+      }).join('');
+      return `<section class="cms-page-section"><h3>${esc(nombre)}</h3><div class="cms-page-section-fields">${contenido}</div></section>`;
+    }).join('');
+    $('#cms-pagina-campos').innerHTML=html||'<div class="vacio tarjeta">No encontré textos ni imágenes editables en esta página.</div>';
     $('#cms-pagina-campos').querySelectorAll('[data-page-text]').forEach(el=>el.addEventListener('input',()=>{paginaEdicion.text[el.dataset.pageText]=el.value;previewPagina();}));
     $('#cms-pagina-campos').querySelectorAll('[data-page-alt]').forEach(el=>el.addEventListener('input',()=>{const id=el.dataset.pageAlt;paginaEdicion.images[id]=paginaEdicion.images[id]||{};paginaEdicion.images[id].alt=el.value;previewPagina();}));
     $('#cms-pagina-campos').querySelectorAll('[data-page-link-text]').forEach(el=>el.addEventListener('input',()=>{const id=el.dataset.pageLinkText;paginaEdicion.links[id]=paginaEdicion.links[id]||{};paginaEdicion.links[id].text=el.value;previewPagina();}));
     $('#cms-pagina-campos').querySelectorAll('[data-page-link-href]').forEach(el=>el.addEventListener('input',()=>{const id=el.dataset.pageLinkHref;paginaEdicion.links[id]=paginaEdicion.links[id]||{};paginaEdicion.links[id].href=el.value;previewPagina();}));
     $('#cms-pagina-campos').querySelectorAll('[data-page-image]').forEach(el=>el.addEventListener('change',async()=>{
       if(!el.files?.[0])return;const f=await optimizar(el.files[0]).catch(()=>null);if(!f){aviso('No se pudo procesar la imagen.');return;}
-      const data=new FormData();data.append('foto',f,'pagina.jpg');try{const r=await api('/imagen',{method:'POST',body:data});const id=el.dataset.pageImage;paginaEdicion.images[id]={...(paginaEdicion.images[id]||{}),src:r.url};dibujarCamposPagina(camposPagina);previewPagina();aviso('Imagen lista. Guarda el borrador o publícala.',true);}catch(e){aviso(e.message);}
+      const data=new FormData();data.append('foto',f,'pagina.jpg');try{const r=await api('/imagen',{method:'POST',body:data});const id=el.dataset.pageImage;paginaEdicion.images[id]={...(paginaEdicion.images[id]||{}),src:r.url};dibujarCamposPagina(camposPagina);aviso('Imagen lista. Guarda el borrador o publícala.',true);}catch(e){aviso(e.message);}
     }));
     previewPagina();
+  }
+
+  function ajustarVistaPrevia(){
+    const stage=$('#cms-preview-stage'),frame=$('#cms-frame-lectura');
+    if(!stage||!frame)return;
+    if(stage.dataset.size==='mobile'){
+      frame.style.width='390px';frame.style.height='72vh';frame.style.transform='none';
+      stage.style.height='72vh';stage.style.width='min(390px, 100%)';
+      return;
+    }
+    const width=1100;
+    const scale=Math.min(1,(stage.clientWidth||600)/width);
+    frame.style.width=width+'px';frame.style.height=(72/scale)+'vh';frame.style.transformOrigin='top left';frame.style.transform='scale('+scale+')';
+    stage.style.height='72vh';stage.style.width='100%';
+  }
+
+  function seleccionarVistaPrevia(size){
+    const stage=$('#cms-preview-stage');
+    stage.dataset.size=size;
+    $('#cms-vista-escritorio').setAttribute('aria-pressed',String(size==='desktop'));
+    $('#cms-vista-celular').setAttribute('aria-pressed',String(size==='mobile'));
+    ajustarVistaPrevia();
   }
 
   function previewPagina(){
@@ -309,7 +360,9 @@
   $('#cms-publicar-form').addEventListener('click',(event)=>conProgreso(event.currentTarget,'Publicando…',async()=>{if(guardarEnLista())await publicar();}).catch(e=>aviso(e.message)));
   $('#cms-pagina-guardar').addEventListener('click',(event)=>conProgreso(event.currentTarget,'Guardando borrador…',()=>guardarPagina(false)).catch(e=>aviso(e.message)));
   $('#cms-pagina-publicar').addEventListener('click',(event)=>conProgreso(event.currentTarget,'Publicando…',()=>guardarPagina(true)).catch(e=>aviso(e.message)));
-  $('#cms-pagina-preview').addEventListener('click',abrirVistaPagina);
+  $('#cms-vista-escritorio').addEventListener('click',()=>seleccionarVistaPrevia('desktop'));
+  $('#cms-vista-celular').addEventListener('click',()=>seleccionarVistaPrevia('mobile'));
+  window.addEventListener('resize',ajustarVistaPrevia);
   $('#cms-modal-cerrar').addEventListener('click',()=>$('#cms-modal').classList.add('oculto'));
   $('#cms-modal').addEventListener('click',(e)=>{if(e.target===$('#cms-modal'))$('#cms-modal').classList.add('oculto');});
 
